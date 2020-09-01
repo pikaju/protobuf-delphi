@@ -1,4 +1,4 @@
-unit uProtobufMessage;
+unit Protobuf.uMessage;
 
 {$IFDEF FPC}
   {$MODE DELPHI}

@@ -4,7 +4,7 @@ program TestRunner;
   {$MODE DELPHI}
 {$ENDIF}
 
-uses uProtobufMessageTest;
+uses Protobuf.Test.uMessage;
 
 begin
   WriteLn;

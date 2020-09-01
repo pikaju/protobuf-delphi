@@ -1,4 +1,4 @@
-unit uProtobufMessageTest;
+unit Protobuf.Test.uMessage;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -6,7 +6,7 @@ unit uProtobufMessageTest;
 
 interface
 
-uses Classes, uProtobufMessage;
+uses Classes, Protobuf.uMessage;
 
 type
   TEmpty = class(TMessage);

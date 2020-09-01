@@ -8,10 +8,10 @@ $(OUT_DIR):
 	mkdir -p $(OUT_DIR)
 
 build: clean $(OUT_DIR)
-	$(COMPILER) $(CFLAGS) tests/TestRunner.pas
+	$(COMPILER) $(CFLAGS) tests/Protobuf.Test.TestRunner.pas
 
 test: build
-	./build/TestRunner
+	./build/Protobuf.Test.TestRunner
 
 clean:
 	rm -rf build/

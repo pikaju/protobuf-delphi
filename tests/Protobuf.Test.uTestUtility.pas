@@ -1,4 +1,4 @@
-unit uTestUtility;
+unit Protobuf.Test.uTestUtility;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
