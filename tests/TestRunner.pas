@@ -4,8 +4,14 @@ program TestRunner;
   {$MODE DELPHI}
 {$ENDIF}
 
-uses uUnitTest;
+uses uProtobufMessageTest;
 
 begin
-  TestAdd();
+  WriteLn;
+  WriteLn('--- Beginning unit tests ---');
+  WriteLn;
+  TestProtobufMessage;
+
+  WriteLn;
+  WriteLn('--- All tests succeeded ---');
 end.
