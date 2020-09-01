@@ -14,6 +14,7 @@ type
 
   // Enum of all Protobuf wire types. See: https://developers.google.com/protocol-buffers/docs/encoding#structure.
   TWireType = (
+    wtUnknown = -1,
     wtVarint = 0,
     wt64Bit = 1,
     wtLengthDelimited = 2,
