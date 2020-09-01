@@ -4,14 +4,20 @@ program TestRunner;
   {$MODE DELPHI}
 {$ENDIF}
 
-uses Protobuf.Test.uMessage;
+uses Protobuf.Test.uMessage, Protobuf.Test.uVarint;
 
 begin
   WriteLn;
   WriteLn('--- Beginning unit tests ---');
   WriteLn;
-  TestProtobufMessage;
 
+  WriteLn('Unit Protobuf.uMessage:');
+  TestMessage;
   WriteLn;
+
+  WriteLn('Unit Protobuf.uVarint:');
+  TestVarint;
+  WriteLn;
+
   WriteLn('--- All tests succeeded ---');
 end.

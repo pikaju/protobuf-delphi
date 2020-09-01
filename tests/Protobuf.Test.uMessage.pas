@@ -6,21 +6,14 @@ unit Protobuf.Test.uMessage;
 
 interface
 
-uses Classes, Protobuf.uMessage;
+uses Classes, Protobuf.Test.uTestUtility, Protobuf.uMessage;
 
 type
   TEmpty = class(TMessage);
 
-procedure TestProtobufMessage;
-procedure TestEmptyMessage;
+procedure TestMessage;
 
 implementation
-
-procedure TestProtobufMessage;
-begin
-  WriteLn('Running TestEmptyMessage...');
-  TestEmptyMessage;
-end;
 
 procedure TestEmptyMessage;
 var
@@ -31,11 +24,17 @@ begin
   lStream := TMemoryStream.Create;
 
   lEmpty.Encode(lStream);
-  Assert((lStream.Position = 0) and (lStream.Size = 0), 'Empty messages produce an empty stream');
+  AssertTrue((lStream.Position = 0) and (lStream.Size = 0), 'Empty messages produce an empty stream.');
   lEmpty.Decode(lStream);
 
   lStream.Free;
   lEmpty.Free;
+end;
+
+procedure TestMessage;
+begin
+  WriteLn('Running TestEmptyMessage...');
+  TestEmptyMessage;
 end;
 
 end.
