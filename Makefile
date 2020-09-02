@@ -1,8 +1,7 @@
 OUT_DIR=build/
-UNIT_DIR=source/unit/
 
 COMPILER=fpc
-CFLAGS=-FE$(OUT_DIR) -Fu$(UNIT_DIR)
+CFLAGS=-FE$(OUT_DIR) -Fusource/unit/ -Fusource/unit/codecs/
 
 .DEFAULT_GOAL := test
 

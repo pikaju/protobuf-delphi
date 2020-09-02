@@ -58,6 +58,7 @@ implementation
 
 procedure TProtobufMessage.EncodeField<T>(aCodec: TFieldCodec<T>; aFieldNumber: TFieldNumber; aValue: T; aDest: TStream);
 begin
+  aCodec.EncodeField(aFieldNumber, aValue, aDest);
 end;
 
 procedure TProtobufMessage.DecodeField<T>(aCodec: TFieldCodec<T>; aFieldNumber: TFieldNumber; out aResult: T);
@@ -66,6 +67,7 @@ end;
 
 procedure TProtobufMessage.EncodeRepeatedField<T>(aCodec: TFieldCodec<T>; aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
 begin
+  aCodec.EncodeRepeatedField(aFieldNumber, aValues, aDest);
 end;
 
 procedure TProtobufMessage.DecodeRepeatedField<T>(aCodec: TFieldCodec<T>; aFieldNumber: TFieldNumber; aResult: TList<T>);
@@ -74,6 +76,7 @@ end;
 
 procedure TProtobufMessage.EncodePackedRepeatedField<T>(aCodec: TPackableFieldCodec<T>; aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
 begin
+  aCodec.EncodePackedRepeatedField(aFieldNumber, aValues, aDest);
 end;
 
 constructor TProtobufMessage.Create;
