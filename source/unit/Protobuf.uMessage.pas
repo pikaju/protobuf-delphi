@@ -6,7 +6,7 @@ unit Protobuf.uMessage;
 
 interface
 
-uses Classes, Generics.Collections, Protobuf.uEncodedField, Protobuf.uTag;
+uses Classes, Generics.Collections, Protobuf.uEncodedField, Protobuf.uFieldCodec, Protobuf.uTag;
 
 type
   // Base class for Protobuf messages.
@@ -20,7 +20,16 @@ type
     type TEncodedFieldsMap = TDictionary<TFieldNumber, TObjectList<TEncodedField>>;
 
   private // private keyword required to prevent compilation issues.
-    FEncodedFields: TEncodedFieldsMap;
+    FUnparsedFields: TEncodedFieldsMap;
+  
+  protected
+    procedure EncodeField<T>(aCodec: TFieldCodec<T>; aFieldNumber: TFieldNumber; aValue: T; aDest: TStream);
+    procedure DecodeField<T>(aCodec: TFieldCodec<T>; aFieldNumber: TFieldNumber; out aResult: T);
+
+    procedure EncodeRepeatedField<T>(aCodec: TFieldCodec<T>; aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
+    procedure DecodeRepeatedField<T>(aCodec: TFieldCodec<T>; aFieldNumber: TFieldNumber; aResult: TList<T>);
+
+    procedure EncodePackedRepeatedField<T>(aCodec: TPackableFieldCodec<T>; aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
 
   public
     // Creates a new message instance.
@@ -47,14 +56,34 @@ type
 
 implementation
 
+procedure TProtobufMessage.EncodeField<T>(aCodec: TFieldCodec<T>; aFieldNumber: TFieldNumber; aValue: T; aDest: TStream);
+begin
+end;
+
+procedure TProtobufMessage.DecodeField<T>(aCodec: TFieldCodec<T>; aFieldNumber: TFieldNumber; out aResult: T);
+begin
+end;
+
+procedure TProtobufMessage.EncodeRepeatedField<T>(aCodec: TFieldCodec<T>; aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
+begin
+end;
+
+procedure TProtobufMessage.DecodeRepeatedField<T>(aCodec: TFieldCodec<T>; aFieldNumber: TFieldNumber; aResult: TList<T>);
+begin
+end;
+
+procedure TProtobufMessage.EncodePackedRepeatedField<T>(aCodec: TPackableFieldCodec<T>; aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
+begin
+end;
+
 constructor TProtobufMessage.Create;
 begin
-  FEncodedFields := TEncodedFieldsMap.Create;
+  FUnparsedFields := TEncodedFieldsMap.Create;
 end;
 
 destructor TProtobufMessage.Destroy;
 begin
-  FEncodedFields.Free;
+  FUnparsedFields.Free;
 end;
 
 procedure TProtobufMessage.Encode(aDest: TStream);
