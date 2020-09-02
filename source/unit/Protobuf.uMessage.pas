@@ -12,7 +12,7 @@ type
   // Base class for Protobuf messages.
   // Can be used to encode to / decode from binary data according to the Protobuf
   // specification, see https://developers.google.com/protocol-buffers/docs/encoding.
-  TMessage = class
+  TProtobufMessage = class
   private
     // Collection of all fields in a Protobuf message that are yet to be decoded.
     // Fields are indexed by their field number, and stored in a list to support
@@ -47,21 +47,21 @@ type
 
 implementation
 
-constructor TMessage.Create;
+constructor TProtobufMessage.Create;
 begin
   FEncodedFields := TEncodedFieldsMap.Create;
 end;
 
-destructor TMessage.Destroy;
+destructor TProtobufMessage.Destroy;
 begin
   FEncodedFields.Free;
 end;
 
-procedure TMessage.Encode(aDest: TStream);
+procedure TProtobufMessage.Encode(aDest: TStream);
 begin
 end;
 
-procedure TMessage.Decode(aSource: TStream);
+procedure TProtobufMessage.Decode(aSource: TStream);
 begin
 end;
 

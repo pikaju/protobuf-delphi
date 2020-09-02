@@ -9,7 +9,7 @@ interface
 uses Classes, Protobuf.Test.uTestUtility, Protobuf.uMessage;
 
 type
-  TEmpty = class(TMessage);
+  TEmpty = class(TProtobufMessage);
 
 procedure TestMessage;
 
