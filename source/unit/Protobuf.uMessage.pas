@@ -19,7 +19,7 @@ type
     // non-packed repeated fields.
     type TEncodedFieldsMap = TDictionary<TFieldNumber, TObjectList<TEncodedField>>;
 
-  private
+  private // private keyword required to prevent compilation issues.
     FEncodedFields: TEncodedFieldsMap;
 
   public
