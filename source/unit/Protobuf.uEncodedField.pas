@@ -6,7 +6,7 @@ unit Protobuf.uEncodedField;
 
 interface
 
-uses Classes, Protobuf.uTag, Protobuf.uVarint;
+uses Classes, Sysutils, Protobuf.uTag, Protobuf.uVarint;
 
 type
   // Type representing a single field within a Protobuf message.
@@ -31,14 +31,14 @@ type
     // params:
     //   aSource: Stream to read binary data from.
     procedure Decode(aSource: TStream);
-  end.
+  end;
 
 implementation
 
 constructor TEncodedField.Create;
 begin
   FTag := TTag.Create(0, wtUnknown);
-  SetSize(FData, 0);
+  SetLength(FData, 0);
 end;
 
 procedure TEncodedField.Encode(aDest: TStream);

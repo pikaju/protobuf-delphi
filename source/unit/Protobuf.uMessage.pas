@@ -6,13 +6,22 @@ unit Protobuf.uMessage;
 
 interface
 
-uses Classes;
+uses Classes, Generics.Collections, Protobuf.uEncodedField, Protobuf.uTag;
 
 type
   // Base class for Protobuf messages.
   // Can be used to encode to / decode from binary data according to the Protobuf
   // specification, see https://developers.google.com/protocol-buffers/docs/encoding.
   TMessage = class
+  private
+    // Collection of all fields in a Protobuf message that are yet to be decoded.
+    // Fields are indexed by their field number, and stored in a list to support
+    // non-packed repeated fields.
+    type TEncodedFieldsMap = TDictionary<TFieldNumber, TObjectList<TEncodedField>>;
+
+  private
+    FEncodedFields: TEncodedFieldsMap;
+
   public
     // Creates a new message instance.
     // Default initializes all fields according to the Protobuf specification,
@@ -40,10 +49,12 @@ implementation
 
 constructor TMessage.Create;
 begin
+  FEncodedFields := TEncodedFieldsMap.Create;
 end;
 
 destructor TMessage.Destroy;
 begin
+  FEncodedFields.Free;
 end;
 
 procedure TMessage.Encode(aDest: TStream);
