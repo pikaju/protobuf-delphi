@@ -34,12 +34,16 @@ type
   public
     // Creates a new message instance.
     // Default initializes all fields according to the Protobuf specification,
-    // see https://developers.google.com/protocol-buffers/docs/proto3#default.
+    // see: https://developers.google.com/protocol-buffers/docs/proto3#default.
     constructor Create;
 
     // Destroys this message instance.
     // Frees all embedded messages contained inside this message.
     destructor Destroy; override;
+
+    // Sets all field values to their Protobuf defaults. Embedded messages are set to nil.
+    // See: https://developers.google.com/protocol-buffers/docs/proto3#default
+    procedure Clear; virtual;
 
     // Encodes this message into a binary format and adds the resulting bytes to a stream.
     // params:
