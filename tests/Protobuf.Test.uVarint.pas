@@ -6,7 +6,11 @@ unit Protobuf.Test.uVarint;
 
 interface
 
-uses Classes, Sysutils, Protobuf.Test.uTestUtility, Protobuf.uVarint;
+uses
+  Classes,
+  Sysutils,
+  Protobuf.Test.uTestUtility,
+  Protobuf.uVarint;
 
 procedure TestVarint;
 

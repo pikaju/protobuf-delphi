@@ -4,7 +4,10 @@ program TestRunner;
   {$MODE DELPHI}
 {$ENDIF}
 
-uses Protobuf.Test.uMessage, Protobuf.Test.uTag, Protobuf.Test.uVarint;
+uses
+  Protobuf.Test.uMessage,
+  Protobuf.Test.uTag,
+  Protobuf.Test.uVarint;
 
 begin
   WriteLn;

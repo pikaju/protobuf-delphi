@@ -6,7 +6,9 @@ unit Protobuf.Test.uTestUtility;
 
 interface
 
-uses Classes, Sysutils;
+uses 
+  Classes,
+  Sysutils;
 
 type
   ETestFailed = class(Exception);

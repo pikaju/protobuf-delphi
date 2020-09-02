@@ -6,7 +6,11 @@ unit Protobuf.uFieldCodec;
 
 interface
 
-uses Classes, Generics.Collections, Protobuf.uEncodedField, Protobuf.uTag;
+uses
+  Classes,
+  Generics.Collections,
+  Protobuf.uEncodedField,
+  Protobuf.uTag;
 
 type
   // Base class for all Protobuf field codecs.

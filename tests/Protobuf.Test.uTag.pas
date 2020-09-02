@@ -6,7 +6,11 @@ unit Protobuf.Test.uTag;
 
 interface
 
-uses Classes, Sysutils, Protobuf.Test.uTestUtility, Protobuf.uTag;
+uses
+  Classes,
+  Sysutils,
+  Protobuf.Test.uTestUtility,
+  Protobuf.uTag;
 
 procedure TestTag;
 

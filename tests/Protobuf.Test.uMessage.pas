@@ -6,7 +6,10 @@ unit Protobuf.Test.uMessage;
 
 interface
 
-uses Classes, Protobuf.Test.uTestUtility, Protobuf.uMessage;
+uses
+  Classes,
+  Protobuf.Test.uTestUtility,
+  Protobuf.uMessage;
 
 type
   TEmpty = class(TProtobufMessage);

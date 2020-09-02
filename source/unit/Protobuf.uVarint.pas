@@ -6,7 +6,8 @@ unit Protobuf.uVarint;
 
 interface
 
-uses Classes;
+uses
+  Classes;
 
 // Encodes an unsigned integer according to the Protobuf Base 128 Varint specification.
 // See: https://developers.google.com/protocol-buffers/docs/encoding#varints.

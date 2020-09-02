@@ -6,7 +6,11 @@ unit Protobuf.uEncodedField;
 
 interface
 
-uses Classes, Sysutils, Protobuf.uTag, Protobuf.uVarint;
+uses
+  Classes,
+  Sysutils,
+  Protobuf.uTag,
+  Protobuf.uVarint;
 
 type
   // Type representing a single field within a Protobuf message.

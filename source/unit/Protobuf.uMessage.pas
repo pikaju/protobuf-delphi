@@ -6,7 +6,12 @@ unit Protobuf.uMessage;
 
 interface
 
-uses Classes, Generics.Collections, Protobuf.uEncodedField, Protobuf.uFieldCodec, Protobuf.uTag;
+uses
+  Classes,
+  Generics.Collections,
+  Protobuf.uEncodedField,
+  Protobuf.uFieldCodec,
+  Protobuf.uTag;
 
 type
   // Base class for Protobuf messages.
@@ -91,6 +96,10 @@ end;
 destructor TProtobufMessage.Destroy;
 begin
   FUnparsedFields.Free;
+end;
+
+procedure TProtobufMessage.Clear;
+begin;
 end;
 
 procedure TProtobufMessage.Encode(aDest: TStream);

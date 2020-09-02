@@ -6,7 +6,9 @@ unit Protobuf.uTag;
 
 interface
 
-uses Classes, Protobuf.uVarint;
+uses
+  Classes,
+  Protobuf.uVarint;
 
 type
   // Representation of a Protobuf field number. See: https://developers.google.com/protocol-buffers/docs/encoding#structure.
