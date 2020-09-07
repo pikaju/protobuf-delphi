@@ -1,4 +1,4 @@
-unit Protobuf.Test.uVarint;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.Test.uVarint;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -9,8 +9,8 @@ interface
 uses
   Classes,
   Sysutils,
-  Protobuf.Test.uTestUtility,
-  Protobuf.uVarint;
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uTestUtility,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uVarint;
 
 procedure TestVarint;
 

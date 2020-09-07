@@ -1,4 +1,4 @@
-unit Protobuf.Test.uTestUtility;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.Test.uTestUtility;
 
 {$IFDEF FPC}
   {$MODE DELPHI}

@@ -1,4 +1,4 @@
-unit Protobuf.Test.uMessage;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.Test.uMessage;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -8,8 +8,8 @@ interface
 
 uses
   Classes,
-  Protobuf.Test.uTestUtility,
-  Protobuf.uMessage;
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uTestUtility,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uMessage;
 
 type
   TEmpty = class(TProtobufMessage);

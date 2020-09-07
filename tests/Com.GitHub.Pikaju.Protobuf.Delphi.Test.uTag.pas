@@ -1,4 +1,4 @@
-unit Protobuf.Test.uTag;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.Test.uTag;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -9,8 +9,8 @@ interface
 uses
   Classes,
   Sysutils,
-  Protobuf.Test.uTestUtility,
-  Protobuf.uTag;
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uTestUtility,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uTag;
 
 procedure TestTag;
 

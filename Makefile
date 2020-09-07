@@ -1,7 +1,9 @@
-OUT_DIR=build/
+OUT_DIR=./build/
 
 COMPILER=fpc
 CFLAGS=-FE$(OUT_DIR) -Fusource/unit/ -Fusource/unit/codecs/
+
+PROGRAM_FILE_NAME=Com.GitHub.Pikaju.Protobuf.Delphi.Test.TestRunner
 
 .DEFAULT_GOAL := test
 
@@ -9,10 +11,10 @@ $(OUT_DIR):
 	mkdir -p $(OUT_DIR)
 
 build: clean $(OUT_DIR)
-	$(COMPILER) $(CFLAGS) tests/Protobuf.Test.TestRunner.pas
+	$(COMPILER) $(CFLAGS) ./tests/$(PROGRAM_FILE_NAME).pas
 
 test: build
-	./build/Protobuf.Test.TestRunner
+	./build/$(PROGRAM_FILE_NAME)
 
 clean:
 	rm -rf build/

@@ -5,9 +5,9 @@ program TestRunner;
 {$ENDIF}
 
 uses
-  Protobuf.Test.uMessage,
-  Protobuf.Test.uTag,
-  Protobuf.Test.uVarint;
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uMessage,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uTag,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uVarint;
 
 begin
   WriteLn;
