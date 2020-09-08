@@ -5,6 +5,7 @@ program TestRunner;
 {$ENDIF}
 
 uses
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufMessage,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTag,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufVarint,
@@ -17,30 +18,34 @@ begin
   WriteLn('--- Beginning unit tests ---');
   WriteLn;
 
-  WriteLn('Unit uMessage:');
+  WriteLn('Unit uProtobufEncodedField:');
+  TestEncodedField;
+  WriteLn;
+
+  WriteLn('Unit uProtobufMessage:');
   TestMessage;
   WriteLn;
 
-  WriteLn('Unit uTag:');
+  WriteLn('Unit uProtobufTag:');
   TestTag;
   WriteLn;
 
-  WriteLn('Unit uVarint:');
+  WriteLn('Unit uProtobufVarint:');
   TestVarint;
   WriteLn;
   
   WriteLn('--- Testing codecs ---');
   WriteLn;
 
-  WriteLn('Unit uMessageCodec:');
+  WriteLn('Unit uProtobufMessageCodec:');
   TestMessageCodec;
   WriteLn;
 
-  WriteLn('Unit uStringCodec:');
+  WriteLn('Unit uProtobufStringCodec:');
   TestStringCodec;
   WriteLn;
 
-  WriteLn('Unit uVarintCodec:');
+  WriteLn('Unit uProtobufVarintCodec:');
   TestVarintCodec;
   WriteLn;
 
