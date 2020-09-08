@@ -12,6 +12,7 @@ uses
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufCodec,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufDefaultValues,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEnum,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
 
@@ -32,6 +33,8 @@ var
 
   gProtobufWireCodecInt64: TProtobufVarintWireCodec<Int64>;
   gProtobufWireCodecUInt64: TProtobufVarintWireCodec<UInt64>;
+
+  gProtobufWireCodecEnum: TProtobufVarintWireCodec<TProtobufEnumFieldValue>;
 
 implementation
 
@@ -94,10 +97,14 @@ begin
 
   gProtobufWireCodecInt64 := TProtobufVarintWireCodec<Int64>.Create;
   gProtobufWireCodecUInt64 := TProtobufVarintWireCodec<UInt64>.Create;
+
+  gProtobufWireCodecEnum := TProtobufVarintWireCodec<TProtobufEnumFieldValue>.Create;
 end;
 
 finalization
 begin
+  gProtobufWireCodecEnum.Free;
+
   gProtobufWireCodecUInt64.Free;
   gProtobufWireCodecInt64.Free;
 
