@@ -19,10 +19,10 @@ type
 implementation
 
 procedure TVarintWireCodec.EncodeField(aFieldNumber: TFieldNumber; aValue: T; aDest: TStream);
-procedure TVarintWireCodec.DecodeField(aData: TList<TEncodedField>; out aResult: T);
+function TVarintWireCodec.DecodeField(aData: TList<TEncodedField>): T;
 
 procedure TVarintWireCodec.EncodeRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
-procedure TVarintWireCodec.DecodeRepeatedField(aData: TList<TEncodedField>; aResult: TList<T>);
+procedure TVarintWireCodec.DecodeRepeatedField(aData: TList<TEncodedField>; aDest: TList<T>);
 
 procedure TVarintWireCodec.EncodePackedRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
 

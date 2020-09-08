@@ -19,7 +19,7 @@ type
     function DecodeField(aData: TList<TEncodedField>): T;
 
     procedure EncodeRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
-    procedure DecodeRepeatedField(aData: TList<TEncodedField>; aResult: TList<T>);
+    procedure DecodeRepeatedField(aData: TList<TEncodedField>; aDest: TList<T>);
   end;
 
   // Base class for Protobuf field codecs that can create packed encoding.
