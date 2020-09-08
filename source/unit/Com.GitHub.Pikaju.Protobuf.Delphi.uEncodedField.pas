@@ -25,6 +25,9 @@ type
     // Creates a new field instance.
     constructor Create;
 
+    // Creates a new field instance with prepopulated data.
+    constructor CreateWithData(aTag: TTag; aData: TBytes);
+
     // Writes this field to a binary stream.
     // params:
     //   aDest: Stream to append binary data to.
@@ -38,6 +41,8 @@ type
 
     // The Protobuf tag (field number and wire type) of this encoded field.
     property Tag: TTag read FTag;
+    // The binary data of this encoded field, exclusing information stored in the tag.
+    property Data: TBytes read FData;
   end;
 
 implementation
@@ -46,6 +51,12 @@ constructor TEncodedField.Create;
 begin
   FTag := TTag.Create(1, wtUnknown);
   SetLength(FData, 0);
+end;
+
+constructor TEncodedField.CreateWithData(aTag: TTag; aData: TBytes);
+begin
+  FTag := aTag;
+  FData := aData;
 end;
 
 procedure TEncodedField.Encode(aDest: TStream);

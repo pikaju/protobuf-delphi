@@ -47,7 +47,8 @@ begin
   begin
     // Convert field to a stream for simpler processing.
     lStream := TMemoryStream.Create;
-    lField.Encode(lStream);
+    lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+    lStream.Seek(0, soBeginning);
 
     if (lField.Tag.WireType = wtVarint) then
       result := DecodeVarint(lStream)
