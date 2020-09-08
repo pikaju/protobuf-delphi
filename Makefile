@@ -1,7 +1,7 @@
 OUT_DIR=./build/
 
 COMPILER=fpc
-CFLAGS=-FE$(OUT_DIR) -Fusource/unit/ -Fusource/unit/codecs/
+CFLAGS=-FE$(OUT_DIR) -Fusource/unit/ -Fusource/unit/codecs/ -Futests/unit/ -Futests/unit/codecs/
 
 PROGRAM_FILE_NAME=Com.GitHub.Pikaju.Protobuf.Delphi.Test.TestRunner
 

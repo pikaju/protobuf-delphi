@@ -7,7 +7,8 @@ program TestRunner;
 uses
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uMessage,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uTag,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uVarint;
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uVarint,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uVarintCodec;
 
 begin
   WriteLn;
@@ -24,6 +25,13 @@ begin
 
   WriteLn('Unit Protobuf.uVarint:');
   TestVarint;
+  WriteLn;
+  
+  WriteLn('--- Testing codecs ---');
+  WriteLn;
+
+  WriteLn('Unit Protobuf.uVarintCodec:');
+  TestVarintCodec;
   WriteLn;
 
   WriteLn('--- All tests succeeded ---');
