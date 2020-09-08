@@ -14,17 +14,17 @@ uses
 
 type
   // Base class for all Protobuf field codecs.
-  TWireCodec<T> = interface
-    procedure EncodeField(aFieldNumber: TFieldNumber; aValue: T; aDest: TStream);
-    function DecodeField(aData: TList<TEncodedField>): T;
+  TWireCodec<T> = class abstract
+    procedure EncodeField(aFieldNumber: TFieldNumber; aValue: T; aDest: TStream); virtual; abstract;
+    function DecodeField(aData: TList<TEncodedField>): T; virtual; abstract;
 
-    procedure EncodeRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
-    procedure DecodeRepeatedField(aData: TList<TEncodedField>; aDest: TList<T>);
+    procedure EncodeRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream); virtual; abstract;
+    procedure DecodeRepeatedField(aData: TList<TEncodedField>; aDest: TList<T>); virtual; abstract;
   end;
 
   // Base class for Protobuf field codecs that can create packed encoding.
-  TPackableWireCodec<T> = interface(TWireCodec<T>)
-    procedure EncodePackedRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
+  TPackableWireCodec<T> = class abstract(TWireCodec<T>)
+    procedure EncodePackedRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream); virtual; abstract;
   end;
 
 implementation

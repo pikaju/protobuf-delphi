@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uCodec;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uVarintCodec;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -15,19 +15,28 @@ uses
   Com.GitHub.Pikaju.Protobuf.Delphi.uVarint;
 
 type
-  TVarintWireCodec<T> = class(TPackedWireCodec<T>);
+  TVarintWireCodec<T> = class(TPackableWireCodec<T>)
+    procedure EncodeField(aFieldNumber: TFieldNumber; aValue: T; aDest: TStream); override;
+    function DecodeField(aData: TList<TEncodedField>): T; override;
 
-gWireCodecInt32: TVarintWireCodec<Int32>;
+    procedure EncodeRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream); override;
+    procedure DecodeRepeatedField(aData: TList<TEncodedField>; aDest: TList<T>); override;
+
+    procedure EncodePackedRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream); override;
+  end;
+
+var
+  gWireCodecInt32: TVarintWireCodec<Int32>;
 
 implementation
 
-procedure TVarintWireCodec.EncodeField(aFieldNumber: TFieldNumber; aValue: T; aDest: TStream);
+procedure TVarintWireCodec<T>.EncodeField(aFieldNumber: TFieldNumber; aValue: T; aDest: TStream);
 begin
   EncodeTag(TTag.Create(aFieldNumber, wtVarint), aDest);
-  EncodeVarint(aValue);
+  EncodeVarint(aValue, aDest);
 end;
 
-function TVarintWireCodec.DecodeField(aData: TList<TEncodedField>): T;
+function TVarintWireCodec<T>.DecodeField(aData: TList<TEncodedField>): T;
 var
   lField: TEncodedField;
   lStream: TMemoryStream;
@@ -40,13 +49,13 @@ begin
     lStream := TMemoryStream.Create;
     lField.Encode(lStream);
 
-    if lField.Tag.WireType = wtVarint then
-      result := DecodeVarint(lStream);
-    else if lField.Tag.WireType = wtLengthDelimited then
+    if (lField.Tag.WireType = wtVarint) then
+      result := DecodeVarint(lStream)
+    else if (lField.Tag.WireType = wtLengthDelimited) then
     begin
       // Ignore the size of the field, as the stream already has the correct length.
       DecodeVarint(lStream);
-      while lStream.Position < lStream.Size do
+      while (lStream.Position < lStream.Size) do
         result := DecodeVarint(lStream);
     end; // TODO: Catch invalid wire type.
 
@@ -54,18 +63,18 @@ begin
   end;
 end;
 
-procedure TVarintWireCodec.EncodeRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
+procedure TVarintWireCodec<T>.EncodeRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
 begin
   // TODO: Implement
 end;
 
-procedure TVarintWireCodec.DecodeRepeatedField(aData: TList<TEncodedField>; aDest: TList<T>);
+procedure TVarintWireCodec<T>.DecodeRepeatedField(aData: TList<TEncodedField>; aDest: TList<T>);
 
 begin
   // TODO: Implement
 end;
 
-procedure TVarintWireCodec.EncodePackedRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
+procedure TVarintWireCodec<T>.EncodePackedRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
 begin
   // TODO: Implement
 end;
