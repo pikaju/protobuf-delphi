@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uStringCodec;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufStringCodec;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -10,11 +10,11 @@ uses
   Classes,
   Generics.Collections,
   Sysutils,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uCodec,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uDefaultValues,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uEncodedField,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uTag,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uVarint;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufCodec,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufDefaultValues,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
 
 type
   TProtobufStringWireCodec = class(TProtobufWireCodec<UnicodeString>)

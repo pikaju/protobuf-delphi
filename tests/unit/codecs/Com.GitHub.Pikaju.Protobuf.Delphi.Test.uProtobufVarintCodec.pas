@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.Test.uVarintCodec;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufVarintCodec;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -10,10 +10,10 @@ uses
   Classes,
   Generics.Collections,
   Sysutils,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uVarintCodec,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uTag,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uEncodedField,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uTestUtility;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintCodec,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTestUtility;
 
 procedure TestVarintCodec;
 

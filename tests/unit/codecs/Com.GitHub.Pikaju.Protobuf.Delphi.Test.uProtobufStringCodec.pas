@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.Test.uStringCodec;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufStringCodec;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -10,10 +10,10 @@ uses
   Classes,
   Generics.Collections,
   Sysutils,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uStringCodec,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uTag,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uEncodedField,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uTestUtility;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufStringCodec,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTestUtility;
 
 procedure TestStringCodec;
 

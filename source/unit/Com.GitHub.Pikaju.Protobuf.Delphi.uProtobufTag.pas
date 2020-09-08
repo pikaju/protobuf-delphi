@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uTag;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -8,7 +8,7 @@ interface
 
 uses
   Classes,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uVarint;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
 
 type
   // Representation of a Protobuf field number. See: https://developers.google.com/protocol-buffers/docs/encoding#structure.

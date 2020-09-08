@@ -5,11 +5,11 @@ program TestRunner;
 {$ENDIF}
 
 uses
-  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uMessage,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uTag,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uVarint,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uStringCodec,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uVarintCodec;
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufMessage,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTag,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufVarint,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufStringCodec,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufVarintCodec;
 
 begin
   WriteLn;

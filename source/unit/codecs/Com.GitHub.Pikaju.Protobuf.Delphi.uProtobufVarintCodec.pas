@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uVarintCodec;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintCodec;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -9,11 +9,11 @@ interface
 uses
   Classes,
   Generics.Collections,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uCodec,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uDefaultValues,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uEncodedField,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uTag,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uVarint;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufCodec,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufDefaultValues,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
 
 type
   TProtobufVarintWireCodec<T> = class(TProtobufPackableWireCodec<T>)

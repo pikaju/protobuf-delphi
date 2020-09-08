@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uCodec;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufCodec;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -9,8 +9,8 @@ interface
 uses
   Classes,
   Generics.Collections,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uEncodedField,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uTag;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag;
 
 type
   // Base class for all Protobuf field codecs.

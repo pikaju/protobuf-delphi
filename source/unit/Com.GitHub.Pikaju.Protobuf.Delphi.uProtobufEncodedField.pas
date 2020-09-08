@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uEncodedField;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -9,8 +9,8 @@ interface
 uses
   Classes,
   Sysutils,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uTag,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uVarint;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
 
 type
   // Type representing a single field within a Protobuf message.

@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uVarint;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
 
 {$IFDEF FPC}
   {$MODE DELPHI}

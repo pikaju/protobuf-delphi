@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uDefaultValues;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufDefaultValues;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
