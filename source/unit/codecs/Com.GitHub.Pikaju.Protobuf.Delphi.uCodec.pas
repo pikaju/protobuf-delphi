@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uFieldCodec;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uCodec;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -14,7 +14,7 @@ uses
 
 type
   // Base class for all Protobuf field codecs.
-  TFieldCodec<T> = interface
+  TWireCodec<T> = interface
     procedure EncodeField(aFieldNumber: TFieldNumber; aValue: T; aDest: TStream);
     procedure DecodeField(aEncodedField: TEncodedField; out aResult: T);
 
@@ -23,7 +23,7 @@ type
   end;
 
   // Base class for Protobuf field codecs that can create packed encoding.
-  TPackableFieldCodec<T> = interface(TFieldCodec<T>)
+  TPackableWireCodec<T> = interface(TWireCodec<T>)
     procedure EncodePackedRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
   end;
 
