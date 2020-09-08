@@ -35,6 +35,9 @@ type
     // params:
     //   aSource: Stream to read binary data from.
     procedure Decode(aSource: TStream);
+
+    // The Protobuf tag (field number and wire type) of this encoded field.
+    property Tag: TTag read FTag;
   end;
 
 implementation
