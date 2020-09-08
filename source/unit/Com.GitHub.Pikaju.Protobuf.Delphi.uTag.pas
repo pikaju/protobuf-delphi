@@ -12,7 +12,7 @@ uses
 
 type
   // Representation of a Protobuf field number. See: https://developers.google.com/protocol-buffers/docs/encoding#structure.
-  TFieldNumber = UInt32;
+  TFieldNumber = 1..536870911;
 
   // Enum of all Protobuf wire types. See: https://developers.google.com/protocol-buffers/docs/encoding#structure.
   TWireType = (

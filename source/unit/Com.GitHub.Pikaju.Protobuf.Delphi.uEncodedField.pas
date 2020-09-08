@@ -41,7 +41,7 @@ implementation
 
 constructor TEncodedField.Create;
 begin
-  FTag := TTag.Create(0, wtUnknown);
+  FTag := TTag.Create(1, wtUnknown);
   SetLength(FData, 0);
 end;
 
