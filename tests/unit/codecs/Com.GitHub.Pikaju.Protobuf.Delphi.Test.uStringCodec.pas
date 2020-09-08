@@ -25,7 +25,7 @@ var
 begin
   lStream := TMemoryStream.Create;
 
-  gWireCodecString.EncodeField(5, 'すし is delicious', lStream);
+  gProtobufWireCodecString.EncodeField(5, 'すし is delicious', lStream);
   AssertStreamEquals(
     lStream,
     [5 shl 3 or 2, 19, $e3, $81, $99, $e3, $81, $97, $20, $69, $73, $20, $64, $65, $6c, $69, $63, $69, $6f, $75, $73],
@@ -38,16 +38,16 @@ end;
 
 procedure TestStringDecoding;
 var
-  aList: TList<TEncodedField>;
+  aList: TList<TProtobufEncodedField>;
   lInt32: Int32;
 begin
-  aList := TObjectList<TEncodedField>.Create;
-  aList.Add(TEncodedField.CreateWithData(
-    TTag.Create(5, wtLengthDelimited),
+  aList := TObjectList<TProtobufEncodedField>.Create;
+  aList.Add(TProtobufEncodedField.CreateWithData(
+    TProtobufTag.Create(5, wtLengthDelimited),
     [19, $e3, $81, $99, $e3, $81, $97, $20, $69, $73, $20, $64, $65, $6c, $69, $63, $69, $6f, $75, $73]
   ));
 
-  AssertTrue(gWireCodecString.DecodeField(aList) = 'すし is delicious', 'Decoding a single string works');
+  AssertTrue(gProtobufWireCodecString.DecodeField(aList) = 'すし is delicious', 'Decoding a single string works');
 
   aList.Free;
 end;

@@ -22,19 +22,19 @@ type
     // Collection of all fields in a Protobuf message that are yet to be decoded.
     // Fields are indexed by their field number, and stored in a list to support
     // non-packed repeated fields.
-    type TEncodedFieldsMap = TDictionary<TFieldNumber, TObjectList<TEncodedField>>;
+    type TEncodedFieldsMap = TDictionary<TProtobufFieldNumber, TObjectList<TProtobufEncodedField>>;
 
   private // private keyword required to prevent compilation issues.
     FUnparsedFields: TEncodedFieldsMap;
   
   protected
-    procedure EncodeField<T>(aFieldNumber: TFieldNumber; aValue: T; aDest: TStream; aCodec: TWireCodec<T>);
-    function DecodeUnknownField<T>(aFieldNumber: TFieldNumber; aCodec: TWireCodec<T>): T;
+    procedure EncodeField<T>(aFieldNumber: TProtobufFieldNumber; aValue: T; aDest: TStream; aCodec: TProtobufWireCodec<T>);
+    function DecodeUnknownField<T>(aFieldNumber: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>): T;
 
-    procedure EncodeRepeatedField<T>(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream; aCodec: TWireCodec<T>);
-    procedure DecodeUnknownRepeatedField<T>(aFieldNumber: TFieldNumber; aDest: TList<T>; aCodec: TWireCodec<T>);
+    procedure EncodeRepeatedField<T>(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream; aCodec: TProtobufWireCodec<T>);
+    procedure DecodeUnknownRepeatedField<T>(aFieldNumber: TProtobufFieldNumber; aDest: TList<T>; aCodec: TProtobufWireCodec<T>);
 
-    procedure EncodePackedRepeatedField<T>(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream; aCodec: TPackableWireCodec<T>);
+    procedure EncodePackedRepeatedField<T>(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream; aCodec: TProtobufPackableWireCodec<T>);
 
   public
     // Creates a new message instance.
@@ -65,29 +65,29 @@ type
 
 implementation
 
-procedure TProtobufMessage.EncodeField<T>(aFieldNumber: TFieldNumber; aValue: T; aDest: TStream; aCodec: TWireCodec<T>);
+procedure TProtobufMessage.EncodeField<T>(aFieldNumber: TProtobufFieldNumber; aValue: T; aDest: TStream; aCodec: TProtobufWireCodec<T>);
 begin
   aCodec.EncodeField(aFieldNumber, aValue, aDest);
 end;
 
-function TProtobufMessage.DecodeUnknownField<T>(aFieldNumber: TFieldNumber; aCodec: TWireCodec<T>): T;
+function TProtobufMessage.DecodeUnknownField<T>(aFieldNumber: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>): T;
 begin
   result := aCodec.DecodeField(FUnparsedFields[aFieldNumber]);
   FUnparsedFields.Remove(aFieldNumber);
 end;
 
-procedure TProtobufMessage.EncodeRepeatedField<T>(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream; aCodec: TWireCodec<T>);
+procedure TProtobufMessage.EncodeRepeatedField<T>(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream; aCodec: TProtobufWireCodec<T>);
 begin
   aCodec.EncodeRepeatedField(aFieldNumber, aValues, aDest);
 end;
 
-procedure TProtobufMessage.DecodeUnknownRepeatedField<T>(aFieldNumber: TFieldNumber; aDest: TList<T>; aCodec: TWireCodec<T>);
+procedure TProtobufMessage.DecodeUnknownRepeatedField<T>(aFieldNumber: TProtobufFieldNumber; aDest: TList<T>; aCodec: TProtobufWireCodec<T>);
 begin
   aCodec.DecodeRepeatedField(FUnparsedFields[aFieldNumber], aDest);
   FUnparsedFields.Remove(aFieldNumber);
 end;
 
-procedure TProtobufMessage.EncodePackedRepeatedField<T>(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream; aCodec: TPackableWireCodec<T>);
+procedure TProtobufMessage.EncodePackedRepeatedField<T>(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream; aCodec: TProtobufPackableWireCodec<T>);
 begin
   aCodec.EncodePackedRepeatedField(aFieldNumber, aValues, aDest);
 end;

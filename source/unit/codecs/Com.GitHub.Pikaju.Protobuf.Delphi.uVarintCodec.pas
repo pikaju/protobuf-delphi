@@ -16,34 +16,34 @@ uses
   Com.GitHub.Pikaju.Protobuf.Delphi.uVarint;
 
 type
-  TVarintWireCodec<T> = class(TPackableWireCodec<T>)
-    procedure EncodeField(aFieldNumber: TFieldNumber; aValue: T; aDest: TStream); override;
-    function DecodeField(aData: TList<TEncodedField>): T; override;
+  TProtobufVarintWireCodec<T> = class(TProtobufPackableWireCodec<T>)
+    procedure EncodeField(aFieldNumber: TProtobufFieldNumber; aValue: T; aDest: TStream); override;
+    function DecodeField(aData: TList<TProtobufEncodedField>): T; override;
 
-    procedure EncodeRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream); override;
-    procedure DecodeRepeatedField(aData: TList<TEncodedField>; aDest: TList<T>); override;
+    procedure EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream); override;
+    procedure DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TList<T>); override;
 
-    procedure EncodePackedRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream); override;
+    procedure EncodePackedRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream); override;
   end;
 
 var
-  gWireCodecInt32: TVarintWireCodec<Int32>;
-  gWireCodecUInt32: TVarintWireCodec<UInt32>;
+  gProtobufWireCodecInt32: TProtobufVarintWireCodec<Int32>;
+  gProtobufWireCodecUInt32: TProtobufVarintWireCodec<UInt32>;
 
-  gWireCodecInt64: TVarintWireCodec<Int64>;
-  gWireCodecUInt64: TVarintWireCodec<UInt64>;
+  gProtobufWireCodecInt64: TProtobufVarintWireCodec<Int64>;
+  gProtobufWireCodecUInt64: TProtobufVarintWireCodec<UInt64>;
 
 implementation
 
-procedure TVarintWireCodec<T>.EncodeField(aFieldNumber: TFieldNumber; aValue: T; aDest: TStream);
+procedure TProtobufVarintWireCodec<T>.EncodeField(aFieldNumber: TProtobufFieldNumber; aValue: T; aDest: TStream);
 begin
-  EncodeTag(TTag.Create(aFieldNumber, wtVarint), aDest);
+  EncodeTag(TProtobufTag.Create(aFieldNumber, wtVarint), aDest);
   EncodeVarint(aValue, aDest);
 end;
 
-function TVarintWireCodec<T>.DecodeField(aData: TList<TEncodedField>): T;
+function TProtobufVarintWireCodec<T>.DecodeField(aData: TList<TProtobufEncodedField>): T;
 var
-  lField: TEncodedField;
+  lField: TProtobufEncodedField;
   lStream: TMemoryStream;
 begin
   result := PROTOBUF_DEFAULT_VALUE_NUMERIC;
@@ -71,38 +71,38 @@ begin
   end;
 end;
 
-procedure TVarintWireCodec<T>.EncodeRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
+procedure TProtobufVarintWireCodec<T>.EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream);
 begin
   // TODO: Implement
 end;
 
-procedure TVarintWireCodec<T>.DecodeRepeatedField(aData: TList<TEncodedField>; aDest: TList<T>);
+procedure TProtobufVarintWireCodec<T>.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TList<T>);
 
 begin
   // TODO: Implement
 end;
 
-procedure TVarintWireCodec<T>.EncodePackedRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<T>; aDest: TStream);
+procedure TProtobufVarintWireCodec<T>.EncodePackedRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream);
 begin
   // TODO: Implement
 end;
 
 initialization
 begin
-  gWireCodecInt32 := TVarintWireCodec<Int32>.Create;
-  gWireCodecUInt32 := TVarintWireCodec<UInt32>.Create;
+  gProtobufWireCodecInt32 := TProtobufVarintWireCodec<Int32>.Create;
+  gProtobufWireCodecUInt32 := TProtobufVarintWireCodec<UInt32>.Create;
 
-  gWireCodecInt64 := TVarintWireCodec<Int64>.Create;
-  gWireCodecUInt64 := TVarintWireCodec<UInt64>.Create;
+  gProtobufWireCodecInt64 := TProtobufVarintWireCodec<Int64>.Create;
+  gProtobufWireCodecUInt64 := TProtobufVarintWireCodec<UInt64>.Create;
 end;
 
 finalization
 begin
-  gWireCodecUInt64.Free;
-  gWireCodecInt64.Free;
+  gProtobufWireCodecUInt64.Free;
+  gProtobufWireCodecInt64.Free;
 
-  gWireCodecUInt32.Free;
-  gWireCodecInt32.Free;
+  gProtobufWireCodecUInt32.Free;
+  gProtobufWireCodecInt32.Free;
 end;
 
 end.

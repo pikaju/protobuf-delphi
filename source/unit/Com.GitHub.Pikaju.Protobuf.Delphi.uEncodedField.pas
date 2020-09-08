@@ -17,16 +17,16 @@ type
   // The data contained within this field, with the exception of its
   // tag, is in the binary Protobuf encoded format.
   // This is used by TMessage to manage fields that are yet to be decoded properly.
-  TEncodedField = class
+  TProtobufEncodedField = class
   private
-    FTag: TTag;
+    FTag: TProtobufTag;
     FData: TBytes;
   public
     // Creates a new field instance.
     constructor Create;
 
     // Creates a new field instance with prepopulated data.
-    constructor CreateWithData(aTag: TTag; aData: TBytes);
+    constructor CreateWithData(aTag: TProtobufTag; aData: TBytes);
 
     // Writes this field to a binary stream.
     // params:
@@ -40,33 +40,33 @@ type
     procedure Decode(aSource: TStream);
 
     // The Protobuf tag (field number and wire type) of this encoded field.
-    property Tag: TTag read FTag;
+    property Tag: TProtobufTag read FTag;
     // The binary data of this encoded field, exclusing information stored in the tag.
     property Data: TBytes read FData;
   end;
 
 implementation
 
-constructor TEncodedField.Create;
+constructor TProtobufEncodedField.Create;
 begin
-  FTag := TTag.Create(1, wtUnknown);
+  FTag := TProtobufTag.Create(1, wtUnknown);
   SetLength(FData, 0);
 end;
 
-constructor TEncodedField.CreateWithData(aTag: TTag; aData: TBytes);
+constructor TProtobufEncodedField.CreateWithData(aTag: TProtobufTag; aData: TBytes);
 begin
   FTag := aTag;
   FData := aData;
 end;
 
-procedure TEncodedField.Encode(aDest: TStream);
+procedure TProtobufEncodedField.Encode(aDest: TStream);
 begin
   EncodeTag(FTag, aDest);
   if (Length(FData) > 0) then
     aDest.WriteBuffer(FData[0], Length(FData));
 end;
 
-procedure TEncodedField.Decode(aSource: TStream);
+procedure TProtobufEncodedField.Decode(aSource: TStream);
 var
   lTempStream: TMemoryStream;
   lByte: Byte;

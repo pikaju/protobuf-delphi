@@ -22,15 +22,15 @@ var
 begin
   lStream := TMemoryStream.Create;
 
-  EncodeTag(TTag.Create(5, wtVarint), lStream);
+  EncodeTag(TProtobufTag.Create(5, wtVarint), lStream);
   AssertStreamEquals(lStream, [$28], 'Encoding tag (5, wtVarint) produces $28.');
   lStream.Clear;
 
-  EncodeTag(TTag.Create(1, wt64Bit), lStream);
+  EncodeTag(TProtobufTag.Create(1, wt64Bit), lStream);
   AssertStreamEquals(lStream, [$09], 'Encoding tag (1, wt64Bit) produces $09.');
   lStream.Clear;
 
-  EncodeTag(TTag.Create($FF, wt32Bit), lStream);
+  EncodeTag(TProtobufTag.Create($FF, wt32Bit), lStream);
   AssertStreamEquals(lStream, [$FD, $0F], 'Encoding tag ($FF, wt32Bit) produces $FD, $0F.');
   lStream.Clear;
 
@@ -41,7 +41,7 @@ procedure TestDecoding;
 var
   lStream: TMemoryStream;
   lBytes: TBytes;
-  lTag: TTag;
+  lTag: TProtobufTag;
 begin
   lStream := TMemoryStream.Create;
 

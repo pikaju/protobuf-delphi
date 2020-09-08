@@ -17,33 +17,33 @@ uses
   Com.GitHub.Pikaju.Protobuf.Delphi.uVarint;
 
 type
-  TStringWireCodec = class(TWireCodec<UnicodeString>)
-    procedure EncodeField(aFieldNumber: TFieldNumber; aValue: UnicodeString; aDest: TStream); override;
-    function DecodeField(aData: TList<TEncodedField>): UnicodeString; override;
+  TProtobufStringWireCodec = class(TProtobufWireCodec<UnicodeString>)
+    procedure EncodeField(aFieldNumber: TProtobufFieldNumber; aValue: UnicodeString; aDest: TStream); override;
+    function DecodeField(aData: TList<TProtobufEncodedField>): UnicodeString; override;
 
-    procedure EncodeRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<UnicodeString>; aDest: TStream); override;
-    procedure DecodeRepeatedField(aData: TList<TEncodedField>; aDest: TList<UnicodeString>); override;
+    procedure EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<UnicodeString>; aDest: TStream); override;
+    procedure DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TList<UnicodeString>); override;
   end;
 
 var
-  gWireCodecString: TStringWireCodec;
+  gProtobufWireCodecString: TProtobufStringWireCodec;
 
 implementation
 
-procedure TStringWireCodec.EncodeField(aFieldNumber: TFieldNumber; aValue: UnicodeString; aDest: TStream);
+procedure TProtobufStringWireCodec.EncodeField(aFieldNumber: TProtobufFieldNumber; aValue: UnicodeString; aDest: TStream);
 var
   lBytes: TBytes;
 begin
-  EncodeTag(TTag.Create(aFieldNumber, wtLengthDelimited), aDest);
+  EncodeTag(TProtobufTag.Create(aFieldNumber, wtLengthDelimited), aDest);
   EncodeVarint(Length(aValue), aDest);
   lBytes := TEncoding.UTF8.GetBytes(aValue);
   if (Length(lBytes) > 0) then
     aDest.WriteBuffer(lBytes[0], Length(lBytes));
 end;
 
-function TStringWireCodec.DecodeField(aData: TList<TEncodedField>): UnicodeString;
+function TProtobufStringWireCodec.DecodeField(aData: TList<TProtobufEncodedField>): UnicodeString;
 var
-  lField: TEncodedField;
+  lField: TProtobufEncodedField;
   lStream: TMemoryStream;
   lLength: UInt32;
   lBytes: TBytes;
@@ -73,12 +73,12 @@ begin
   end;
 end;
 
-procedure TStringWireCodec.EncodeRepeatedField(aFieldNumber: TFieldNumber; aValues: TList<UnicodeString>; aDest: TStream);
+procedure TProtobufStringWireCodec.EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<UnicodeString>; aDest: TStream);
 begin
   // TODO: Implement
 end;
 
-procedure TStringWireCodec.DecodeRepeatedField(aData: TList<TEncodedField>; aDest: TList<UnicodeString>);
+procedure TProtobufStringWireCodec.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TList<UnicodeString>);
 
 begin
   // TODO: Implement
@@ -86,12 +86,12 @@ end;
 
 initialization
 begin
-  gWireCodecString := TStringWireCodec.Create;
+  gProtobufWireCodecString := TProtobufStringWireCodec.Create;
 end;
 
 finalization
 begin
-  gWireCodecString.Free;
+  gProtobufWireCodecString.Free;
 end;
 
 end.
