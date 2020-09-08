@@ -10,6 +10,7 @@ uses
   Classes,
   Generics.Collections,
   Com.GitHub.Pikaju.Protobuf.Delphi.uCodec,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uDefaultValues,
   Com.GitHub.Pikaju.Protobuf.Delphi.uEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.uTag,
   Com.GitHub.Pikaju.Protobuf.Delphi.uVarint;
@@ -45,6 +46,8 @@ var
   lField: TEncodedField;
   lStream: TMemoryStream;
 begin
+  result := PROTOBUF_DEFAULT_VALUE_NUMERIC;
+
   // https://developers.google.com/protocol-buffers/docs/encoding#optional:
   // For numeric types and strings, if the same field appears multiple times, the parser accepts the last value it sees.
   for lField in aData do

@@ -6,8 +6,6 @@ unit Com.GitHub.Pikaju.Protobuf.Delphi.uDefaultValues;
 
 interface
 
-type
-
 const
   // Protobuf default values. See: https://developers.google.com/protocol-buffers/docs/proto3#default.
 
