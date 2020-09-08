@@ -27,6 +27,10 @@ type
 
 var
   gWireCodecInt32: TVarintWireCodec<Int32>;
+  gWireCodecUInt32: TVarintWireCodec<UInt32>;
+
+  gWireCodecInt64: TVarintWireCodec<Int64>;
+  gWireCodecUInt64: TVarintWireCodec<UInt64>;
 
 implementation
 
@@ -83,10 +87,18 @@ end;
 initialization
 begin
   gWireCodecInt32 := TVarintWireCodec<Int32>.Create;
+  gWireCodecUInt32 := TVarintWireCodec<UInt32>.Create;
+
+  gWireCodecInt64 := TVarintWireCodec<Int64>.Create;
+  gWireCodecUInt64 := TVarintWireCodec<UInt64>.Create;
 end;
 
 finalization
 begin
+  gWireCodecUInt64.Free;
+  gWireCodecInt64.Free;
+
+  gWireCodecUInt32.Free;
   gWireCodecInt32.Free;
 end;
 
