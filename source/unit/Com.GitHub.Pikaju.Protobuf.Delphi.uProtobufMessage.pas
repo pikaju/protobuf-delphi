@@ -104,6 +104,7 @@ end;
 
 procedure TProtobufMessage.Clear;
 begin;
+  FUnparsedFields.Clear;
 end;
 
 procedure TProtobufMessage.Encode(aDest: TStream);
