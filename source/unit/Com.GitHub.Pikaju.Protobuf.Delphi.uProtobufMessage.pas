@@ -108,11 +108,30 @@ begin;
 end;
 
 procedure TProtobufMessage.Encode(aDest: TStream);
+var
+  lEncodedFieldList: TList<TProtobufEncodedField>;
+  lEncodedField: TProtobufEncodedField;
 begin
+  for lEncodedFieldList in FUnparsedFields.Values do
+  begin
+    for lEncodedField in lEncodedFieldList do
+      lEncodedField.Encode(aDest);
+  end;
 end;
 
 procedure TProtobufMessage.Decode(aSource: TStream);
+var
+  lEncodedField: TProtobufEncodedField;
 begin
+  FUnparsedFields.Clear;
+  while (aSource.Position < aSource.Size) do
+  begin
+    lEncodedField := TProtobufEncodedField.Create;
+    lEncodedField.Decode(aSource);
+    if (not FUnparsedFields.ContainsKey(lEncodedField.Tag.FieldNumber)) then
+      FUnparsedFields.Add(lEncodedField.Tag.FieldNumber, TObjectList<TProtobufEncodedField>.Create);
+    FUnparsedFields[lEncodedField.Tag.FieldNumber].Add(lEncodedField);
+  end;
 end;
 
 end.
