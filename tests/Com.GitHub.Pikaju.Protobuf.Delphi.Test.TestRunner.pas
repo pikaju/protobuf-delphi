@@ -8,6 +8,7 @@ uses
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uMessage,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uTag,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uVarint,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uStringCodec,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uVarintCodec;
 
 begin
@@ -28,6 +29,10 @@ begin
   WriteLn;
   
   WriteLn('--- Testing codecs ---');
+  WriteLn;
+
+  WriteLn('Unit Protobuf.uStringCodec:');
+  TestStringCodec;
   WriteLn;
 
   WriteLn('Unit Protobuf.uVarintCodec:');
