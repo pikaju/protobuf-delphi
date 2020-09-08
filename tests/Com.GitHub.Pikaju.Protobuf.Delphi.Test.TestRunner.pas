@@ -16,26 +16,26 @@ begin
   WriteLn('--- Beginning unit tests ---');
   WriteLn;
 
-  WriteLn('Unit Protobuf.uMessage:');
+  WriteLn('Unit uMessage:');
   TestMessage;
   WriteLn;
 
-  WriteLn('Unit Protobuf.uTag:');
+  WriteLn('Unit uTag:');
   TestTag;
   WriteLn;
 
-  WriteLn('Unit Protobuf.uVarint:');
+  WriteLn('Unit uVarint:');
   TestVarint;
   WriteLn;
   
   WriteLn('--- Testing codecs ---');
   WriteLn;
 
-  WriteLn('Unit Protobuf.uStringCodec:');
+  WriteLn('Unit uStringCodec:');
   TestStringCodec;
   WriteLn;
 
-  WriteLn('Unit Protobuf.uVarintCodec:');
+  WriteLn('Unit uVarintCodec:');
   TestVarintCodec;
   WriteLn;
 
