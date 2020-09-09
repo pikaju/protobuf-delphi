@@ -53,14 +53,14 @@ type
     // Encodes this message into a binary format and adds the resulting bytes to a stream.
     // params:
     //   aDest: Stream to append binary data to.
-    procedure Encode(aDest: TStream);
+    procedure Encode(aDest: TStream); virtual;
 
     // Reads a binary stream to the end and finds all Protobuf fields.
     // The fields of this object will be populated where possible.
     // Fields that are not present in the data stream are default initialized.
     // params:
     //   aSource: Stream to read binary data from.
-    procedure Decode(aSource: TStream);
+    procedure Decode(aSource: TStream); virtual;
   end;
 
 implementation
