@@ -40,7 +40,7 @@ type
     // Creates a new message instance.
     // Default initializes all fields according to the Protobuf specification,
     // see: https://developers.google.com/protocol-buffers/docs/proto3#default.
-    constructor Create;
+    constructor Create; virtual;
 
     // Destroys this message instance.
     // Frees all embedded messages contained inside this message.
