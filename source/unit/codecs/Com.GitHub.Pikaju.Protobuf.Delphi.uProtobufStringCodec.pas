@@ -58,17 +58,19 @@ begin
     begin
       // Convert field to a stream for simpler processing.
       lStream := TMemoryStream.Create;
-      lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
-      lStream.Seek(0, soBeginning);
+      try
+        lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+        lStream.Seek(0, soBeginning);
 
-      lLength := DecodeVarint(lStream);
-      SetLength(lBytes, lLength);
-      if (lLength > 0) then
-        lStream.ReadBuffer(lBytes[0], lLength);
+        lLength := DecodeVarint(lStream);
+        SetLength(lBytes, lLength);
+        if (lLength > 0) then
+          lStream.ReadBuffer(lBytes[0], lLength);
 
-      result := TEncoding.UTF8.GetString(lBytes);
-
-      lStream.Free;
+        result := TEncoding.UTF8.GetString(lBytes);
+      finally
+        lStream.Free;
+      end;
     end; // TODO: Catch invalid wire type.
   end;
 end;

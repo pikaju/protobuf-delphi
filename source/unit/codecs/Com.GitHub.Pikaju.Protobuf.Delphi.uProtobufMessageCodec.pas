@@ -36,14 +36,16 @@ var
 begin
   // Encode the message to a temporary stream first to determine its size.
   lStream := TMemoryStream.Create;
-  aValue.Encode(lStream);
-  lStream.Seek(0, soBeginning);
+  try
+    aValue.Encode(lStream);
+    lStream.Seek(0, soBeginning);
 
-  EncodeTag(TProtobufTag.Create(aFieldNumber, wtLengthDelimited), aDest);
-  EncodeVarint(lStream.Size, aDest);
-  aDest.CopyFrom(lStream, lStream.Size);
-
-  lStream.Free;
+    EncodeTag(TProtobufTag.Create(aFieldNumber, wtLengthDelimited), aDest);
+    EncodeVarint(lStream.Size, aDest);
+    aDest.CopyFrom(lStream, lStream.Size);
+  finally
+    lStream.Free;
+  end;
 end;
 
 function TProtobufMessageWireCodec<T>.DecodeField(aData: TList<TProtobufEncodedField>): T;
@@ -63,17 +65,20 @@ begin
     begin
       // Convert field to a stream for simpler processing.
       lStream := TMemoryStream.Create;
-      lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
-      lStream.Seek(0, soBeginning);
+      try
+        lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+        lStream.Seek(0, soBeginning);
 
-      // Ignore the length of the field and let the message decode until the end of the stream.
-      DecodeVarint(lStream);
-      if (result = T(nil)) then
-        result := T.Create;
-      
-      result.Decode(lStream);
+        // Ignore the length of the field and let the message decode until the end of the stream.
+        DecodeVarint(lStream);
+        if (result = T(nil)) then
+          result := T.Create;
+        
+        result.Decode(lStream);
+      finally
+        lStream.Free;
+      end;
 
-      lStream.Free;
     end; // TODO: Catch invalid wire type.
   end;
 end;

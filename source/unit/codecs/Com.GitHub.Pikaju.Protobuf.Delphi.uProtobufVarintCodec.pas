@@ -56,20 +56,22 @@ begin
   begin
     // Convert field to a stream for simpler processing.
     lStream := TMemoryStream.Create;
-    lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
-    lStream.Seek(0, soBeginning);
+    try
+      lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+      lStream.Seek(0, soBeginning);
 
-    if (lField.Tag.WireType = wtVarint) then
-      result := DecodeVarint(lStream)
-    else if (lField.Tag.WireType = wtLengthDelimited) then
-    begin
-      // Ignore the size of the field, as the stream already has the correct length.
-      DecodeVarint(lStream);
-      while (lStream.Position < lStream.Size) do
-        result := DecodeVarint(lStream);
-    end; // TODO: Catch invalid wire type.
-
-    lStream.Free;
+      if (lField.Tag.WireType = wtVarint) then
+        result := DecodeVarint(lStream)
+      else if (lField.Tag.WireType = wtLengthDelimited) then
+      begin
+        // Ignore the size of the field, as the stream already has the correct length.
+        DecodeVarint(lStream);
+        while (lStream.Position < lStream.Size) do
+          result := DecodeVarint(lStream);
+      end; // TODO: Catch invalid wire type.
+    finally
+      lStream.Free;
+    end;
   end;
 end;
 
