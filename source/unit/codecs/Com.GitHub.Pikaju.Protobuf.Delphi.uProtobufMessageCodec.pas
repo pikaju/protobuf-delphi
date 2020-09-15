@@ -40,7 +40,7 @@ begin
     aValue.Encode(lStream);
     lStream.Seek(0, soBeginning);
 
-    EncodeTag(TProtobufTag.WithData(aFieldNumber, wtLengthDelimited), aDest);
+    TProtobufTag.WithData(aFieldNumber, wtLengthDelimited).Encode(aDest);
     EncodeVarint(lStream.Size, aDest);
     aDest.CopyFrom(lStream, lStream.Size);
   finally

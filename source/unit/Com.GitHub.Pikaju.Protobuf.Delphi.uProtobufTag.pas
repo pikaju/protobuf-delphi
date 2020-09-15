@@ -34,28 +34,25 @@ type
     // Constructs a tag using a field number and a wire type.
     class function WithData(aFieldNumber: TProtobufFieldNumber; aWireType: TProtobufWireType): TProtobufTag; static;
 
+    // Encodes the Protobuf tag according to the specification.
+    // This is done by combining the field number and wire type with bitwise operations,
+    // and then writing the result as a varint.
+    // See: https://developers.google.com/protocol-buffers/docs/encoding#structure.
+    // params:
+    //   aDest: Stream to which binary data is appended.
+    procedure Encode(aDest: TStream);
+
+    // Decodes the Protobuf tag according to the specification from a binary stream.
+    // This is done by reading a varint and then extracting the field number and wire
+    // type using bitwise operations.
+    // See: https://developers.google.com/protocol-buffers/docs/encoding#structure.
+    // params:
+    //   aSource: Stream from which the binary data should be read.
+    procedure Decode(aSource: TStream);
+
     property FieldNumber: TProtobufFieldNumber read FFieldNumber;
     property WireType: TProtobufWireType read FWireType;
   end;
-
-  // Encodes a Protobuf tag according to the specification.
-  // This is done by combining the field number and wire type with bitwise operations,
-  // and then writing the result as a varint.
-  // See: https://developers.google.com/protocol-buffers/docs/encoding#structure.
-  // params:
-  //   aTag: Tag to be encoded.
-  //   aDest: Stream to which binary data is appended.
-  procedure EncodeTag(aTag: TProtobufTag; aDest: TStream);
-
-  // Decodes a Protobuf tag according to the specification from a binary stream.
-  // This is done by reading a varint and then extracting the field number and wire
-  // type using bitwise operations.
-  // See: https://developers.google.com/protocol-buffers/docs/encoding#structure.
-  // params:
-  //   aSource: Stream from which the binary data should be read.
-  // return:
-  //   The decoded tag.
-  function DecodeTag(aSource: TStream): TProtobufTag;
 
 implementation
 
@@ -65,17 +62,18 @@ begin
   result.FWireType := aWireType;
 end;
 
-procedure EncodeTag(aTag: TProtobufTag; aDest: TStream);
+procedure TProtobufTag.Encode(aDest: TStream);
 begin
-  EncodeVarint((aTag.FieldNumber shl 3) or Ord(aTag.WireType), aDest);
+  EncodeVarint((FieldNumber shl 3) or Ord(WireType), aDest);
 end;
 
-function DecodeTag(aSource: TStream): TProtobufTag;
+procedure TProtobufTag.Decode(aSource: TStream);
 var
   lVarint: UInt64;
 begin
   lVarint := DecodeVarint(aSource);
-  result := TProtobufTag.WithData(lVarint shr 3, TProtobufWireType(lVarint and $7));
+  FFieldNumber := lVarint shr 3;
+  FWireType := TProtobufWireType(lVarint and $7);
 end;
 
 end.

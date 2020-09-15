@@ -61,7 +61,7 @@ end;
 
 procedure TProtobufEncodedField.Encode(aDest: TStream);
 begin
-  EncodeTag(FTag, aDest);
+  FTag.Encode(aDest);
   if (Length(FData) > 0) then
     aDest.WriteBuffer(FData[0], Length(FData));
 end;
@@ -72,7 +72,7 @@ var
   lByte: Byte;
   lVarint: UInt64;
 begin
-  FTag := DecodeTag(aSource);
+  FTag.Decode(aSource);
   lTempStream := TMemoryStream.Create;
   try
     // Determine the number of bytes that need to be read based on the wire type.
