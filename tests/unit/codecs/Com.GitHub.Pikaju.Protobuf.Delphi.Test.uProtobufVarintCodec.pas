@@ -39,7 +39,7 @@ var
 begin
   aList := TObjectList<TProtobufEncodedField>.Create;
 
-  aList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.Create(5, wtVarint), [$AC, $02]));
+  aList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtVarint), [$AC, $02]));
   lInt32 := gProtobufWireCodecInt32.DecodeField(aList);
   AssertTrue(lInt32 = 300, 'Decoding a single int32 works');
 

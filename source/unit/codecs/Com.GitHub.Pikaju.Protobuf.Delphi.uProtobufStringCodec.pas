@@ -34,7 +34,7 @@ procedure TProtobufStringWireCodec.EncodeField(aFieldNumber: TProtobufFieldNumbe
 var
   lBytes: TBytes;
 begin
-  EncodeTag(TProtobufTag.Create(aFieldNumber, wtLengthDelimited), aDest);
+  EncodeTag(TProtobufTag.WithData(aFieldNumber, wtLengthDelimited), aDest);
   EncodeVarint(Length(aValue), aDest);
   lBytes := TEncoding.UTF8.GetBytes(aValue);
   if (Length(lBytes) > 0) then

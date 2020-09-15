@@ -49,7 +49,7 @@ var
 begin
   aList := TObjectList<TProtobufEncodedField>.Create;
   
-  aList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.Create(5, wtLengthDelimited), [0]));
+  aList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtLengthDelimited), [0]));
   lEmptyCodec := TProtobufMessageWireCodec<TEmpty>.Create; 
   lEmptyCodec.DecodeField(aList).Free;
   lEmptyCodec.Free;

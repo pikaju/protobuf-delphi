@@ -43,7 +43,7 @@ var
 begin
   aList := TObjectList<TProtobufEncodedField>.Create;
   aList.Add(TProtobufEncodedField.CreateWithData(
-    TProtobufTag.Create(5, wtLengthDelimited),
+    TProtobufTag.WithData(5, wtLengthDelimited),
     [19, $e3, $81, $99, $e3, $81, $97, $20, $69, $73, $20, $64, $65, $6c, $69, $63, $69, $6f, $75, $73]
   ));
 

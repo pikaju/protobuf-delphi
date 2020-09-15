@@ -39,7 +39,7 @@ implementation
 
 procedure TProtobufVarintWireCodec<T>.EncodeField(aFieldNumber: TProtobufFieldNumber; aValue: T; aDest: TStream);
 begin
-  EncodeTag(TProtobufTag.Create(aFieldNumber, wtVarint), aDest);
+  EncodeTag(TProtobufTag.WithData(aFieldNumber, wtVarint), aDest);
   EncodeVarint(aValue, aDest);
 end;
 

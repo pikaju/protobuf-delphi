@@ -49,7 +49,7 @@ implementation
 
 constructor TProtobufEncodedField.Create;
 begin
-  FTag := TProtobufTag.Create(1, wtUnknown);
+  FTag := TProtobufTag.WithData(1, wtUnknown);
   SetLength(FData, 0);
 end;
 

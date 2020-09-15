@@ -24,25 +24,25 @@ var
 begin
   lStream := TMemoryStream.Create;
 
-  lEncodedField := TProtobufEncodedField.CreateWithData(TProtobufTag.Create(5, wtVarint), [$AC, $02]);
+  lEncodedField := TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtVarint), [$AC, $02]);
   lEncodedField.Encode(lStream);
   AssertStreamEquals(lStream, [5 shl 3 or 0, $AC, $02], 'Encoding a single varint field works');
   lStream.Clear;
   lEncodedField.Free;
   
-  lEncodedField := TProtobufEncodedField.CreateWithData(TProtobufTag.Create(5, wt64Bit), [$AC, $02, $5, $FF, $AC, $02, $5, $FB]);
+  lEncodedField := TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wt64Bit), [$AC, $02, $5, $FF, $AC, $02, $5, $FB]);
   lEncodedField.Encode(lStream);
   AssertStreamEquals(lStream, [5 shl 3 or 1, $AC, $02, $5, $FF, $AC, $02, $5, $FB], 'Encoding a single 64-bit field works');
   lStream.Clear;
   lEncodedField.Free;
 
-  lEncodedField := TProtobufEncodedField.CreateWithData(TProtobufTag.Create(5, wtLengthDelimited), [5, 3, 14, 15, 92, 65]);
+  lEncodedField := TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtLengthDelimited), [5, 3, 14, 15, 92, 65]);
   lEncodedField.Encode(lStream);
   AssertStreamEquals(lStream, [5 shl 3 or 2, 5, 3, 14, 15, 92, 65], 'Encoding a single length delimited field works');
   lStream.Clear;
   lEncodedField.Free;
 
-  lEncodedField := TProtobufEncodedField.CreateWithData(TProtobufTag.Create(5, wt32Bit), [$AC, $02, $5, $FF]);
+  lEncodedField := TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wt32Bit), [$AC, $02, $5, $FF]);
   lEncodedField.Encode(lStream);
   AssertStreamEquals(lStream, [5 shl 3 or 5, $AC, $02, $5, $FF], 'Encoding a single 32-bit field works');
   lStream.Clear;

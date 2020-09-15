@@ -32,7 +32,7 @@ type
     FWireType: TProtobufWireType;
   public
     // Constructs a tag using a field number and a wire type.
-    constructor Create(aFieldNumber: TProtobufFieldNumber; aWireType: TProtobufWireType);
+    class function WithData(aFieldNumber: TProtobufFieldNumber; aWireType: TProtobufWireType): TProtobufTag; static;
 
     property FieldNumber: TProtobufFieldNumber read FFieldNumber;
     property WireType: TProtobufWireType read FWireType;
@@ -59,10 +59,10 @@ type
 
 implementation
 
-constructor TProtobufTag.Create(aFieldNumber: TProtobufFieldNumber; aWireType: TProtobufWireType);
+class function TProtobufTag.WithData(aFieldNumber: TProtobufFieldNumber; aWireType: TProtobufWireType): TProtobufTag;
 begin
-  FFieldNumber := aFieldNumber;
-  FWireType := aWireType;
+  result.FFieldNumber := aFieldNumber;
+  result.FWireType := aWireType;
 end;
 
 procedure EncodeTag(aTag: TProtobufTag; aDest: TStream);
@@ -75,7 +75,7 @@ var
   lVarint: UInt64;
 begin
   lVarint := DecodeVarint(aSource);
-  result := TProtobufTag.Create(lVarint shr 3, TProtobufWireType(lVarint and $7));
+  result := TProtobufTag.WithData(lVarint shr 3, TProtobufWireType(lVarint and $7));
 end;
 
 end.
