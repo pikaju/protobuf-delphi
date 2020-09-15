@@ -24,16 +24,17 @@ var
   lStream: TMemoryStream;
 begin
   lStream := TMemoryStream.Create;
-
-  gProtobufWireCodecString.EncodeField(5, 'すし is delicious', lStream);
-  AssertStreamEquals(
-    lStream,
-    [5 shl 3 or 2, 19, $e3, $81, $99, $e3, $81, $97, $20, $69, $73, $20, $64, $65, $6c, $69, $63, $69, $6f, $75, $73],
-    'Encoding a single string works'
-  );
-  lStream.Clear;
-
-  lStream.Free;
+  try
+    gProtobufWireCodecString.EncodeField(5, 'すし is delicious', lStream);
+    AssertStreamEquals(
+      lStream,
+      [5 shl 3 or 2, 19, $e3, $81, $99, $e3, $81, $97, $20, $69, $73, $20, $64, $65, $6c, $69, $63, $69, $6f, $75, $73],
+      'Encoding a single string works'
+    );
+    lStream.Clear;
+  finally
+    lStream.Free;
+  end;
 end;
 
 procedure TestStringDecoding;
@@ -42,14 +43,16 @@ var
   lInt32: Int32;
 begin
   aList := TObjectList<TProtobufEncodedField>.Create;
-  aList.Add(TProtobufEncodedField.CreateWithData(
-    TProtobufTag.WithData(5, wtLengthDelimited),
-    [19, $e3, $81, $99, $e3, $81, $97, $20, $69, $73, $20, $64, $65, $6c, $69, $63, $69, $6f, $75, $73]
-  ));
+  try
+    aList.Add(TProtobufEncodedField.CreateWithData(
+      TProtobufTag.WithData(5, wtLengthDelimited),
+      [19, $e3, $81, $99, $e3, $81, $97, $20, $69, $73, $20, $64, $65, $6c, $69, $63, $69, $6f, $75, $73]
+    ));
 
-  AssertTrue(gProtobufWireCodecString.DecodeField(aList) = 'すし is delicious', 'Decoding a single string works');
-
-  aList.Free;
+    AssertTrue(gProtobufWireCodecString.DecodeField(aList) = 'すし is delicious', 'Decoding a single string works');
+  finally
+    aList.Free;
+  end;
 end;
 
 procedure TestStringCodec;

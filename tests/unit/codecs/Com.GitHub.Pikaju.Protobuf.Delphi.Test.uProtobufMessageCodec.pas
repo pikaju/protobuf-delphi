@@ -31,15 +31,20 @@ var
 begin
   lStream := TMemoryStream.Create;
 
-  lEmpty := TEmpty.Create;
-  lEmptyCodec := TProtobufMessageWireCodec<TEmpty>.Create; 
-  lEmptyCodec.EncodeField(5, lEmpty, lStream);
-  lEmptyCodec.Free;
-  lEmpty.Free;
-  AssertStreamEquals(lStream, [5 shl 3 or 2, 0], 'Encoding an empty message works');
-  lStream.Clear; 
-
-  lStream.Free;
+  try
+    lEmpty := TEmpty.Create;
+    try
+      lEmptyCodec := TProtobufMessageWireCodec<TEmpty>.Create; 
+      lEmptyCodec.EncodeField(5, lEmpty, lStream);
+      lEmptyCodec.Free;
+      AssertStreamEquals(lStream, [5 shl 3 or 2, 0], 'Encoding an empty message works');
+      lStream.Clear; 
+    finally
+      lEmpty.Free;
+    end;
+  finally
+    lStream.Free;
+  end;
 end;
 
 procedure TestMessageDecoding;
@@ -48,13 +53,14 @@ var
   lEmptyCodec: TProtobufMessageWireCodec<TEmpty>;
 begin
   aList := TObjectList<TProtobufEncodedField>.Create;
-  
-  aList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtLengthDelimited), [0]));
-  lEmptyCodec := TProtobufMessageWireCodec<TEmpty>.Create; 
-  lEmptyCodec.DecodeField(aList).Free;
-  lEmptyCodec.Free;
-
-  aList.Free;
+  try
+    aList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtLengthDelimited), [0]));
+    lEmptyCodec := TProtobufMessageWireCodec<TEmpty>.Create; 
+    lEmptyCodec.DecodeField(aList).Free;
+    lEmptyCodec.Free;
+  finally
+    aList.Free;
+  end;
 end;
 
 procedure TestMessageCodec;

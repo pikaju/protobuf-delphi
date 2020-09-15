@@ -21,20 +21,21 @@ var
   lStream: TMemoryStream;
 begin
   lStream := TMemoryStream.Create;
+  try
+    EncodeTag(TProtobufTag.WithData(5, wtVarint), lStream);
+    AssertStreamEquals(lStream, [$28], 'Encoding tag (5, wtVarint) produces $28.');
+    lStream.Clear;
 
-  EncodeTag(TProtobufTag.WithData(5, wtVarint), lStream);
-  AssertStreamEquals(lStream, [$28], 'Encoding tag (5, wtVarint) produces $28.');
-  lStream.Clear;
+    EncodeTag(TProtobufTag.WithData(1, wt64Bit), lStream);
+    AssertStreamEquals(lStream, [$09], 'Encoding tag (1, wt64Bit) produces $09.');
+    lStream.Clear;
 
-  EncodeTag(TProtobufTag.WithData(1, wt64Bit), lStream);
-  AssertStreamEquals(lStream, [$09], 'Encoding tag (1, wt64Bit) produces $09.');
-  lStream.Clear;
-
-  EncodeTag(TProtobufTag.WithData($FF, wt32Bit), lStream);
-  AssertStreamEquals(lStream, [$FD, $0F], 'Encoding tag ($FF, wt32Bit) produces $FD, $0F.');
-  lStream.Clear;
-
-  lStream.Free;
+    EncodeTag(TProtobufTag.WithData($FF, wt32Bit), lStream);
+    AssertStreamEquals(lStream, [$FD, $0F], 'Encoding tag ($FF, wt32Bit) produces $FD, $0F.');
+    lStream.Clear;
+  finally
+    lStream.Free;
+  end;
 end;
 
 procedure TestDecoding;
@@ -44,29 +45,30 @@ var
   lTag: TProtobufTag;
 begin
   lStream := TMemoryStream.Create;
+  try
+    lBytes := [$28];
+    lStream.WriteBuffer(lBytes[0], Length(lBytes));
+    lStream.Seek(0, soBeginning);
+    lTag := DecodeTag(lStream);
+    AssertTrue((lTag.FieldNumber = 5) and (lTag.WireType = wtVarint), 'Decoding $28 produces tag (5, wtVarint).');
+    lStream.Clear;
 
-  lBytes := [$28];
-  lStream.WriteBuffer(lBytes[0], Length(lBytes));
-  lStream.Seek(0, soBeginning);
-  lTag := DecodeTag(lStream);
-  AssertTrue((lTag.FieldNumber = 5) and (lTag.WireType = wtVarint), 'Decoding $28 produces tag (5, wtVarint).');
-  lStream.Clear;
+    lBytes := [$09];
+    lStream.WriteBuffer(lBytes[0], Length(lBytes));
+    lStream.Seek(0, soBeginning);
+    lTag := DecodeTag(lStream);
+    AssertTrue((lTag.FieldNumber = 1) and (lTag.WireType = wt64Bit), 'Decoding $09 produces tag (1, wt64Bit).');
+    lStream.Clear;
 
-  lBytes := [$09];
-  lStream.WriteBuffer(lBytes[0], Length(lBytes));
-  lStream.Seek(0, soBeginning);
-  lTag := DecodeTag(lStream);
-  AssertTrue((lTag.FieldNumber = 1) and (lTag.WireType = wt64Bit), 'Decoding $09 produces tag (1, wt64Bit).');
-  lStream.Clear;
-
-  lBytes := [$FD, $0F];
-  lStream.WriteBuffer(lBytes[0], Length(lBytes));
-  lStream.Seek(0, soBeginning);
-  lTag := DecodeTag(lStream);
-  AssertTrue((lTag.FieldNumber = $FF) and (lTag.WireType = wt32Bit), 'Decoding $FD, $0F produces tag ($FF, wt32Bit).');
-  lStream.Clear;
-
-  lStream.Free;
+    lBytes := [$FD, $0F];
+    lStream.WriteBuffer(lBytes[0], Length(lBytes));
+    lStream.Seek(0, soBeginning);
+    lTag := DecodeTag(lStream);
+    AssertTrue((lTag.FieldNumber = $FF) and (lTag.WireType = wt32Bit), 'Decoding $FD, $0F produces tag ($FF, wt32Bit).');
+    lStream.Clear;
+  finally
+    lStream.Free;
+  end;
 end;
 
 procedure TestTag;

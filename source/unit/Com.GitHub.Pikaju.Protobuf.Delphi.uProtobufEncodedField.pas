@@ -74,32 +74,34 @@ var
 begin
   FTag := DecodeTag(aSource);
   lTempStream := TMemoryStream.Create;
+  try
+    // Determine the number of bytes that need to be read based on the wire type.
+    case FTag.WireType of
+      wtVarint:
+        repeat
+          aSource.ReadBuffer(lByte, 1); 
+          lTempStream.WriteBuffer(lByte, 1);
+        until ((lByte and $80) = 0);
+      wt64Bit:
+        lTempStream.CopyFrom(aSource, 8);
+      wtLengthDelimited:
+        begin
+          lVarint := DecodeVarint(aSource);
+          EncodeVarint(lVarint, lTempStream);
+          lTempStream.CopyFrom(aSource, lVarint);
+        end;
+      wt32Bit:
+        lTempStream.CopyFrom(aSource, 4);
+    end;
 
-  // Determine the number of bytes that need to be read based on the wire type.
-  case FTag.WireType of
-    wtVarint:
-      repeat
-        aSource.ReadBuffer(lByte, 1); 
-        lTempStream.WriteBuffer(lByte, 1);
-      until ((lByte and $80) = 0);
-    wt64Bit:
-      lTempStream.CopyFrom(aSource, 8);
-    wtLengthDelimited:
-      begin
-        lVarint := DecodeVarint(aSource);
-        EncodeVarint(lVarint, lTempStream);
-        lTempStream.CopyFrom(aSource, lVarint);
-      end;
-    wt32Bit:
-      lTempStream.CopyFrom(aSource, 4);
+    // Copy data from temporary stream to field's data storage.
+    lTempStream.Seek(0, soBeginning);
+    SetLength(FData, lTempStream.Size);
+    if (Length(FData) > 0) then
+      lTempStream.ReadBuffer(FData[0], Length(FData));
+  finally
+    lTempStream.Free;
   end;
-
-  // Copy data from temporary stream to field's data storage.
-  lTempStream.Seek(0, soBeginning);
-  SetLength(FData, lTempStream.Size);
-  if (Length(FData) > 0) then
-    lTempStream.ReadBuffer(FData[0], Length(FData));
-  lTempStream.Free;
 end;
 
 end.

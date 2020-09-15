@@ -25,13 +25,14 @@ var
 begin
   lEmpty := TEmpty.Create;
   lStream := TMemoryStream.Create;
-
-  lEmpty.Encode(lStream);
-  AssertTrue((lStream.Position = 0) and (lStream.Size = 0), 'Empty messages produce an empty stream.');
-  lEmpty.Decode(lStream);
-
-  lStream.Free;
-  lEmpty.Free;
+  try
+    lEmpty.Encode(lStream);
+    AssertTrue((lStream.Position = 0) and (lStream.Size = 0), 'Empty messages produce an empty stream.');
+    lEmpty.Decode(lStream);
+  finally
+    lStream.Free;
+    lEmpty.Free;
+  end;
 end;
 
 procedure TestMessage;

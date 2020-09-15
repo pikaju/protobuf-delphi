@@ -24,12 +24,13 @@ var
   lStream: TMemoryStream;
 begin
   lStream := TMemoryStream.Create;
-
-  gProtobufWireCodecInt32.EncodeField(5, 10, lStream);
-  AssertStreamEquals(lStream, [5 shl 3 or 0, 10], 'Encoding a single int32 works');
-  lStream.Clear;
-
-  lStream.Free;
+  try
+    gProtobufWireCodecInt32.EncodeField(5, 10, lStream);
+    AssertStreamEquals(lStream, [5 shl 3 or 0, 10], 'Encoding a single int32 works');
+    lStream.Clear;
+  finally
+    lStream.Free;
+  end;
 end;
 
 procedure TestInt32Decoding;
@@ -38,12 +39,13 @@ var
   lInt32: Int32;
 begin
   aList := TObjectList<TProtobufEncodedField>.Create;
-
-  aList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtVarint), [$AC, $02]));
-  lInt32 := gProtobufWireCodecInt32.DecodeField(aList);
-  AssertTrue(lInt32 = 300, 'Decoding a single int32 works');
-
-  aList.Free;
+  try
+    aList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtVarint), [$AC, $02]));
+    lInt32 := gProtobufWireCodecInt32.DecodeField(aList);
+    AssertTrue(lInt32 = 300, 'Decoding a single int32 works');
+  finally
+    aList.Free;
+  end;
 end;
 
 procedure TestVarintCodec;
