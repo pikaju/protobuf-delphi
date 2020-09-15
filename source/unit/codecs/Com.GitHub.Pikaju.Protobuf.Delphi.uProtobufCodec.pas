@@ -9,6 +9,7 @@ interface
 uses
   Classes,
   Generics.Collections,
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag;
 

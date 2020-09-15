@@ -8,12 +8,10 @@ interface
 
 uses
   Classes,
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
 
 type
-  // Representation of a Protobuf field number. See: https://developers.google.com/protocol-buffers/docs/encoding#structure.
-  TProtobufFieldNumber = 1..536870911;
-
   // Enum of all Protobuf wire types. See: https://developers.google.com/protocol-buffers/docs/encoding#structure.
   TProtobufWireType = (
     wtUnknown = -1,

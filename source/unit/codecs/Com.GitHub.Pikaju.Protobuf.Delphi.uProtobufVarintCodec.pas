@@ -9,10 +9,9 @@ interface
 uses
   Classes,
   Generics.Collections,
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufCodec,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufDefaultValues,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEnum,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
 
