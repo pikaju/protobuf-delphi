@@ -71,7 +71,7 @@ begin
 
         // Ignore the length of the field and let the message decode until the end of the stream.
         DecodeVarint(lStream);
-        if (result = T(nil)) then
+        if (not Assigned(result)) then
           result := T.Create;
         
         result.Decode(lStream);
