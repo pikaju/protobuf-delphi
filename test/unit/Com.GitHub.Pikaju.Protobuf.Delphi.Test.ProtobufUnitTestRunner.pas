@@ -1,4 +1,4 @@
-program TestRunner;
+program ProtobufUnitTestRunner;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
