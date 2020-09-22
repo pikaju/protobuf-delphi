@@ -24,6 +24,8 @@ var
   /// </summary>
   gProtobufWireCodecEnum: TProtobufWireCodec<TProtobufEnumFieldValue>;
 
+implementation
+
 initialization
 begin
   gProtobufWireCodecEnum := TProtobufVarintWireCodec<TProtobufEnumFieldValue>.Create;
