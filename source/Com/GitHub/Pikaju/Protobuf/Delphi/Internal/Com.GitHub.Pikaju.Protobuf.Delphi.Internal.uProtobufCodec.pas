@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufCodec;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufCodec;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -10,8 +10,8 @@ uses
   Classes,
   Generics.Collections,
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag;
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag;
 
 type
   // Base class for all Protobuf field codecs.

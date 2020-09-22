@@ -10,8 +10,8 @@ uses
   Classes,
   Generics.Collections,
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufCodec,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField;
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufCodec,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField;
 
 type
   // Base class for Protobuf messages.
@@ -28,7 +28,7 @@ type
     FUnparsedFields: TEncodedFieldsMap;
   
   protected
-    procedure EncodeField<T>(aFieldNumber: TProtobufFieldNumber; aValue: T; aCodec: TProtobufWireCodec<T>; aDest: TStream);
+    procedure EncodeField<T>(aValue: T; aFieldNumber: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TStream);
     function DecodeUnknownField<T>(aFieldNumber: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>): T;
 
     procedure EncodeRepeatedField<T>(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aCodec: TProtobufWireCodec<T>; aDest: TStream);
@@ -65,7 +65,7 @@ type
 
 implementation
 
-procedure TProtobufMessage.EncodeField<T>(aFieldNumber: TProtobufFieldNumber; aValue: T; aCodec: TProtobufWireCodec<T>; aDest: TStream);
+procedure TProtobufMessage.EncodeField<T>(aValue: T; aFieldNumber: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TStream);
 begin
   aCodec.EncodeField(aFieldNumber, aValue, aDest);
 end;

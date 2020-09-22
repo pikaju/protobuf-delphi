@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintCodec;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarintCodec;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -10,10 +10,10 @@ uses
   Classes,
   Generics.Collections,
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufCodec,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufCodec,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint;
 
 type
   TProtobufVarintWireCodec<T> = class(TProtobufPackableWireCodec<T>)
