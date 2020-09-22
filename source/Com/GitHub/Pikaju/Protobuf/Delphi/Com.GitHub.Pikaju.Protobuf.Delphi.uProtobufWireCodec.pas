@@ -13,6 +13,7 @@ interface
 uses
   Classes,
   Generics.Collections,
+  // Basic definitions of <c>protoc-gen-delphi</c>, independent of the runtime library implementation
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag;

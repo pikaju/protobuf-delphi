@@ -10,7 +10,7 @@ unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint32;
 interface
 
 uses
-  // Wire codec interface
+  // Runtime library support for protobuf field encoding/decoding
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
   // Wire codec implementation for all <i>varint</i> protobuf types
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarintCodec;
