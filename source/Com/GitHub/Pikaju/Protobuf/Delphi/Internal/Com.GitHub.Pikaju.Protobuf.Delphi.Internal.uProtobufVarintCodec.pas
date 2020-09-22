@@ -10,7 +10,8 @@ uses
   Classes,
   Generics.Collections,
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufCodec,
+  // Wire codec interface
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint;
@@ -25,15 +26,6 @@ type
 
     procedure EncodePackedRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream); override;
   end;
-
-var
-  gProtobufWireCodecInt32: TProtobufVarintWireCodec<Int32>;
-  gProtobufWireCodecUInt32: TProtobufVarintWireCodec<UInt32>;
-
-  gProtobufWireCodecInt64: TProtobufVarintWireCodec<Int64>;
-  gProtobufWireCodecUInt64: TProtobufVarintWireCodec<UInt64>;
-
-  gProtobufWireCodecEnum: TProtobufVarintWireCodec<TProtobufEnumFieldValue>;
 
 implementation
 
@@ -89,28 +81,6 @@ end;
 procedure TProtobufVarintWireCodec<T>.EncodePackedRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream);
 begin
   // TODO: Implement
-end;
-
-initialization
-begin
-  gProtobufWireCodecInt32 := TProtobufVarintWireCodec<Int32>.Create;
-  gProtobufWireCodecUInt32 := TProtobufVarintWireCodec<UInt32>.Create;
-
-  gProtobufWireCodecInt64 := TProtobufVarintWireCodec<Int64>.Create;
-  gProtobufWireCodecUInt64 := TProtobufVarintWireCodec<UInt64>.Create;
-
-  gProtobufWireCodecEnum := TProtobufVarintWireCodec<TProtobufEnumFieldValue>.Create;
-end;
-
-finalization
-begin
-  gProtobufWireCodecEnum.Free;
-
-  gProtobufWireCodecUInt64.Free;
-  gProtobufWireCodecInt64.Free;
-
-  gProtobufWireCodecUInt32.Free;
-  gProtobufWireCodecInt32.Free;
 end;
 
 end.

@@ -10,7 +10,8 @@ uses
   Classes,
   Generics.Collections,
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufCodec,
+  // Wire codec interface
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField;
 
 type
