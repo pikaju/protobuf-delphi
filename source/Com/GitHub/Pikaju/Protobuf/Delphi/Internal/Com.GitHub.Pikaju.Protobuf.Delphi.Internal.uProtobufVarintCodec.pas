@@ -10,7 +10,7 @@ uses
   Classes,
   Generics.Collections,
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
-  // Wire codec interface
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag,
@@ -21,10 +21,10 @@ type
     procedure EncodeField(aFieldNumber: TProtobufFieldNumber; aValue: T; aDest: TStream); override;
     function DecodeField(aData: TList<TProtobufEncodedField>): T; override;
 
-    procedure EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream); override;
-    procedure DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TList<T>); override;
+    procedure EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<T>; aDest: TStream); override;
+    procedure DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<T>); override;
 
-    procedure EncodePackedRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream); override;
+    procedure EncodePackedRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<T>; aDest: TStream); override;
   end;
 
 implementation
@@ -67,18 +67,18 @@ begin
   end;
 end;
 
-procedure TProtobufVarintWireCodec<T>.EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream);
+procedure TProtobufVarintWireCodec<T>.EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<T>; aDest: TStream);
 begin
   // TODO: Implement
 end;
 
-procedure TProtobufVarintWireCodec<T>.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TList<T>);
+procedure TProtobufVarintWireCodec<T>.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<T>);
 
 begin
   // TODO: Implement
 end;
 
-procedure TProtobufVarintWireCodec<T>.EncodePackedRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream);
+procedure TProtobufVarintWireCodec<T>.EncodePackedRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<T>; aDest: TStream);
 begin
   // TODO: Implement
 end;

@@ -15,6 +15,7 @@ uses
   Generics.Collections,
   // Basic definitions of <c>protoc-gen-delphi</c>, independent of the runtime library implementation
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag;
 
@@ -29,14 +30,14 @@ type
     procedure EncodeField(aFieldNumber: TProtobufFieldNumber; aValue: T; aDest: TStream); virtual; abstract;
     function DecodeField(aData: TList<TProtobufEncodedField>): T; virtual; abstract;
 
-    procedure EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream); virtual; abstract;
-    procedure DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TList<T>); virtual; abstract;
+    procedure EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<T>; aDest: TStream); virtual; abstract;
+    procedure DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<T>); virtual; abstract;
   end;
 
   // Base class for Protobuf field codecs that can create packed encoding.
   TProtobufPackableWireCodec<T> = class abstract(TProtobufWireCodec<T>)
     // TODO visibility?
-    procedure EncodePackedRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream); virtual; abstract;
+    procedure EncodePackedRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<T>; aDest: TStream); virtual; abstract;
   end;
 
 implementation

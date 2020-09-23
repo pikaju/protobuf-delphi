@@ -17,6 +17,7 @@ uses
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   // Runtime library support for protobuf field encoding/decoding
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint;
@@ -26,8 +27,8 @@ type
     procedure EncodeField(aFieldNumber: TProtobufFieldNumber; aValue: UnicodeString; aDest: TStream); override;
     function DecodeField(aData: TList<TProtobufEncodedField>): UnicodeString; override;
 
-    procedure EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<UnicodeString>; aDest: TStream); override;
-    procedure DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TList<UnicodeString>); override;
+    procedure EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<UnicodeString>; aDest: TStream); override;
+    procedure DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<UnicodeString>); override;
   end;
 
 var
@@ -84,12 +85,12 @@ begin
   end;
 end;
 
-procedure TProtobufStringWireCodec.EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<UnicodeString>; aDest: TStream);
+procedure TProtobufStringWireCodec.EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<UnicodeString>; aDest: TStream);
 begin
   // TODO: Implement
 end;
 
-procedure TProtobufStringWireCodec.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TList<UnicodeString>);
+procedure TProtobufStringWireCodec.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<UnicodeString>);
 
 begin
   // TODO: Implement
