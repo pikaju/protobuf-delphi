@@ -22,6 +22,8 @@ type
   TProtobufRepeatedField<T> = class(TEnumerable<T>)
 
   private
+    FStorage: TList<T>;
+
     /// <summary>
     /// TODO
     /// </summary>
