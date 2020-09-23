@@ -34,6 +34,8 @@ begin
   AssertTrue(lIntField.Count = 2, 'Emplacing twice results in a count of 2.');
   lIntField.EmplaceAdd;
   AssertTrue(lIntField.Count = 3, 'Emplacing thrice results in a count of 3.');
+  lIntField[2] := 5;
+  AssertTrue(lIntField[2] = 5, 'Values are assignable.');
   lIntField.Free;
 
   lMessageField := TProtobufRepeatedField<TEmpty>.Create;
