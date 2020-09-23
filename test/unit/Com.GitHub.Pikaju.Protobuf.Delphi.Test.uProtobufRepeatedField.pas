@@ -28,24 +28,41 @@ begin
   // For non-message fields, the value created by EmplaceAdd is not defined, so we do not need to test it.
   lIntField := TProtobufRepeatedField<UInt32>.Create;
   AssertTrue(lIntField.Count = 0, 'Repeated fields start out empty.');
-  lIntField.EmplaceAdd();
+  lIntField.EmplaceAdd;
   AssertTrue(lIntField.Count = 1, 'Emplacing once results in a count of 1.');
-  lIntField.EmplaceAdd();
+  lIntField.EmplaceAdd;
   AssertTrue(lIntField.Count = 2, 'Emplacing twice results in a count of 2.');
-  lIntField.EmplaceAdd();
+  lIntField.EmplaceAdd;
   AssertTrue(lIntField.Count = 3, 'Emplacing thrice results in a count of 3.');
   lIntField.Free;
 
   lMessageField := TProtobufRepeatedField<TEmpty>.Create;
-  lMessageField.EmplaceAdd();
+  lMessageField.EmplaceAdd;
   AssertTrue(Assigned(lMessageField[0]), 'Messages are assigned automatically by the TProtobufRepeatedField, making it the owner.');
   lMessageField.Free;
+end;
+
+procedure TestClear;
+var
+  lField: TProtobufRepeatedField<UInt32>;
+begin
+  lField := TProtobufRepeatedField<UInt32>.Create;
+  AssertTrue(lField.Count = 0, 'Repeated fields start out empty.');
+  lField.EmplaceAdd;
+  lField.EmplaceAdd;
+  lField.EmplaceAdd;
+  AssertTrue(lField.Count = 3, 'Emplacing thrice results in a count of 3.');
+  lField.Clear;
+  AssertTrue(lField.Count = 0, 'Clearing results in a count of 0.');
+  lField.Free;
 end;
 
 procedure TestRepeatedField;
 begin
   WriteLn('Running TestEmplaceAdd...');
   TestEmplaceAdd;
+  WriteLn('Running TestClear...');
+  TestClear;
 end;
 
 end.
