@@ -1,4 +1,7 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufStringCodec;
+/// <summary>
+/// Runtime library support for the protobuf type <c>string</c>.
+/// </summary>
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufString;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -10,11 +13,13 @@ uses
   Classes,
   Generics.Collections,
   Sysutils,
+  // Basic definitions of <c>protoc-gen-delphi</c>, independent of the runtime library implementation
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufCodec,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
+  // Runtime library support for protobuf field encoding/decoding
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint;
 
 type
   TProtobufStringWireCodec = class(TProtobufWireCodec<UnicodeString>)
@@ -26,7 +31,11 @@ type
   end;
 
 var
-  gProtobufWireCodecString: TProtobufStringWireCodec;
+  /// <summary>
+  /// <i>Field codec</i> for <c>protoc-gen-delphi</c> that defines the encoding/decoding of
+  /// protobuf fields of type <c>string</c> from/to the protobuf binary wire format.
+  /// </summary>
+  gProtobufWireCodecString: TProtobufWireCodec<UnicodeString>;
 
 implementation
 
