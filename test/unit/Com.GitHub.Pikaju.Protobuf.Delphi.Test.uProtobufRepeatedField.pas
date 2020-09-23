@@ -50,6 +50,7 @@ begin
   lMessageField.EmplaceAdd;
   AssertTrue(lMessageField.Count = 3, 'Emplacing thrice results in a count of 3.');
   AssertTrue(Assigned(lMessageField[1]), 'Messages are assigned automatically by the TProtobufRepeatedMessageField, making it the owner.');
+  lTestEmpty := TEmpty.Create;
   lMessageField[2] := lTestEmpty;
   AssertTrue(lMessageField[2] = lTestEmpty, 'Values are assignable.');
   lMessageField.Free;

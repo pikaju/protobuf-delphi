@@ -24,6 +24,9 @@ type
   /// </summary>
   /// <typeparam name="T">TODO</typeparam>
   TProtobufRepeatedBasicField<T> = class(TProtobufRepeatedField<T>)
+  private
+    FStorage: TList<T>;
+
   protected
     function GetCount: Integer; override;
     procedure SetCount(aCount: Integer); override;
@@ -46,57 +49,58 @@ implementation
 
 constructor TProtobufRepeatedBasicField<T>.Create;
 begin
-  // TODO not implemented
+  FStorage := TList<T>.Create;
 end;
 
 destructor TProtobufRepeatedBasicField<T>.Destroy;
 begin
-  // TODO not implemented
+  FStorage.Free;
 end;
 
 function TProtobufRepeatedBasicField<T>.GetCount;
 begin
-  // TODO not implemented
+  result := FStorage.Count;
 end;
 
 procedure TProtobufRepeatedBasicField<T>.SetCount(aCount: Integer);
 begin
-  // TODO not implemented
+  FStorage.Count := aCount;
 end;
 
 function TProtobufRepeatedBasicField<T>.GetValue(aIndex: Integer): T;
 begin
-  // TODO not implemented
+  result := FStorage[aIndex];
 end;
 
 procedure TProtobufRepeatedBasicField<T>.SetValue(aIndex: Integer; aValue: T);
 begin
-  // TODO not implemented
+  FStorage[aIndex] := aValue;
 end;
 
 function TProtobufRepeatedBasicField<T>.Add(const aValue: T): Integer;
 begin
-  // TODO not implemented
+  FStorage.Add(aValue);
 end;
 
 function TProtobufRepeatedBasicField<T>.EmplaceAdd: T;
 begin
-  // TODO not implemented
+  Count := Count + 1;
 end;
 
 procedure TProtobufRepeatedBasicField<T>.Clear;
 begin
-  // TODO not implemented
+  FStorage.Clear;
 end;
 
 procedure TProtobufRepeatedBasicField<T>.Delete(aIndex: Integer);
 begin
-  // TODO not implemented
+  FStorage.Delete(aIndex);
 end;
 
 function TProtobufRepeatedBasicField<T>.ExtractAt(aIndex: Integer): T;
 begin
-  // TODO not implemented
+  result := FStorage[aIndex];
+  Delete(aIndex);
 end;
 
 end.

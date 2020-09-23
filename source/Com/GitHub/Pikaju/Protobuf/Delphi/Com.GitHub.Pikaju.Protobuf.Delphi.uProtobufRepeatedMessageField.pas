@@ -25,6 +25,11 @@ type
   /// </summary>
   /// <typeparam name="T">TODO</typeparam>
   TProtobufRepeatedMessageField<T: TProtobufMessage> = class(TProtobufRepeatedField<T>)
+  private
+    FStorage: TObjectList<T>;
+
+    procedure DefaultInitialize(aIndex: Integer);
+
   protected
     function GetCount: Integer; override;
     procedure SetCount(aCount: Integer); override;
@@ -47,57 +52,71 @@ implementation
 
 constructor TProtobufRepeatedMessageField<T>.Create;
 begin
-  // TODO not implemented
+  FStorage := TObjectList<T>.Create;
 end;
 
 destructor TProtobufRepeatedMessageField<T>.Destroy;
 begin
-  // TODO not implemented
+  FStorage.Free;
+end;
+
+procedure TProtobufRepeatedMessageField<T>.DefaultInitialize(aIndex: Integer);
+begin
+  FStorage[aIndex] := T.Create;
 end;
 
 function TProtobufRepeatedMessageField<T>.GetCount;
 begin
-  // TODO not implemented
+  result := FStorage.Count;
 end;
 
 procedure TProtobufRepeatedMessageField<T>.SetCount(aCount: Integer);
+var
+  lOldCount: Integer;
+  lIndex: Integer;
 begin
-  // TODO not implemented
+  lOldCount := FStorage.Count;
+  FStorage.Count := aCount;
+  for lIndex := lOldCount to FStorage.Count - 1 do
+    DefaultInitialize(lIndex);
 end;
 
 function TProtobufRepeatedMessageField<T>.GetValue(aIndex: Integer): T;
 begin
-  // TODO not implemented
+  result := FStorage[aIndex];
 end;
 
 procedure TProtobufRepeatedMessageField<T>.SetValue(aIndex: Integer; aValue: T);
 begin
-  // TODO not implemented
+  FStorage[aIndex] := aValue;
 end;
 
 function TProtobufRepeatedMessageField<T>.Add(const aValue: T): Integer;
 begin
-  // TODO not implemented
+  FStorage.Add(aValue);
 end;
 
 function TProtobufRepeatedMessageField<T>.EmplaceAdd: T;
 begin
-  // TODO not implemented
+  Count := Count + 1;
 end;
 
 procedure TProtobufRepeatedMessageField<T>.Clear;
 begin
-  // TODO not implemented
+  FStorage.Clear;
 end;
 
 procedure TProtobufRepeatedMessageField<T>.Delete(aIndex: Integer);
 begin
-  // TODO not implemented
+  FStorage.Delete(aIndex);
 end;
 
 function TProtobufRepeatedMessageField<T>.ExtractAt(aIndex: Integer): T;
 begin
-  // TODO not implemented
+  result := FStorage[aIndex];
+  FStorage.OwnsObjects := False;
+  FStorage.Delete(aIndex);
+  FStorage.OwnsObjects := True;
 end;
 
 end.
