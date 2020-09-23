@@ -44,8 +44,8 @@ var
   lBytes: TBytes;
 begin
   TProtobufTag.WithData(aFieldNumber, wtLengthDelimited).Encode(aDest);
-  EncodeVarint(Length(aValue), aDest);
   lBytes := TEncoding.UTF8.GetBytes(aValue);
+  EncodeVarint(Length(lBytes), aDest);
   if (Length(lBytes) > 0) then
     aDest.WriteBuffer(lBytes[0], Length(lBytes));
 end;
