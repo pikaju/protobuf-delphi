@@ -7,15 +7,15 @@ unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage;
 interface
 
 uses
+  // TStream for encoding and decoding of messages in the protobuf binary wire format
+  Classes,
+  Generics.Collections,
   // Basic definitions of <c>protoc-gen-delphi</c>, independent of the runtime library implementation
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   // Runtime library support for protobuf field encoding/decoding
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
   // Runtime library support for protobuf repeated fields
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
-  // TStream for encoding and decoding of messages in the protobuf binary wire format
-  Classes,
-  Generics.Collections,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField;
 
 type
