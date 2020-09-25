@@ -43,6 +43,11 @@ type
     /// </summary>
     procedure SetValue(aIndex: Integer; aValue: T); virtual; abstract;
 
+    /// <summary>
+    /// TODO
+    /// </summary>
+    function DoGetEnumerator: TList<T>.TEnumerator; override; abstract;
+
   public
     /// <summary>
     /// TODO

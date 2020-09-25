@@ -23,8 +23,6 @@ type
 
     procedure EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<T>; aDest: TStream); override;
     procedure DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<T>); override;
-
-    procedure EncodePackedRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<T>; aDest: TStream); override;
   end;
 
 implementation
@@ -68,17 +66,16 @@ begin
 end;
 
 procedure TProtobufVarintWireCodec<T>.EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<T>; aDest: TStream);
+var
+  lValue: T;
 begin
-  // TODO: Implement
+  TProtobufTag.WithData(aFieldNumber, wtLengthDelimited).Encode(aDest);
+  for lValue in aValues do
+    EncodeVarint(lValue, aDest);
 end;
 
 procedure TProtobufVarintWireCodec<T>.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<T>);
 
-begin
-  // TODO: Implement
-end;
-
-procedure TProtobufVarintWireCodec<T>.EncodePackedRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<T>; aDest: TStream);
 begin
   // TODO: Implement
 end;

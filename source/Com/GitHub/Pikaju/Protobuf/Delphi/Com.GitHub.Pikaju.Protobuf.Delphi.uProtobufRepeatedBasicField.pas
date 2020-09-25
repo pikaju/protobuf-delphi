@@ -32,6 +32,7 @@ type
     procedure SetCount(aCount: Integer); override;
     function GetValue(aIndex: Integer): T; override;
     procedure SetValue(aIndex: Integer; aValue: T); override;
+    function DoGetEnumerator: TList<T>.TEnumerator; override;
 
   public
     constructor Create; override;
@@ -75,6 +76,11 @@ end;
 procedure TProtobufRepeatedBasicField<T>.SetValue(aIndex: Integer; aValue: T);
 begin
   FStorage[aIndex] := aValue;
+end;
+
+function TProtobufRepeatedBasicField<T>.DoGetEnumerator: TList<T>.TEnumerator;
+begin
+  result := FStorage.GetEnumerator;
 end;
 
 function TProtobufRepeatedBasicField<T>.Add(const aValue: T): Integer;
