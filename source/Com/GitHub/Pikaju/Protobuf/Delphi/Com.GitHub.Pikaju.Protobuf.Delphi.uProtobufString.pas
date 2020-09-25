@@ -86,12 +86,14 @@ begin
 end;
 
 procedure TProtobufStringWireCodec.EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<UnicodeString>; aDest: TStream);
+var
+  lValue: UnicodeString;
 begin
-  // TODO: Implement
+  for lValue in aValues do
+    EncodeField(aFieldNumber, lValue, aDest);
 end;
 
 procedure TProtobufStringWireCodec.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<UnicodeString>);
-
 begin
   // TODO: Implement
 end;
