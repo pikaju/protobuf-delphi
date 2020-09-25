@@ -17,49 +17,81 @@ uses
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTestUtility;
 
 type
-  TEmpty = class(TProtobufMessage);
+  TMockMessage = class(TProtobufMessage)
+  private
+    FData: TBytes;
+  public
+    procedure Encode(aDest: TStream); override;
+    procedure Decode(aSource: TStream); override;
+
+    property Data: TBytes read FData write FData;
+  end;
 
 procedure TestMessageCodec;
 
 implementation
 
+procedure TMockMessage.Encode(aDest: TStream);
+begin
+  aDest.WriteBuffer(FData[0], Length(FData));
+end;
+
+procedure TMockMessage.Decode(aSource: TStream);
+begin
+  SetLength(FData, aSource.Size - aSource.Position);
+  aSource.ReadBuffer(FData[0], Length(FData));
+end;
+
 procedure TestMessageEncoding;
 var
   lStream: TMemoryStream;
-  lEmpty: TEmpty;
-  lEmptyCodec: TProtobufMessageWireCodec<TEmpty>;
+  lMessage: TMockMessage;
+  lCodec: TProtobufMessageWireCodec<TMockMessage>;
 begin
   lStream := TMemoryStream.Create;
-
+  lMessage := TMockMessage.Create;
+  lCodec := TProtobufMessageWireCodec<TMockMessage>.Create; 
   try
-    lEmpty := TEmpty.Create;
-    try
-      lEmptyCodec := TProtobufMessageWireCodec<TEmpty>.Create; 
-      lEmptyCodec.EncodeField(5, lEmpty, lStream);
-      lEmptyCodec.Free;
+      lMessage.Data := [];
+      lCodec.EncodeField(5, lMessage, lStream);
       AssertStreamEquals(lStream, [5 shl 3 or 2, 0], 'Encoding an empty message works');
       lStream.Clear; 
-    finally
-      lEmpty.Free;
-    end;
+
+      lMessage.Data := [3, 14, 15, 92, 65, 35, 89, 79];
+      lCodec.EncodeField(5, lMessage, lStream);
+      AssertStreamEquals(lStream, [5 shl 3 or 2, 8, 3, 14, 15, 92, 65, 35, 89, 79], 'Encoding a message with data works');
+      lStream.Clear; 
   finally
+    lCodec.Free;
+    lMessage.Free;
     lStream.Free;
   end;
 end;
 
 procedure TestMessageDecoding;
 var
-  aList: TList<TProtobufEncodedField>;
-  lEmptyCodec: TProtobufMessageWireCodec<TEmpty>;
+  lList: TList<TProtobufEncodedField>;
+  lMessage: TMockMessage;
+  lCodec: TProtobufMessageWireCodec<TMockMessage>;
 begin
-  aList := TObjectList<TProtobufEncodedField>.Create;
+  lList := TObjectList<TProtobufEncodedField>.Create;
+  lMessage := TMockMessage.Create;
+  lCodec := TProtobufMessageWireCodec<TMockMessage>.Create; 
   try
-    aList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtLengthDelimited), [0]));
-    lEmptyCodec := TProtobufMessageWireCodec<TEmpty>.Create; 
-    lEmptyCodec.DecodeField(aList).Free;
-    lEmptyCodec.Free;
+    lList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtLengthDelimited), [0]));
+    lMessage := lCodec.DecodeField(lList);
+    AssertBytesEqual(lMessage.Data, [], 'Decoding an empty message works');
+    lMessage.Free;
+    lList.Clear;
+
+    lList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtLengthDelimited), [8, 3, 14, 15, 92, 65, 35, 89, 79]));
+    lMessage := lCodec.DecodeField(lList);
+    AssertBytesEqual(lMessage.Data, [3, 14, 15, 92, 65, 35, 89, 79], 'Decoding a message with data works');
+    lMessage.Free;
+    lList.Clear;
   finally
-    aList.Free;
+    lCodec.Free;
+    lList.Free;
   end;
 end;
 
