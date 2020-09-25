@@ -10,7 +10,6 @@ uses
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufRepeatedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTag,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufVarint,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufMessageCodec,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufStringCodec,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufVarintCodec;
 
@@ -40,10 +39,6 @@ begin
   WriteLn;
   
   WriteLn('--- Testing codecs ---');
-  WriteLn;
-
-  WriteLn('Unit uProtobufMessageCodec:');
-  TestMessageCodec;
   WriteLn;
 
   WriteLn('Unit uProtobufStringCodec:');

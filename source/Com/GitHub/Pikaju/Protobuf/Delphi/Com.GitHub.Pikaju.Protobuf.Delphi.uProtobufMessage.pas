@@ -10,13 +10,16 @@ uses
   // TStream for encoding and decoding of messages in the protobuf binary wire format
   Classes,
   Generics.Collections,
+  Sysutils,
   // Basic definitions of <c>protoc-gen-delphi</c>, independent of the runtime library implementation
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   // Runtime library support for protobuf field encoding/decoding
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
   // Runtime library support for protobuf repeated fields
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField;
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint;
 
 type
   /// <summary>
@@ -205,8 +208,21 @@ begin
 end;
 
 procedure TProtobufMessage.EncodeMessageField<T>(aValue: T; aField: TProtobufFieldNumber; aDest: TStream);
+var
+  lStream: TStream;
 begin
-  // TODO not implemented
+  // Encode the message to a temporary stream first to determine its size.
+  lStream := TMemoryStream.Create;
+  try
+    aValue.Encode(lStream);
+    lStream.Seek(0, soBeginning);
+
+    TProtobufTag.WithData(aField, wtLengthDelimited).Encode(aDest);
+    EncodeVarint(lStream.Size, aDest);
+    aDest.CopyFrom(lStream, lStream.Size);
+  finally
+    lStream.Free;
+  end;
 end;
 
 procedure TProtobufMessage.EncodeRepeatedField<T>(aSource: TProtobufRepeatedField<T>; aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TStream);
@@ -216,13 +232,49 @@ end;
 
 function TProtobufMessage.DecodeUnknownField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>): T;
 begin
-  result := aCodec.DecodeField(FUnparsedFields[aField]);
-  FUnparsedFields.Remove(aField);
+  if (FUnparsedFields.ContainsKey(aField)) then
+  begin
+    result := aCodec.DecodeField(FUnparsedFields[aField]);
+    FUnparsedFields.Remove(aField);
+  end;
 end;
 
 function TProtobufMessage.DecodeUnknownMessageField<T>(aField: TProtobufFieldNumber): T;
+var
+  lField: TProtobufEncodedField;
+  lStream: TMemoryStream;
 begin
-  // TODO not implemented
+  result := T(PROTOBUF_DEFAULT_VALUE_MESSAGE);
+
+  if (FUnparsedFields.ContainsKey(aField)) then
+  begin
+    // TODO: Merge multiple messages together, see:
+    // https://developers.google.com/protocol-buffers/docs/encoding#optional:
+    for lField in FUnparsedFields[aField] do
+    begin
+      if (lField.Tag.WireType = wtLengthDelimited) then
+      begin
+        // Convert field to a stream for simpler processing.
+        lStream := TMemoryStream.Create;
+        try
+          lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+          lStream.Seek(0, soBeginning);
+
+          // Ignore the length of the field and let the message decode until the end of the stream.
+          DecodeVarint(lStream);
+          if (result = T(nil)) then
+            result := T.Create;
+          
+          result.Decode(lStream);
+        finally
+          lStream.Free;
+        end;
+
+      end; // TODO: Catch invalid wire type.
+    end;
+
+    FUnparsedFields.Remove(aField);
+  end;
 end;
 
 procedure TProtobufMessage.DecodeUnknownRepeatedField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TProtobufRepeatedField<T>);
