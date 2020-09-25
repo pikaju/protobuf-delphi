@@ -75,9 +75,32 @@ begin
 end;
 
 procedure TProtobufVarintWireCodec<T>.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<T>);
-
+var
+  lField: TProtobufEncodedField;
+  lStream: TMemoryStream;
 begin
-  // TODO: Implement
+  // For each field, we will decide wether to decode a packed or non-packed repeated varint.
+  for lField in aData do
+  begin
+    // Convert field to a stream for simpler processing.
+    lStream := TMemoryStream.Create;
+    try
+      lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+      lStream.Seek(0, soBeginning);
+
+      if (lField.Tag.WireType = wtVarint) then
+        aDest.Add(DecodeVarint(lStream))
+      else if (lField.Tag.WireType = wtLengthDelimited) then
+      begin
+        // Ignore the size of the field, as the stream already has the correct length.
+        DecodeVarint(lStream);
+        while (lStream.Position < lStream.Size) do
+          aDest.Add(DecodeVarint(lStream));
+      end; // TODO: Catch invalid wire type.
+    finally
+      lStream.Free;
+    end;
+  end;
 end;
 
 end.

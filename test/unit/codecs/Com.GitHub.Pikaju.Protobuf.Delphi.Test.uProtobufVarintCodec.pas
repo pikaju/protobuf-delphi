@@ -84,12 +84,14 @@ begin
     lList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtVarint), [0]));
     gProtobufWireCodecUint32.DecodeRepeatedField(lList, lRepeatedField);
     AssertRepeatedFieldEquals<UInt32>(lRepeatedField, [3, 300, 0], 'Decoding a non-packed repeated uint32 works');
+    lRepeatedField.Clear;
     lList.Clear;
 
     lList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtLengthDelimited), [3, 4, $AC, $02]));
     lList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtLengthDelimited), [1, 0]));
     gProtobufWireCodecUint32.DecodeRepeatedField(lList, lRepeatedField);
-    AssertRepeatedFieldEquals<UInt32>(lRepeatedField, [3, 300, 0], 'Decoding a packed repeated uint32 works');
+    AssertRepeatedFieldEquals<UInt32>(lRepeatedField, [4, 300, 0], 'Decoding a packed repeated uint32 works');
+    lRepeatedField.Clear;
     lList.Clear;
   finally
     lRepeatedField.Free;
