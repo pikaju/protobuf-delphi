@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessageCodec;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufMessageCodec;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -11,11 +11,12 @@ uses
   Generics.Collections,
   Sysutils,
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufCodec,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint;
 
 type
   TProtobufMessageWireCodec<T: TProtobufMessage> = class(TProtobufWireCodec<T>)
@@ -24,8 +25,8 @@ type
     // Transfers ownership of the message to the caller.
     function DecodeField(aData: TList<TProtobufEncodedField>): T; override;
 
-    procedure EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream); override;
-    procedure DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TList<T>); override;
+    procedure EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<T>; aDest: TStream); override;
+    procedure DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<T>); override;
   end;
 
 implementation
@@ -83,12 +84,12 @@ begin
   end;
 end;
 
-procedure TProtobufMessageWireCodec<T>.EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<T>; aDest: TStream);
+procedure TProtobufMessageWireCodec<T>.EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<T>; aDest: TStream);
 begin
   // TODO: Implement
 end;
 
-procedure TProtobufMessageWireCodec<T>.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TList<T>);
+procedure TProtobufMessageWireCodec<T>.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<T>);
 
 begin
   // TODO: Implement

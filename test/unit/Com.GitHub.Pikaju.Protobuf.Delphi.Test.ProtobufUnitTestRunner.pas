@@ -7,6 +7,7 @@ program ProtobufUnitTestRunner;
 uses
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufMessage,
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufRepeatedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTag,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufVarint,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufMessageCodec,
@@ -24,6 +25,10 @@ begin
 
   WriteLn('Unit uProtobufMessage:');
   TestMessage;
+  WriteLn;
+
+  WriteLn('Unit uProtobufRepeatedField:');
+  TestRepeatedField;
   WriteLn;
 
   WriteLn('Unit uProtobufTag:');

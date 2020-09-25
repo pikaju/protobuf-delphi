@@ -1,4 +1,4 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -9,7 +9,7 @@ interface
 uses
   Classes,
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint;
 
 type
   // Enum of all Protobuf wire types. See: https://developers.google.com/protocol-buffers/docs/encoding#structure.
