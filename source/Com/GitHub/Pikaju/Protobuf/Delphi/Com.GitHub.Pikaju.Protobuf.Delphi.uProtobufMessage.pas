@@ -109,6 +109,11 @@ type
     procedure EncodeRepeatedField<T>(aSource: TProtobufRepeatedField<T>; aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TStream);
 
     /// <summary>
+    /// TODO doc, TODO packing?
+    /// </summary>
+    procedure EncodeRepeatedMessageField<T: TProtobufMessage>(aSource: TProtobufRepeatedField<T>; aField: TProtobufFieldNumber; aDest: TStream);
+
+    /// <summary>
     /// Decodes a previously unknown protobuf field with a specific protobuf type.
     /// </summary>
     /// <typeparam name="T">"Private" Delphi type representing values of the field within internal variables</typeparam>
@@ -143,6 +148,11 @@ type
     /// TODO doc
     /// </summary>
     procedure DecodeUnknownRepeatedField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TProtobufRepeatedField<T>);
+    
+    /// <summary>
+    /// TODO doc
+    /// </summary>
+    procedure DecodeUnknownRepeatedMessageField<T: TProtobufMessage>(aField: TProtobufFieldNumber; aDest: TProtobufRepeatedField<T>);
 
   private
     /// <summary>
@@ -230,6 +240,11 @@ begin
   // TODO not implemented
 end;
 
+procedure TProtobufMessage.EncodeRepeatedMessageField<T>(aSource: TProtobufRepeatedField<T>; aField: TProtobufFieldNumber; aDest: TStream);
+begin
+  // TODO not implemented
+end;
+
 function TProtobufMessage.DecodeUnknownField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>): T;
 begin
   if (FUnparsedFields.ContainsKey(aField)) then
@@ -278,6 +293,11 @@ begin
 end;
 
 procedure TProtobufMessage.DecodeUnknownRepeatedField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TProtobufRepeatedField<T>);
+begin
+  // TODO not implemented
+end;
+
+procedure TProtobufMessage.DecodeUnknownRepeatedMessageField<T>(aField: TProtobufFieldNumber; aDest: TProtobufRepeatedField<T>);
 begin
   // TODO not implemented
 end;
