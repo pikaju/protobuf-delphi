@@ -94,8 +94,33 @@ begin
 end;
 
 procedure TProtobufStringWireCodec.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<UnicodeString>);
+var
+  lField: TProtobufEncodedField;
+  lStream: TMemoryStream;
+  lLength: UInt32;
+  lBytes: TBytes;
 begin
-  // TODO: Implement
+  for lField in aData do
+  begin
+    if (lField.Tag.WireType = wtLengthDelimited) then
+    begin
+      // Convert field to a stream for simpler processing.
+      lStream := TMemoryStream.Create;
+      try
+        lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+        lStream.Seek(0, soBeginning);
+
+        lLength := DecodeVarint(lStream);
+        SetLength(lBytes, lLength);
+        if (lLength > 0) then
+          lStream.ReadBuffer(lBytes[0], lLength);
+
+        aDest.Add(TEncoding.UTF8.GetString(lBytes));
+      finally
+        lStream.Free;
+      end;
+    end; // TODO: Catch invalid wire type.
+  end;
 end;
 
 initialization

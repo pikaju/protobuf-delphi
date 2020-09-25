@@ -95,10 +95,18 @@ begin
   try
     aList.Add(TProtobufEncodedField.CreateWithData(
       TProtobufTag.WithData(5, wtLengthDelimited),
-      [19, $e3, $81, $99, $e3, $81, $97, $20, $69, $73, $20, $64, $65, $6c, $69, $63, $69, $6f, $75, $73]
+      [3, $77, $61, $73] // was
+    ));
+    aList.Add(TProtobufEncodedField.CreateWithData(
+      TProtobufTag.WithData(5, wtLengthDelimited),
+      [5, $67, $65, $68, $64, $6e] // gehdn
+    ));
+    aList.Add(TProtobufEncodedField.CreateWithData(
+      TProtobufTag.WithData(5, wtLengthDelimited),
+      [3, $65, $69, $67] // eig
     ));
     gProtobufWireCodecString.DecodeRepeatedField(aList, lRepeatedField);
-    AssertRepeatedFieldEquals<UnicodeString>(lRepeatedField, ['was', 'gehdn', 'eig'], 'Decoding a single string works');
+    AssertRepeatedFieldEquals<UnicodeString>(lRepeatedField, ['was', 'gehdn', 'eig'], 'Decoding a repeated string works');
     lRepeatedField.Clear;
   finally
     lRepeatedField.Free;
