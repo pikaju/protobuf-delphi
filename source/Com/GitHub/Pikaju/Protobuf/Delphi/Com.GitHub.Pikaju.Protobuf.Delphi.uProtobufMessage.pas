@@ -237,12 +237,15 @@ end;
 
 procedure TProtobufMessage.EncodeRepeatedField<T>(aSource: TProtobufRepeatedField<T>; aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TStream);
 begin
-  // TODO not implemented
+  aCodec.EncodeRepeatedField(aField, aSource, aDest);
 end;
 
 procedure TProtobufMessage.EncodeRepeatedMessageField<T>(aSource: TProtobufRepeatedField<T>; aField: TProtobufFieldNumber; aDest: TStream);
+var
+  aValue: TProtobufMessage;
 begin
-  // TODO not implemented
+  for aValue in aSource do
+    EncodeMessageField<T>(aValue, aField, aDest);
 end;
 
 function TProtobufMessage.DecodeUnknownField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>): T;
@@ -294,12 +297,49 @@ end;
 
 procedure TProtobufMessage.DecodeUnknownRepeatedField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TProtobufRepeatedField<T>);
 begin
-  // TODO not implemented
+  aDest.Clear;
+  if (FUnparsedFields.ContainsKey(aField)) then
+  begin
+    aCodec.DecodeRepeatedField(FUnparsedFields[aField], aDest);
+    FUnparsedFields.Remove(aField);
+  end;
 end;
 
 procedure TProtobufMessage.DecodeUnknownRepeatedMessageField<T>(aField: TProtobufFieldNumber; aDest: TProtobufRepeatedField<T>);
+var
+  lField: TProtobufEncodedField;
+  lStream: TMemoryStream;
 begin
-  // TODO not implemented
+  aDest.Clear;
+
+  if (FUnparsedFields.ContainsKey(aField)) then
+  begin
+    // TODO: Merge multiple messages together, see:
+    // https://developers.google.com/protocol-buffers/docs/encoding#optional:
+    for lField in FUnparsedFields[aField] do
+    begin
+      if (lField.Tag.WireType = wtLengthDelimited) then
+      begin
+        // Convert field to a stream for simpler processing.
+        lStream := TMemoryStream.Create;
+        try
+          lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+          lStream.Seek(0, soBeginning);
+
+          // Ignore the length of the field and let the message decode until the end of the stream.
+          DecodeVarint(lStream);
+          // Let the repeated field manage ownership.
+          aDest.EmplaceAdd;
+          aDest[aDest.Count - 1].Decode(lStream);
+        finally
+          lStream.Free;
+        end;
+
+      end; // TODO: Catch invalid wire type.
+    end;
+
+    FUnparsedFields.Remove(aField);
+  end;
 end;
 
 end.
