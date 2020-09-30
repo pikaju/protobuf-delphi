@@ -26,7 +26,7 @@ implementation
 
 initialization
 begin
-  gProtobufWireCodecUInt32 := TProtobufVarintWireCodec<UInt32>.Create;
+  gProtobufWireCodecUInt32 := TProtobufVarintWireCodec<UInt32>.Create(32, False);
 end;
 
 finalization

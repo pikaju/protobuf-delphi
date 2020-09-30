@@ -9,6 +9,7 @@ interface
 uses
   Classes,
   Generics.Collections,
+  Sysutils,
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
@@ -18,6 +19,15 @@ uses
 
 type
   TProtobufVarintWireCodec<T> = class(TProtobufPackableWireCodec<T>)
+  private
+    FBitCount: Integer;
+    FSigned: Boolean;
+
+    // Throws an exception if aValue does not fit within the Protobuf type handled by this codec.
+    procedure ValidateBounds(aValue: UInt64);
+  public
+    constructor Create(aBitCount: Integer; aSigned: Boolean); reintroduce;
+    
     procedure EncodeField(aFieldNumber: TProtobufFieldNumber; aValue: T; aDest: TStream); override;
     function DecodeField(aData: TList<TProtobufEncodedField>): T; override;
 
@@ -27,16 +37,44 @@ type
 
 implementation
 
+constructor TProtobufVarintWireCodec<T>.Create(aBitCount: Integer; aSigned: Boolean);
+begin
+  FBitCount := aBitCount;
+  FSigned := aSigned;
+end;
+
+procedure TProtobufVarintWireCodec<T>.ValidateBounds(aValue: UInt64);
+var
+  lMasked: UInt64;
+begin
+  if (FSigned) then
+  begin
+    // For signed types, the sign bit and all padding bits in the UInt64 must have the same value.
+
+    lMasked := aValue and (UInt64(-1) shl (FBitCount - 1));
+    // Positive numbers
+    if (not ((lMasked = 0) or (lMasked = (UInt64(-1) shl (FBitCount - 1))))) then
+      raise Exception.Create('Decoded varint smaller or larger than is allowed by ' + FBitCount.ToString + '-bit signed integer.');
+  end
+  else
+  begin
+    // For unsigned types, simply check if there is a binary 1 beyond FBitCount bits.
+    if ((UInt64(-1) shl FBitCount) and aValue <> 0) then
+      raise Exception.Create('Decoded varint ' + aValue.ToString + ' larger than is allowed by ' + FBitCount.ToString + '-bit unsigned integer.');
+  end;
+end;
+
 procedure TProtobufVarintWireCodec<T>.EncodeField(aFieldNumber: TProtobufFieldNumber; aValue: T; aDest: TStream);
 begin
   TProtobufTag.WithData(aFieldNumber, wtVarint).Encode(aDest);
-  EncodeVarint(aValue, aDest);
+  EncodeVarint(UInt64(aValue), aDest);
 end;
 
 function TProtobufVarintWireCodec<T>.DecodeField(aData: TList<TProtobufEncodedField>): T;
 var
   lField: TProtobufEncodedField;
   lStream: TMemoryStream;
+  lVarint: UInt64;
 begin
   result := PROTOBUF_DEFAULT_VALUE_NUMERIC;
 
@@ -51,13 +89,21 @@ begin
       lStream.Seek(0, soBeginning);
 
       if (lField.Tag.WireType = wtVarint) then
-        result := DecodeVarint(lStream)
+      begin
+        lVarint := DecodeVarint(lStream);
+        ValidateBounds(lVarint);
+        result := T(lVarint);
+      end
       else if (lField.Tag.WireType = wtLengthDelimited) then
       begin
         // Ignore the size of the field, as the stream already has the correct length.
         DecodeVarint(lStream);
         while (lStream.Position < lStream.Size) do
-          result := DecodeVarint(lStream);
+        begin
+          lVarint := DecodeVarint(lStream);
+          ValidateBounds(lVarint);
+          result := T(lVarint);
+        end;
       end; // TODO: Catch invalid wire type.
     finally
       lStream.Free;
@@ -71,13 +117,14 @@ var
 begin
   TProtobufTag.WithData(aFieldNumber, wtLengthDelimited).Encode(aDest);
   for lValue in aValues do
-    EncodeVarint(lValue, aDest);
+    EncodeVarint(UInt64(lValue), aDest);
 end;
 
 procedure TProtobufVarintWireCodec<T>.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<T>);
 var
   lField: TProtobufEncodedField;
   lStream: TMemoryStream;
+  lVarint: UInt64;
 begin
   // For each field, we will decide wether to decode a packed or non-packed repeated varint.
   for lField in aData do
@@ -89,13 +136,21 @@ begin
       lStream.Seek(0, soBeginning);
 
       if (lField.Tag.WireType = wtVarint) then
-        aDest.Add(DecodeVarint(lStream))
+      begin
+        lVarint := DecodeVarint(lStream);
+        ValidateBounds(lVarint);
+        aDest.Add(T(lVarint));
+      end
       else if (lField.Tag.WireType = wtLengthDelimited) then
       begin
         // Ignore the size of the field, as the stream already has the correct length.
         DecodeVarint(lStream);
         while (lStream.Position < lStream.Size) do
-          aDest.Add(DecodeVarint(lStream));
+        begin
+          lVarint := DecodeVarint(lStream);
+          ValidateBounds(lVarint);
+          aDest.Add(T(lVarint));
+        end;
       end; // TODO: Catch invalid wire type.
     finally
       lStream.Free;

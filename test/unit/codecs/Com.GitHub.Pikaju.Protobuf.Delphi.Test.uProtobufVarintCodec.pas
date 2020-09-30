@@ -39,12 +39,24 @@ procedure TestUint32Decoding;
 var
   lList: TList<TProtobufEncodedField>;
   lUint32: UInt32;
+  lException: Boolean;
 begin
   lList := TObjectList<TProtobufEncodedField>.Create;
   try
     lList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtVarint), [$AC, $02]));
     lUint32 := gProtobufWireCodecUint32.DecodeField(lList);
     AssertTrue(lUint32 = 300, 'Decoding a single uint32 works');
+    lList.Clear;
+
+    lList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtVarint), [$FF, $FF, $FF, $FF, $FF, $FF, $FF, $00]));
+    lException := False;
+    try
+      lUint32 := gProtobufWireCodecUint32.DecodeField(lList);
+    except
+      lException := True;
+    end;
+    AssertTrue(lException, 'Decoding a varint that is too large into a uint32 throws an exception');
+    lList.Clear;
   finally
     lList.Free;
   end;
@@ -75,6 +87,7 @@ procedure TestRepeatedUint32Decoding;
 var
   lList: TList<TProtobufEncodedField>;
   lRepeatedField: TProtobufRepeatedField<UInt32>;
+  lException: Boolean;
 begin
   lList := TObjectList<TProtobufEncodedField>.Create;
   lRepeatedField := TProtobufRepeatedBasicField<UInt32>.Create;
@@ -91,6 +104,17 @@ begin
     lList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtLengthDelimited), [1, 0]));
     gProtobufWireCodecUint32.DecodeRepeatedField(lList, lRepeatedField);
     AssertRepeatedFieldEquals<UInt32>(lRepeatedField, [4, 300, 0], 'Decoding a packed repeated uint32 works');
+    lRepeatedField.Clear;
+    lList.Clear;
+
+    lList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtLengthDelimited), [6, $FF, $FF, $FF, $FF, $FF, $00]));
+    lException := False;
+    try
+      gProtobufWireCodecUint32.DecodeRepeatedField(lList, lRepeatedField);
+    except
+      lException := True;
+    end;
+    AssertTrue(lException, 'Decoding a varint that is too large into a repeated uint32 throws an exception');
     lRepeatedField.Clear;
     lList.Clear;
   finally
