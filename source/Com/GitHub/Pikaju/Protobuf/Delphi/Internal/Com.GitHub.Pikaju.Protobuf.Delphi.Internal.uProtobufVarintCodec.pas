@@ -25,6 +25,7 @@ type
 
     // Throws an exception if aValue does not fit within the Protobuf type handled by this codec.
     procedure ValidateBounds(aValue: UInt64);
+    function CheckedCast(aVarint: UInt64): T;
   public
     constructor Create(aBitCount: Integer; aSigned: Boolean); reintroduce;
     
@@ -64,6 +65,12 @@ begin
   end;
 end;
 
+function TProtobufVarintWireCodec<T>.CheckedCast(aVarint: UInt64): T;
+begin
+  ValidateBounds(aVarint);
+  result := T(aVarint);
+end;
+
 procedure TProtobufVarintWireCodec<T>.EncodeField(aFieldNumber: TProtobufFieldNumber; aValue: T; aDest: TStream);
 begin
   TProtobufTag.WithData(aFieldNumber, wtVarint).Encode(aDest);
@@ -74,7 +81,6 @@ function TProtobufVarintWireCodec<T>.DecodeField(aData: TList<TProtobufEncodedFi
 var
   lField: TProtobufEncodedField;
   lStream: TMemoryStream;
-  lVarint: UInt64;
 begin
   result := PROTOBUF_DEFAULT_VALUE_NUMERIC;
 
@@ -89,21 +95,13 @@ begin
       lStream.Seek(0, soBeginning);
 
       if (lField.Tag.WireType = wtVarint) then
-      begin
-        lVarint := DecodeVarint(lStream);
-        ValidateBounds(lVarint);
-        result := T(lVarint);
-      end
+        result := CheckedCast(DecodeVarint(lStream))
       else if (lField.Tag.WireType = wtLengthDelimited) then
       begin
         // Ignore the size of the field, as the stream already has the correct length.
         DecodeVarint(lStream);
         while (lStream.Position < lStream.Size) do
-        begin
-          lVarint := DecodeVarint(lStream);
-          ValidateBounds(lVarint);
-          result := T(lVarint);
-        end;
+          result := CheckedCast(DecodeVarint(lStream));
       end; // TODO: Catch invalid wire type.
     finally
       lStream.Free;
@@ -124,7 +122,6 @@ procedure TProtobufVarintWireCodec<T>.DecodeRepeatedField(aData: TList<TProtobuf
 var
   lField: TProtobufEncodedField;
   lStream: TMemoryStream;
-  lVarint: UInt64;
 begin
   // For each field, we will decide wether to decode a packed or non-packed repeated varint.
   for lField in aData do
@@ -136,21 +133,13 @@ begin
       lStream.Seek(0, soBeginning);
 
       if (lField.Tag.WireType = wtVarint) then
-      begin
-        lVarint := DecodeVarint(lStream);
-        ValidateBounds(lVarint);
-        aDest.Add(T(lVarint));
-      end
+        aDest.Add(CheckedCast(DecodeVarint(lStream)))
       else if (lField.Tag.WireType = wtLengthDelimited) then
       begin
         // Ignore the size of the field, as the stream already has the correct length.
         DecodeVarint(lStream);
         while (lStream.Position < lStream.Size) do
-        begin
-          lVarint := DecodeVarint(lStream);
-          ValidateBounds(lVarint);
-          aDest.Add(T(lVarint));
-        end;
+          aDest.Add(CheckedCast(DecodeVarint(lStream)));
       end; // TODO: Catch invalid wire type.
     finally
       lStream.Free;
