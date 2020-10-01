@@ -12,9 +12,7 @@ interface
 
 uses
   // For TEnumerable implementation
-  Generics.Collections,
-  // To classify generic type
-  TypInfo;
+  Generics.Collections;
 
 type
   /// <summary>

@@ -13,8 +13,6 @@ interface
 uses
   // For TEnumerable implementation
   Generics.Collections,
-  // To classify generic type
-  TypInfo,
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField;
