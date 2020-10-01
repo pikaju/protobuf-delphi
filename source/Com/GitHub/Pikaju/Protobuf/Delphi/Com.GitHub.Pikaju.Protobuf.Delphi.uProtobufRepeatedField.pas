@@ -73,7 +73,7 @@ type
     /// </summary>
     /// <param name="aValue">TODO</param>
     /// <returns>TODO</return>
-    function Add(const aValue: T): Integer; virtual; abstract;
+    function Add(aValue: T): Integer; virtual; abstract;
 
     /// <summary>
     /// TODO

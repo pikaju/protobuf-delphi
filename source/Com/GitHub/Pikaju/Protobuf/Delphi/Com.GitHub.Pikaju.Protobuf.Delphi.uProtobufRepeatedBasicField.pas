@@ -36,7 +36,7 @@ type
     constructor Create; override;
     destructor Destroy; override;
 
-    function Add(const aValue: T): Integer; override;
+    function Add(aValue: T): Integer; override;
     function EmplaceAdd: T; override;
 
     procedure Clear; override;
@@ -81,7 +81,7 @@ begin
   result := FStorage.GetEnumerator;
 end;
 
-function TProtobufRepeatedBasicField<T>.Add(const aValue: T): Integer;
+function TProtobufRepeatedBasicField<T>.Add(aValue: T): Integer;
 begin
   FStorage.Add(aValue);
 end;
