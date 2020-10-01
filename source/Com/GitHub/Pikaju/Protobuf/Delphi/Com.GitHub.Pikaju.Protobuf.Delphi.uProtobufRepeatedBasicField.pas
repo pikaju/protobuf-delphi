@@ -91,6 +91,7 @@ end;
 function TProtobufRepeatedBasicField<T>.EmplaceAdd: T;
 begin
   Count := Count + 1;
+  result := GetValue(Count - 1);
 end;
 
 procedure TProtobufRepeatedBasicField<T>.Clear;

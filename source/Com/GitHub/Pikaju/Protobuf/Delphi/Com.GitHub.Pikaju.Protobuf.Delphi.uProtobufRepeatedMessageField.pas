@@ -105,6 +105,7 @@ end;
 function TProtobufRepeatedMessageField<T>.EmplaceAdd: T;
 begin
   Count := Count + 1;
+  result := GetValue(Count - 1);
 end;
 
 procedure TProtobufRepeatedMessageField<T>.Clear;

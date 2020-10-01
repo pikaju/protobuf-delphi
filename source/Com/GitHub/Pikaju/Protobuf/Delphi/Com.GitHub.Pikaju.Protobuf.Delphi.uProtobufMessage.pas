@@ -323,7 +323,7 @@ begin
 
           // Ignore the length of the field and let the message decode until the end of the stream.
           DecodeVarint(lStream);
-          if (result = T(nil)) then
+          if (result = T(PROTOBUF_DEFAULT_VALUE_MESSAGE)) then
             result := T.Create;
           
           result.Decode(lStream);
