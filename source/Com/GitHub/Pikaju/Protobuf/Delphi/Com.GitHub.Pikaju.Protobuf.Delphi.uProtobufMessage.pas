@@ -292,12 +292,13 @@ begin
 end;
 
 function TProtobufMessage.DecodeUnknownField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>): T;
+var
+  lFields: TObjectList<TProtobufEncodedField>;
 begin
-  if (FUnparsedFields.ContainsKey(aField)) then
-  begin
-    result := aCodec.DecodeField(FUnparsedFields[aField]);
-    FUnparsedFields.Remove(aField);
-  end;
+  lFields := nil;
+  FUnparsedFields.TryGetValue(aField, lFields);
+  result := aCodec.DecodeField(lFields);
+  FUnparsedFields.Remove(aField);
 end;
 
 function TProtobufMessage.DecodeUnknownMessageField<T>(aField: TProtobufFieldNumber): T;
