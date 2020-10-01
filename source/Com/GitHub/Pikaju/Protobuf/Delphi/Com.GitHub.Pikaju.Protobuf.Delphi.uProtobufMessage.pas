@@ -137,6 +137,11 @@ type
     procedure EncodeRepeatedField<T>(aSource: TProtobufRepeatedField<T>; aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TStream);
 
     /// <summary>
+    /// TODO doc, TODO packing?
+    /// </summary>
+    procedure EncodeRepeatedMessageField<T: TProtobufMessage>(aSource: TProtobufRepeatedField<T>; aField: TProtobufFieldNumber; aDest: TStream);
+
+    /// <summary>
     /// Decodes a previously unknown protobuf field with a specific protobuf type.
     /// </summary>
     /// <typeparam name="T">"Private" Delphi type representing values of the field within internal variables</typeparam>
@@ -171,6 +176,11 @@ type
     /// TODO doc
     /// </summary>
     procedure DecodeUnknownRepeatedField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TProtobufRepeatedField<T>);
+    
+    /// <summary>
+    /// TODO doc
+    /// </summary>
+    procedure DecodeUnknownRepeatedMessageField<T: TProtobufMessage>(aField: TProtobufFieldNumber; aDest: TProtobufRepeatedField<T>);
 
   private
     /// <summary>
@@ -288,7 +298,15 @@ end;
 
 procedure TProtobufMessage.EncodeRepeatedField<T>(aSource: TProtobufRepeatedField<T>; aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TStream);
 begin
-  // TODO not implemented
+  aCodec.EncodeRepeatedField(aField, aSource, aDest);
+end;
+
+procedure TProtobufMessage.EncodeRepeatedMessageField<T>(aSource: TProtobufRepeatedField<T>; aField: TProtobufFieldNumber; aDest: TStream);
+var
+  aValue: TProtobufMessage;
+begin
+  for aValue in aSource do
+    EncodeMessageField<T>(aValue, aField, aDest);
 end;
 
 function TProtobufMessage.DecodeUnknownField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>): T;
@@ -340,8 +358,51 @@ begin
 end;
 
 procedure TProtobufMessage.DecodeUnknownRepeatedField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TProtobufRepeatedField<T>);
+var
+  lFields: TObjectList<TProtobufEncodedField>;
 begin
-  // TODO not implemented
+  lFields := nil;
+  FUnparsedFields.TryGetValue(aField, lFields);
+  aCodec.DecodeRepeatedField(lFields, aDest);
+  FUnparsedFields.Remove(aField);
+end;
+
+procedure TProtobufMessage.DecodeUnknownRepeatedMessageField<T>(aField: TProtobufFieldNumber; aDest: TProtobufRepeatedField<T>);
+var
+  lField: TProtobufEncodedField;
+  lStream: TMemoryStream;
+begin
+  // Default value for repeated fields is empty.
+  aDest.Clear;
+
+  if (FUnparsedFields.ContainsKey(aField)) then
+  begin
+    // TODO: Merge multiple messages together, see:
+    // https://developers.google.com/protocol-buffers/docs/encoding#optional:
+    for lField in FUnparsedFields[aField] do
+    begin
+      if (lField.Tag.WireType = wtLengthDelimited) then
+      begin
+        // Convert field to a stream for simpler processing.
+        lStream := TMemoryStream.Create;
+        try
+          lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+          lStream.Seek(0, soBeginning);
+
+          // Ignore the length of the field and let the message decode until the end of the stream.
+          DecodeVarint(lStream);
+          // Let the repeated field manage ownership.
+          aDest.EmplaceAdd;
+          aDest[aDest.Count - 1].Decode(lStream);
+        finally
+          lStream.Free;
+        end;
+
+      end; // TODO: Catch invalid wire type.
+    end;
+
+    FUnparsedFields.Remove(aField);
+  end;
 end;
 
 end.

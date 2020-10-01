@@ -103,6 +103,9 @@ var
   lLength: UInt32;
   lBytes: TBytes;
 begin
+  // Default value for repeated fields is empty.
+  aDest.Clear;
+
   if (Assigned(aData)) then
   begin
     for lField in aData do
