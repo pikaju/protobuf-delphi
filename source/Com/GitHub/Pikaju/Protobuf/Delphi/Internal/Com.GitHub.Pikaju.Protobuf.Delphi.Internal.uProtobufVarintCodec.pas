@@ -82,6 +82,9 @@ var
   lField: TProtobufEncodedField;
   lStream: TMemoryStream;
 begin
+  // Default value for repeated fields is empty.
+  aDest.Clear;
+
   if (Assigned(aData)) then
   begin
     // For each field, we will decide wether to decode a packed or non-packed repeated varint.

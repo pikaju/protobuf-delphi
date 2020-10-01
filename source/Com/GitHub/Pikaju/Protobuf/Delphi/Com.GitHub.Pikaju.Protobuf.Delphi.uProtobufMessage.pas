@@ -358,13 +358,13 @@ begin
 end;
 
 procedure TProtobufMessage.DecodeUnknownRepeatedField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TProtobufRepeatedField<T>);
+var
+  lFields: TObjectList<TProtobufEncodedField>;
 begin
-  aDest.Clear;
-  if (FUnparsedFields.ContainsKey(aField)) then
-  begin
-    aCodec.DecodeRepeatedField(FUnparsedFields[aField], aDest);
-    FUnparsedFields.Remove(aField);
-  end;
+  lFields := nil;
+  FUnparsedFields.TryGetValue(aField, lFields);
+  aCodec.DecodeRepeatedField(lFields, aDest);
+  FUnparsedFields.Remove(aField);
 end;
 
 procedure TProtobufMessage.DecodeUnknownRepeatedMessageField<T>(aField: TProtobufFieldNumber; aDest: TProtobufRepeatedField<T>);
@@ -372,6 +372,7 @@ var
   lField: TProtobufEncodedField;
   lStream: TMemoryStream;
 begin
+  // Default value for repeated fields is empty.
   aDest.Clear;
 
   if (FUnparsedFields.ContainsKey(aField)) then
