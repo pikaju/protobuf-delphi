@@ -8,7 +8,8 @@ interface
 
 uses 
   Classes,
-  Sysutils;
+  Sysutils,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField;
 
 type
   ETestFailed = class(Exception);
@@ -16,6 +17,7 @@ type
 procedure AssertTrue(aCondition: Boolean; aMessage: String);
 procedure AssertStreamEquals(aStream: TStream; aContent: TBytes; aMessage: String);
 procedure AssertBytesEqual(aLeft: TBytes; aRight: TBytes; aMessage: String);
+procedure AssertRepeatedFieldEquals<T>(aField: TProtobufRepeatedField<T>; aValues: array of T; aMessage: String);
 
 implementation
 
@@ -45,6 +47,15 @@ begin
   AssertTrue(Length(aLeft) = Length(aRight), aMessage);
   for lIndex := 0 to Length(aLeft) - 1 do
     AssertTrue(aLeft[lIndex] = aRight[lIndex], aMessage);
+end;
+
+procedure AssertRepeatedFieldEquals<T>(aField: TProtobufRepeatedField<T>; aValues: array of T; aMessage: String);
+var
+  lIndex: Longint;
+begin
+  AssertTrue(aField.Count = Length(aValues), aMessage);
+  for lIndex := 0 to aField.Count - 1 do
+    AssertTrue(aField[lIndex] = aValues[lIndex], aMessage);
 end;
 
 end.

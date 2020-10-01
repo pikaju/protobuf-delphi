@@ -20,38 +20,42 @@ type
   /// </summary>
   /// <typeparam name="T">TODO</typeparam>
   TProtobufRepeatedField<T> = class(TEnumerable<T>)
-
-  private
+  protected
     /// <summary>
     /// TODO
     /// </summary>
-    function GetCount: Integer;
-
-    /// <summary>
-    /// TODO
-    /// </summary>
-    procedure SetCount(aCount: Integer);
+    function GetCount: Integer; virtual; abstract;
 
     /// <summary>
     /// TODO
     /// </summary>
-    function GetValue(aIndex: Integer): T;
+    procedure SetCount(aCount: Integer); virtual; abstract;
 
     /// <summary>
     /// TODO
     /// </summary>
-    procedure SetValue(aIndex: Integer; aValue: T);
+    function GetValue(aIndex: Integer): T; virtual; abstract;
+
+    /// <summary>
+    /// TODO
+    /// </summary>
+    procedure SetValue(aIndex: Integer; aValue: T); virtual; abstract;
+
+    /// <summary>
+    /// TODO
+    /// </summary>
+    function DoGetEnumerator: TList<T>.TEnumerator; override; abstract;
 
   public
     /// <summary>
     /// TODO
     /// </summary>
-    constructor Create; virtual;
+    constructor Create; virtual; abstract;
 
     /// <summary>
     /// TODO destroys transitively held resources, meaning field values of message type and their nested embedded objects
     /// </summary>
-    destructor Destroy; override;
+    destructor Destroy; override; abstract;
 
     /// <summary>
     /// TODO
@@ -69,88 +73,33 @@ type
     /// </summary>
     /// <param name="aValue">TODO</param>
     /// <returns>TODO</return>
-    function Add(const aValue: T): Integer;
+    function Add(aValue: T): Integer; virtual; abstract;
 
     /// <summary>
     /// TODO
     /// </summary>
     /// <returns>TODO</return>
-    function EmplaceAdd: T;
+    function EmplaceAdd: T; virtual; abstract;
 
     /// <summary>
     /// TODO
     /// </summary>
-    procedure Clear;
+    procedure Clear; virtual; abstract;
 
     /// <summary>
     /// TODO
     /// </summary>
     /// <param name="aIndex">TODO</param>
-    procedure Delete(aIndex: Integer);
+    procedure Delete(aIndex: Integer); virtual; abstract;
 
     /// <summary>
     /// TODO
     /// </summary>
     /// <param name="aIndex">TODO</param>
     /// <returns>TODO</returns>
-    function ExtractAt(aIndex: Integer): T;
+    function ExtractAt(aIndex: Integer): T; virtual; abstract;
   end;
 
 implementation
-
-constructor TProtobufRepeatedField<T>.Create;
-begin
-  // TODO not implemented
-end;
-
-destructor TProtobufRepeatedField<T>.Destroy;
-begin
-  // TODO not implemented
-end;
-
-function TProtobufRepeatedField<T>.GetCount;
-begin
-  // TODO not implemented
-end;
-
-procedure TProtobufRepeatedField<T>.SetCount(aCount: Integer);
-begin
-  // TODO not implemented
-end;
-
-function TProtobufRepeatedField<T>.GetValue(aIndex: Integer): T;
-begin
-  // TODO not implemented
-end;
-
-procedure TProtobufRepeatedField<T>.SetValue(aIndex: Integer; aValue: T);
-begin
-  // TODO not implemented
-end;
-
-function TProtobufRepeatedField<T>.Add(const aValue: T): Integer;
-begin
-  // TODO not implemented
-end;
-
-function TProtobufRepeatedField<T>.EmplaceAdd: T;
-begin
-  // TODO not implemented
-end;
-
-procedure TProtobufRepeatedField<T>.Clear;
-begin
-  // TODO not implemented
-end;
-
-procedure TProtobufRepeatedField<T>.Delete(aIndex: Integer);
-begin
-  // TODO not implemented
-end;
-
-function TProtobufRepeatedField<T>.ExtractAt(aIndex: Integer): T;
-begin
-  // TODO not implemented
-end;
 
 end.

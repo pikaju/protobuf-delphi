@@ -17,6 +17,7 @@ uses
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   // Runtime library support for protobuf field encoding/decoding
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint;
@@ -26,8 +27,8 @@ type
     procedure EncodeField(aFieldNumber: TProtobufFieldNumber; aValue: UnicodeString; aDest: TStream); override;
     function DecodeField(aData: TList<TProtobufEncodedField>): UnicodeString; override;
 
-    procedure EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<UnicodeString>; aDest: TStream); override;
-    procedure DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TList<UnicodeString>); override;
+    procedure EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<UnicodeString>; aDest: TStream); override;
+    procedure DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<UnicodeString>); override;
   end;
 
 var
@@ -59,40 +60,73 @@ var
 begin
   result := PROTOBUF_DEFAULT_VALUE_STRING;
 
-  // https://developers.google.com/protocol-buffers/docs/encoding#optional:
-  // For numeric types and strings, if the same field appears multiple times, the parser accepts the last value it sees.
-  for lField in aData do
+  if (Assigned(aData)) then
   begin
-    if (lField.Tag.WireType = wtLengthDelimited) then
+    // https://developers.google.com/protocol-buffers/docs/encoding#optional:
+    // For numeric types and strings, if the same field appears multiple times, the parser accepts the last value it sees.
+    for lField in aData do
     begin
-      // Convert field to a stream for simpler processing.
-      lStream := TMemoryStream.Create;
-      try
-        lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
-        lStream.Seek(0, soBeginning);
+      if (lField.Tag.WireType = wtLengthDelimited) then
+      begin
+        // Convert field to a stream for simpler processing.
+        lStream := TMemoryStream.Create;
+        try
+          lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+          lStream.Seek(0, soBeginning);
 
-        lLength := DecodeVarint(lStream);
-        SetLength(lBytes, lLength);
-        if (lLength > 0) then
-          lStream.ReadBuffer(lBytes[0], lLength);
+          lLength := DecodeVarint(lStream);
+          SetLength(lBytes, lLength);
+          if (lLength > 0) then
+            lStream.ReadBuffer(lBytes[0], lLength);
 
-        result := TEncoding.UTF8.GetString(lBytes);
-      finally
-        lStream.Free;
-      end;
-    end; // TODO: Catch invalid wire type.
+          result := TEncoding.UTF8.GetString(lBytes);
+        finally
+          lStream.Free;
+        end;
+      end; // TODO: Catch invalid wire type.
+    end;
   end;
 end;
 
-procedure TProtobufStringWireCodec.EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TList<UnicodeString>; aDest: TStream);
+procedure TProtobufStringWireCodec.EncodeRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<UnicodeString>; aDest: TStream);
+var
+  lValue: UnicodeString;
 begin
-  // TODO: Implement
+  for lValue in aValues do
+    EncodeField(aFieldNumber, lValue, aDest);
 end;
 
-procedure TProtobufStringWireCodec.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TList<UnicodeString>);
-
+procedure TProtobufStringWireCodec.DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<UnicodeString>);
+var
+  lField: TProtobufEncodedField;
+  lStream: TMemoryStream;
+  lLength: UInt32;
+  lBytes: TBytes;
 begin
-  // TODO: Implement
+  if (Assigned(aData)) then
+  begin
+    for lField in aData do
+    begin
+      if (lField.Tag.WireType = wtLengthDelimited) then
+      begin
+        // Convert field to a stream for simpler processing.
+        lStream := TMemoryStream.Create;
+        try
+          lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+          lStream.Seek(0, soBeginning);
+
+          lLength := DecodeVarint(lStream);
+          SetLength(lBytes, lLength);
+          if (lLength > 0) then
+            lStream.ReadBuffer(lBytes[0], lLength);
+
+          aDest.Add(TEncoding.UTF8.GetString(lBytes));
+        finally
+          lStream.Free;
+        end;
+      end; // TODO: Catch invalid wire type.
+    end;
+  end;
 end;
 
 initialization
@@ -106,4 +140,3 @@ begin
 end;
 
 end.
-
