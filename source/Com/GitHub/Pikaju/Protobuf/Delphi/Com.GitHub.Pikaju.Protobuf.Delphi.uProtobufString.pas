@@ -45,8 +45,8 @@ var
   lBytes: TBytes;
 begin
   TProtobufTag.WithData(aFieldNumber, wtLengthDelimited).Encode(aDest);
-  EncodeVarint(Length(aValue), aDest);
   lBytes := TEncoding.UTF8.GetBytes(aValue);
+  EncodeVarint(Length(lBytes), aDest);
   if (Length(lBytes) > 0) then
     aDest.WriteBuffer(lBytes[0], Length(lBytes));
 end;
@@ -60,28 +60,31 @@ var
 begin
   result := PROTOBUF_DEFAULT_VALUE_STRING;
 
-  // https://developers.google.com/protocol-buffers/docs/encoding#optional:
-  // For numeric types and strings, if the same field appears multiple times, the parser accepts the last value it sees.
-  for lField in aData do
+  if (Assigned(aData)) then
   begin
-    if (lField.Tag.WireType = wtLengthDelimited) then
+    // https://developers.google.com/protocol-buffers/docs/encoding#optional:
+    // For numeric types and strings, if the same field appears multiple times, the parser accepts the last value it sees.
+    for lField in aData do
     begin
-      // Convert field to a stream for simpler processing.
-      lStream := TMemoryStream.Create;
-      try
-        lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
-        lStream.Seek(0, soBeginning);
+      if (lField.Tag.WireType = wtLengthDelimited) then
+      begin
+        // Convert field to a stream for simpler processing.
+        lStream := TMemoryStream.Create;
+        try
+          lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+          lStream.Seek(0, soBeginning);
 
-        lLength := DecodeVarint(lStream);
-        SetLength(lBytes, lLength);
-        if (lLength > 0) then
-          lStream.ReadBuffer(lBytes[0], lLength);
+          lLength := DecodeVarint(lStream);
+          SetLength(lBytes, lLength);
+          if (lLength > 0) then
+            lStream.ReadBuffer(lBytes[0], lLength);
 
-        result := TEncoding.UTF8.GetString(lBytes);
-      finally
-        lStream.Free;
-      end;
-    end; // TODO: Catch invalid wire type.
+          result := TEncoding.UTF8.GetString(lBytes);
+        finally
+          lStream.Free;
+        end;
+      end; // TODO: Catch invalid wire type.
+    end;
   end;
 end;
 
@@ -100,26 +103,29 @@ var
   lLength: UInt32;
   lBytes: TBytes;
 begin
-  for lField in aData do
+  if (Assigned(aData)) then
   begin
-    if (lField.Tag.WireType = wtLengthDelimited) then
+    for lField in aData do
     begin
-      // Convert field to a stream for simpler processing.
-      lStream := TMemoryStream.Create;
-      try
-        lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
-        lStream.Seek(0, soBeginning);
+      if (lField.Tag.WireType = wtLengthDelimited) then
+      begin
+        // Convert field to a stream for simpler processing.
+        lStream := TMemoryStream.Create;
+        try
+          lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+          lStream.Seek(0, soBeginning);
 
-        lLength := DecodeVarint(lStream);
-        SetLength(lBytes, lLength);
-        if (lLength > 0) then
-          lStream.ReadBuffer(lBytes[0], lLength);
+          lLength := DecodeVarint(lStream);
+          SetLength(lBytes, lLength);
+          if (lLength > 0) then
+            lStream.ReadBuffer(lBytes[0], lLength);
 
-        aDest.Add(TEncoding.UTF8.GetString(lBytes));
-      finally
-        lStream.Free;
-      end;
-    end; // TODO: Catch invalid wire type.
+          aDest.Add(TEncoding.UTF8.GetString(lBytes));
+        finally
+          lStream.Free;
+        end;
+      end; // TODO: Catch invalid wire type.
+    end;
   end;
 end;
 
@@ -134,4 +140,3 @@ begin
 end;
 
 end.
-
