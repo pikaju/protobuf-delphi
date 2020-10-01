@@ -13,8 +13,6 @@ interface
 uses
   // For TEnumerable implementation
   Generics.Collections,
-  // To classify generic type
-  TypInfo,
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField;
@@ -41,7 +39,7 @@ type
     constructor Create; override;
     destructor Destroy; override;
 
-    function Add(const aValue: T): Integer; override;
+    function Add(aValue: T): Integer; override;
     function EmplaceAdd: T; override;
 
     procedure Clear; override;
@@ -97,7 +95,7 @@ begin
   result := FStorage.GetEnumerator;
 end;
 
-function TProtobufRepeatedMessageField<T>.Add(const aValue: T): Integer;
+function TProtobufRepeatedMessageField<T>.Add(aValue: T): Integer;
 begin
   FStorage.Add(aValue);
 end;
@@ -105,6 +103,7 @@ end;
 function TProtobufRepeatedMessageField<T>.EmplaceAdd: T;
 begin
   Count := Count + 1;
+  result := GetValue(Count - 1);
 end;
 
 procedure TProtobufRepeatedMessageField<T>.Clear;

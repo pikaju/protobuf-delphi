@@ -65,18 +65,46 @@ type
     /// Encodes the message using the protobuf binary wire format and writes it to a stream.
     /// </summary>
     /// <param name="aDest">The stream that the encoded message is written to</param>
+    /// <remarks>
+    /// Since the protobuf binary wire format does not include length information for top-level messages,
+    /// the recipient may not be able to detect the end of the message when reading it from a stream.
+    /// If this is required, use <see cref="EncodeDelimited"/> instead.
+    /// </remarks>
     procedure Encode(aDest: TStream); virtual;
 
     /// <summary>
+    /// Encodes the message using the protobuf binary wire format and writes it to a stream, prefixed with length information.
+    /// </summary>
+    /// <param name="aDest">The stream that the encoded message is written to</param>
+    /// <remarks>
+    /// Unlike <see cref="Encode"/>, this method enables the recipient to detect the end of the message by decoding it using
+    /// <see cref="DecodeDelimited"/>.
+    /// </remarks>
+    procedure EncodeDelimited(aDest: TStream);
+
+    /// <summary>
     /// Fills the message's protobuf fields by decoding the message using the protobuf binary wire format from data that is read from a stream.
+    /// Data is read until <see cref="TStream.Read"/> returns 0.
     /// </summary>
     /// <param name="aSource">The stream that the data is read from</param>
     /// <remarks>
     /// Protobuf fields that are not present in the read data are rendered absent by setting them to their default values.
     /// This may cause the destruction of transitively owned objects (this is also the case when a present fields overwrites a previous value).
     /// Developers must ensure that no shared ownership of current field values or further nested embedded objects is held.
+    /// This method should not be used on streams where the actual size of their contents may not be known yet (this might result in data loss).
+    /// If this is required, use <see cref="DecodeDelimited"/> instead.
     /// </remarks>
     procedure Decode(aSource: TStream); virtual;
+
+    /// <summary>
+    /// Fills the message's protobuf fields by decoding the message using the protobuf binary wire format from data that is read from a stream.
+    /// The data must be prefixed with message length information, as implemented by <see cref="EncodeDelimited"/>.
+    /// </summary>
+    /// <param name="aSource">The stream that the data is read from</param>
+    /// <remarks>
+    /// See remarks on <see cref="Decode">.
+    /// </remarks>
+    procedure DecodeDelimited(aSource: TStream);
 
   protected
     /// <summary>
@@ -197,6 +225,23 @@ begin
   end;
 end;
 
+procedure TProtobufMessage.EncodeDelimited(aDest: TStream);
+var
+  lTempStream: TStream;
+  lLength: UInt64;
+begin
+  lTempStream := TMemoryStream.Create;
+  try
+    Encode(lTempStream);
+    lTempStream.Seek(0, soBeginning);
+    lLength := lTempStream.Size;
+    EncodeVarint(lLength, aDest);
+    aDest.CopyFrom(lTempStream, lLength);
+  finally
+    lTempStream.Free;
+  end;
+end;
+
 procedure TProtobufMessage.Decode(aSource: TStream);
 var
   lEncodedField: TProtobufEncodedField;
@@ -209,6 +254,22 @@ begin
     if (not FUnparsedFields.ContainsKey(lEncodedField.Tag.FieldNumber)) then
       FUnparsedFields.Add(lEncodedField.Tag.FieldNumber, TObjectList<TProtobufEncodedField>.Create);
     FUnparsedFields[lEncodedField.Tag.FieldNumber].Add(lEncodedField);
+  end;
+end;
+
+procedure TProtobufMessage.DecodeDelimited(aSource: TStream);
+var
+  lTempStream: TStream;
+  lLength: UInt64;
+begin
+  lLength := DecodeVarint(aSource);
+  lTempStream := TMemoryStream.Create;
+  try
+    lTempStream.CopyFrom(aSource, lLength);
+    lTempStream.Seek(0, soBeginning);
+    Decode(lTempStream);
+  finally
+    lTempStream.Free;
   end;
 end;
 
@@ -249,12 +310,13 @@ begin
 end;
 
 function TProtobufMessage.DecodeUnknownField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>): T;
+var
+  lFields: TObjectList<TProtobufEncodedField>;
 begin
-  if (FUnparsedFields.ContainsKey(aField)) then
-  begin
-    result := aCodec.DecodeField(FUnparsedFields[aField]);
-    FUnparsedFields.Remove(aField);
-  end;
+  lFields := nil;
+  FUnparsedFields.TryGetValue(aField, lFields);
+  result := aCodec.DecodeField(lFields);
+  FUnparsedFields.Remove(aField);
 end;
 
 function TProtobufMessage.DecodeUnknownMessageField<T>(aField: TProtobufFieldNumber): T;
@@ -280,7 +342,7 @@ begin
 
           // Ignore the length of the field and let the message decode until the end of the stream.
           DecodeVarint(lStream);
-          if (result = T(nil)) then
+          if (result = T(PROTOBUF_DEFAULT_VALUE_MESSAGE)) then
             result := T.Create;
           
           result.Decode(lStream);
@@ -296,13 +358,13 @@ begin
 end;
 
 procedure TProtobufMessage.DecodeUnknownRepeatedField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TProtobufRepeatedField<T>);
+var
+  lFields: TObjectList<TProtobufEncodedField>;
 begin
-  aDest.Clear;
-  if (FUnparsedFields.ContainsKey(aField)) then
-  begin
-    aCodec.DecodeRepeatedField(FUnparsedFields[aField], aDest);
-    FUnparsedFields.Remove(aField);
-  end;
+  lFields := nil;
+  FUnparsedFields.TryGetValue(aField, lFields);
+  aCodec.DecodeRepeatedField(lFields, aDest);
+  FUnparsedFields.Remove(aField);
 end;
 
 procedure TProtobufMessage.DecodeUnknownRepeatedMessageField<T>(aField: TProtobufFieldNumber; aDest: TProtobufRepeatedField<T>);
@@ -310,6 +372,7 @@ var
   lField: TProtobufEncodedField;
   lStream: TMemoryStream;
 begin
+  // Default value for repeated fields is empty.
   aDest.Clear;
 
   if (FUnparsedFields.ContainsKey(aField)) then

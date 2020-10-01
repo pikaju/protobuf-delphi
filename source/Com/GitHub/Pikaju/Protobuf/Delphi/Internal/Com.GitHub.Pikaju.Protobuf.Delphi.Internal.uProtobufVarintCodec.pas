@@ -84,27 +84,30 @@ var
 begin
   result := PROTOBUF_DEFAULT_VALUE_NUMERIC;
 
-  // https://developers.google.com/protocol-buffers/docs/encoding#optional:
-  // For numeric types and strings, if the same field appears multiple times, the parser accepts the last value it sees.
-  for lField in aData do
+  if (Assigned(aData)) then
   begin
-    // Convert field to a stream for simpler processing.
-    lStream := TMemoryStream.Create;
-    try
-      lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
-      lStream.Seek(0, soBeginning);
+    // https://developers.google.com/protocol-buffers/docs/encoding#optional:
+    // For numeric types and strings, if the same field appears multiple times, the parser accepts the last value it sees.
+    for lField in aData do
+    begin
+      // Convert field to a stream for simpler processing.
+      lStream := TMemoryStream.Create;
+      try
+        lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+        lStream.Seek(0, soBeginning);
 
-      if (lField.Tag.WireType = wtVarint) then
-        result := CheckedCast(DecodeVarint(lStream))
-      else if (lField.Tag.WireType = wtLengthDelimited) then
-      begin
-        // Ignore the size of the field, as the stream already has the correct length.
-        DecodeVarint(lStream);
-        while (lStream.Position < lStream.Size) do
-          result := CheckedCast(DecodeVarint(lStream));
-      end; // TODO: Catch invalid wire type.
-    finally
-      lStream.Free;
+        if (lField.Tag.WireType = wtVarint) then
+          result := CheckedCast(DecodeVarint(lStream))
+        else if (lField.Tag.WireType = wtLengthDelimited) then
+        begin
+          // Ignore the size of the field, as the stream already has the correct length.
+          DecodeVarint(lStream);
+          while (lStream.Position < lStream.Size) do
+            result := CheckedCast(DecodeVarint(lStream));
+        end; // TODO: Catch invalid wire type.
+      finally
+        lStream.Free;
+      end;
     end;
   end;
 end;
@@ -123,26 +126,32 @@ var
   lField: TProtobufEncodedField;
   lStream: TMemoryStream;
 begin
-  // For each field, we will decide wether to decode a packed or non-packed repeated varint.
-  for lField in aData do
-  begin
-    // Convert field to a stream for simpler processing.
-    lStream := TMemoryStream.Create;
-    try
-      lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
-      lStream.Seek(0, soBeginning);
+  // Default value for repeated fields is empty.
+  aDest.Clear;
 
-      if (lField.Tag.WireType = wtVarint) then
-        aDest.Add(CheckedCast(DecodeVarint(lStream)))
-      else if (lField.Tag.WireType = wtLengthDelimited) then
-      begin
-        // Ignore the size of the field, as the stream already has the correct length.
-        DecodeVarint(lStream);
-        while (lStream.Position < lStream.Size) do
-          aDest.Add(CheckedCast(DecodeVarint(lStream)));
-      end; // TODO: Catch invalid wire type.
-    finally
-      lStream.Free;
+  if (Assigned(aData)) then
+  begin
+    // For each field, we will decide wether to decode a packed or non-packed repeated varint.
+    for lField in aData do
+    begin
+      // Convert field to a stream for simpler processing.
+      lStream := TMemoryStream.Create;
+      try
+        lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+        lStream.Seek(0, soBeginning);
+
+        if (lField.Tag.WireType = wtVarint) then
+          aDest.Add(CheckedCast(DecodeVarint(lStream)))
+        else if (lField.Tag.WireType = wtLengthDelimited) then
+        begin
+          // Ignore the size of the field, as the stream already has the correct length.
+          DecodeVarint(lStream);
+          while (lStream.Position < lStream.Size) do
+            aDest.Add(CheckedCast(DecodeVarint(lStream)));
+        end; // TODO: Catch invalid wire type.
+      finally
+        lStream.Free;
+      end;
     end;
   end;
 end;
