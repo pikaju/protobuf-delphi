@@ -10,8 +10,8 @@ uses
   Classes,
   Generics.Collections,
   Sysutils,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBasicField,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint32,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint32,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag,
@@ -56,7 +56,7 @@ var
   lRepeatedField: TProtobufRepeatedField<UInt32>;
 begin
   lStream := TMemoryStream.Create;
-  lRepeatedField := TProtobufRepeatedBasicField<UInt32>.Create;
+  lRepeatedField := TProtobufRepeatedUint32Field.Create;
   try
     lRepeatedField.Add(3);
     lRepeatedField.Add(300);
@@ -77,7 +77,7 @@ var
   lRepeatedField: TProtobufRepeatedField<UInt32>;
 begin
   lList := TObjectList<TProtobufEncodedField>.Create;
-  lRepeatedField := TProtobufRepeatedBasicField<UInt32>.Create;
+  lRepeatedField := TProtobufRepeatedUint32Field.Create;
   try
     lList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtVarint), [3]));
     lList.Add(TProtobufEncodedField.CreateWithData(TProtobufTag.WithData(5, wtVarint), [$AC, $02]));

@@ -9,10 +9,12 @@ interface
 uses
   Classes,
   Sysutils,
+  // To check for default values
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBasicField,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedMessageField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint32,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedMessage,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTestUtility;
 
 type
@@ -29,7 +31,7 @@ var
   lTestEmpty: TEmpty;
 begin
   // For non-message fields, the value created by EmplaceAdd is not defined, so we do not need to test it.
-  lIntField := TProtobufRepeatedBasicField<UInt32>.Create;
+  lIntField := TProtobufRepeatedUint32Field.Create;
   AssertTrue(lIntField.Count = 0, 'Repeated fields start out empty.');
   lIntField.EmplaceAdd;
   AssertTrue(lIntField.Count = 1, 'Emplacing once results in a count of 1.');
@@ -37,6 +39,7 @@ begin
   AssertTrue(lIntField.Count = 2, 'Emplacing twice results in a count of 2.');
   lIntField.EmplaceAdd;
   AssertTrue(lIntField.Count = 3, 'Emplacing thrice results in a count of 3.');
+  AssertTrue(lIntField[1] = PROTOBUF_DEFAULT_VALUE_UINT32, 'Non-messages are set to default values.');
   lIntField[2] := 5;
   AssertTrue(lIntField[2] = 5, 'Values are assignable.');
   lIntField.Free;
@@ -61,7 +64,7 @@ var
   lIntField: TProtobufRepeatedField<UInt32>;
   lMessageField: TProtobufRepeatedField<TEmpty>;
 begin
-  lIntField := TProtobufRepeatedBasicField<UInt32>.Create;
+  lIntField := TProtobufRepeatedUint32Field.Create;
   AssertTrue(lIntField.Count = 0, 'Repeated fields start out empty.');
   lIntField.EmplaceAdd;
   lIntField.EmplaceAdd;

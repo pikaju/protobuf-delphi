@@ -1,3 +1,6 @@
+/// <summary>
+/// Runtime library support for protobuf message types.
+/// </summary>
 unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage;
 
 {$IFDEF FPC}
