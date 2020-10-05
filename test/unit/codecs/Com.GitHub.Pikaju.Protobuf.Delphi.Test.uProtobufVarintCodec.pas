@@ -10,6 +10,7 @@ uses
   Classes,
   Generics.Collections,
   Sysutils,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufBool,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBasicField,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint32,

@@ -82,7 +82,7 @@ var
   lField: TProtobufEncodedField;
   lStream: TMemoryStream;
 begin
-  result := PROTOBUF_DEFAULT_VALUE_NUMERIC;
+  result := T(PROTOBUF_DEFAULT_VALUE_NUMERIC);
 
   if (Assigned(aData)) then
   begin

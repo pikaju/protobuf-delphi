@@ -1,7 +1,7 @@
 /// <summary>
 /// Runtime library support for the protobuf type <c>bool</c>.
 /// </summary>
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint32;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufBool;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
