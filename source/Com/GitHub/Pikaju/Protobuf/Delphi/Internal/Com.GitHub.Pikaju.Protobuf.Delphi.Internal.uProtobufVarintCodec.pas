@@ -25,6 +25,9 @@ type
 
     // Throws an exception if aValue does not fit within the Protobuf type handled by this codec.
     procedure ValidateBounds(aValue: UInt64);
+
+    // Casts a UInt64 to the generic type of this codec. Throws an exception if information is
+    // lost during this type cast.
     function CheckedCast(aVarint: UInt64): T;
   public
     // Constructs a codec that understands the Protobuf varint specification.
