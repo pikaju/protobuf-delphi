@@ -27,6 +27,10 @@ type
     procedure ValidateBounds(aValue: UInt64);
     function CheckedCast(aVarint: UInt64): T;
   public
+    // Constructs a codec that understands the Protobuf varint specification.
+    // params:
+    //   aBitCount: Number of bits that the Protobuf type targeted by this codec can hold.
+    //   aSigned: Whether the most significant bit of this type shall be interpreted as a sign bit.
     constructor Create(aBitCount: Integer; aSigned: Boolean); reintroduce;
     
     procedure EncodeField(aFieldNumber: TProtobufFieldNumber; aValue: T; aDest: TStream); override;
