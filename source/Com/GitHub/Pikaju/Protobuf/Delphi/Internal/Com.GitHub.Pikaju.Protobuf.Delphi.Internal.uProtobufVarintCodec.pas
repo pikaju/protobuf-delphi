@@ -18,7 +18,7 @@ uses
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint;
 
 type
-  EOverflow = class(Exception);
+  EProtobufInvalidValue = class(Exception);
 
   TProtobufVarintWireCodec<T> = class(TProtobufPackableWireCodec<T>)
   private
@@ -64,13 +64,13 @@ begin
     lMasked := aValue and (UInt64(-1) shl (FBitCount - 1));
     // Positive numbers
     if ((lMasked <> 0) and (lMasked <> (UInt64(-1) shl (FBitCount - 1)))) then
-      raise EOverflow.Create('Decoded varint smaller or larger than is allowed by ' + FBitCount.ToString + '-bit signed integer.');
+      raise EProtobufInvalidValue.Create('Decoded varint smaller or larger than is allowed by ' + FBitCount.ToString + '-bit signed integer.');
   end
   else
   begin
     // For unsigned types, simply check if there is a binary 1 beyond FBitCount bits.
     if ((UInt64(-1) shl FBitCount) and aValue <> 0) then
-      raise EOverflow.Create('Decoded varint ' + aValue.ToString + ' larger than is allowed by ' + FBitCount.ToString + '-bit unsigned integer.');
+      raise EProtobufInvalidValue.Create('Decoded varint ' + aValue.ToString + ' larger than is allowed by ' + FBitCount.ToString + '-bit unsigned integer.');
   end;
 end;
 

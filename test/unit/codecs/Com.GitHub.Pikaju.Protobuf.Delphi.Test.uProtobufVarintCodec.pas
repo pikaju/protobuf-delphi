@@ -55,7 +55,7 @@ begin
     try
       lUint32 := gProtobufWireCodecUint32.DecodeField(lList);
     except
-      on EOverflow do lException := True;
+      on EProtobufInvalidValue do lException := True;
     end;
     AssertTrue(lException, 'Decoding a varint that is too large into a uint32 throws an exception');
     lList.Clear;
@@ -114,7 +114,7 @@ begin
     try
       gProtobufWireCodecUint32.DecodeRepeatedField(lList, lRepeatedField);
     except
-      on EOverflow do lException := True;
+      on EProtobufInvalidValue do lException := True;
     end;
     AssertTrue(lException, 'Decoding a varint that is too large into a repeated uint32 throws an exception');
     lRepeatedField.Clear;
@@ -139,5 +139,3 @@ begin
 end;
 
 end.
-
-
