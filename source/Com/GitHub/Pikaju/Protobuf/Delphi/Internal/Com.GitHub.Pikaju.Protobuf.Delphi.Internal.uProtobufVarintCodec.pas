@@ -63,7 +63,7 @@ begin
 
     lMasked := aValue and (UInt64(-1) shl (FBitCount - 1));
     // Positive numbers
-    if ((not (lMasked = 0)) and (not (lMasked = (UInt64(-1) shl (FBitCount - 1))))) then
+    if ((lMasked <> 0) and (lMasked <> (UInt64(-1) shl (FBitCount - 1)))) then
       raise EOverflow.Create('Decoded varint smaller or larger than is allowed by ' + FBitCount.ToString + '-bit signed integer.');
   end
   else
