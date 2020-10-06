@@ -24,9 +24,30 @@ var
 
 implementation
 
+type
+  /// <summary>
+  /// TODO
+  /// </summary>
+  TProtobufBoolWireCodec = class(TProtobufVarintWireCodec<Boolean>)
+  protected
+    function FromUInt64(aValue: UInt64): Boolean; override;
+    function ToUInt64(aValue: Boolean): UInt64; override;
+  end;
+
+function TProtobufBoolWireCodec.FromUInt64(aValue: UInt64): Boolean;
+begin
+  ValidateBounds(aValue, 1, False);
+  result := Boolean(aValue);
+end;
+
+function TProtobufBoolWireCodec.ToUInt64(aValue: Boolean): UInt64;
+begin
+  result := UInt64(aValue);
+end;
+
 initialization
 begin
-  gProtobufWireCodecBool := TProtobufVarintWireCodec<Boolean>.Create(1, False);
+  gProtobufWireCodecBool := TProtobufBoolWireCodec.Create;
 end;
 
 finalization
