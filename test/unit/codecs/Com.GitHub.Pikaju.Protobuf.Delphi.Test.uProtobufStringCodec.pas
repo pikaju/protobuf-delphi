@@ -10,8 +10,8 @@ uses
   Classes,
   Generics.Collections,
   Sysutils,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBasicField,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedString,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufString,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag,
@@ -62,7 +62,7 @@ var
   lRepeatedField: TProtobufRepeatedField<UnicodeString>;
 begin
   lStream := TMemoryStream.Create;
-  lRepeatedField := TProtobufRepeatedBasicField<UnicodeString>.Create;
+  lRepeatedField := TProtobufRepeatedStringField.Create;
   try
     lRepeatedField.Add('was');
     lRepeatedField.Add('gehdn');
@@ -91,7 +91,7 @@ var
   lRepeatedField: TProtobufRepeatedField<UnicodeString>;
 begin
   aList := TObjectList<TProtobufEncodedField>.Create;
-  lRepeatedField := TProtobufRepeatedBasicField<UnicodeString>.Create;
+  lRepeatedField := TProtobufRepeatedStringField.Create;
   try
     aList.Add(TProtobufEncodedField.CreateWithData(
       TProtobufTag.WithData(5, wtLengthDelimited),
