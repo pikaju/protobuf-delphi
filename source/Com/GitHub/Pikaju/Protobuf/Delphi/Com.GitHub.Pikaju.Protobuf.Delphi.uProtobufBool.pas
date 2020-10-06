@@ -1,7 +1,7 @@
 /// <summary>
-/// Runtime library support for the protobuf type <c>uint32</c>.
+/// Runtime library support for the protobuf type <c>bool</c>.
 /// </summary>
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint32;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufBool;
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -18,20 +18,20 @@ uses
 var
   /// <summary>
   /// <i>Field codec</i> for <c>protoc-gen-delphi</c> that defines the encoding/decoding of
-  /// protobuf fields of type <c>uint32</c> from/to the protobuf binary wire format.
+  /// protobuf fields of type <c>bool</c> from/to the protobuf binary wire format.
   /// </summary>
-  gProtobufWireCodecUInt32: TProtobufWireCodec<UInt32>;
+  gProtobufWireCodecBool: TProtobufWireCodec<Boolean>;
 
 implementation
 
 initialization
 begin
-  gProtobufWireCodecUInt32 := TProtobufVarintWireCodec<UInt32>.Create(32, False);
+  gProtobufWireCodecBool := TProtobufVarintWireCodec<Boolean>.Create(1, False);
 end;
 
 finalization
 begin
-  gProtobufWireCodecUInt32.Free;
+  gProtobufWireCodecBool.Free;
 end;
 
 end.
