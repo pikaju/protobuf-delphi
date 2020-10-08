@@ -24,9 +24,30 @@ var
 
 implementation
 
+type
+  /// <summary>
+  /// TODO
+  /// </summary>
+  TProtobufUint32WireCodec = class(TProtobufVarintWireCodec<UInt32>)
+  protected
+    function FromUInt64(aValue: UInt64): UInt32; override;
+    function ToUInt64(aValue: UInt32): UInt64; override;
+  end;
+
+function TProtobufUint32WireCodec.FromUInt64(aValue: UInt64): UInt32;
+begin
+  ValidateBounds(aValue, 32, False);
+  result := UInt32(aValue);
+end;
+
+function TProtobufUint32WireCodec.ToUInt64(aValue: UInt32): UInt64;
+begin
+  result := UInt64(aValue);
+end;
+
 initialization
 begin
-  gProtobufWireCodecUInt32 := TProtobufVarintWireCodec<UInt32>.Create(32, False);
+  gProtobufWireCodecUInt32 := TProtobufUint32WireCodec.Create;
 end;
 
 finalization
