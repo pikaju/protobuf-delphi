@@ -20,7 +20,7 @@ type
   /// Helper subclass of <see cref="TProtobufRepeatedField"/> for type parameters that are default-constructable object types.
   /// </summary>
   /// <typeparam name="T">Delphi type of the field values</typeparam>
-  TProtobufRepeatedFieldObjects<T: constructor> = class abstract (TProtobufRepeatedField<T>)
+  TProtobufRepeatedFieldObjects<T: class, constructor> = class abstract (TProtobufRepeatedField<T>)
   private
     /// <summary>
     /// Backing storage for <see cref="GetStorage"/> using object values.
