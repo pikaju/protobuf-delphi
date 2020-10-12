@@ -208,7 +208,11 @@ end;
 
 function TProtobufRepeatedField<T>.ExtractAt(aIndex: Integer): T;
 begin
+{$IFDEF FPC}
   result := Storage.ExtractIndex(aIndex);
+{$ELSE}
+  result := Storage.ExtractAt(aIndex);
+{$ENDIF}
 end;
 
 function TProtobufRepeatedField<T>.DoGetEnumerator: TEnumerator<T>;
