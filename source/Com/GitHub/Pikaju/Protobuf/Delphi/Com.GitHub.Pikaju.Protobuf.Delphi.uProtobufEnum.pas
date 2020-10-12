@@ -26,9 +26,33 @@ var
 
 implementation
 
+type
+  /// <summary>
+  /// TODO
+  /// </summary>
+  TProtobufEnumWireCodec = class(TProtobufVarintWireCodec<TProtobufEnumFieldValue>)
+  protected
+    function FromUInt64(aValue: UInt64): TProtobufEnumFieldValue; override;
+    function ToUInt64(aValue: TProtobufEnumFieldValue): UInt64; override;
+  end;
+
+function TProtobufEnumWireCodec.FromUInt64(aValue: UInt64): TProtobufEnumFieldValue;
+begin
+  // "Enumerator constants must be in the range of a 32-bit integer. Since enum values
+  // use varint encoding on the wire, negative values are inefficient and thus not recommended."
+  // See: https://developers.google.com/protocol-buffers/docs/proto3#enum
+  ValidateBounds(aValue, 32, True);
+  result := TProtobufEnumFieldValue(aValue);
+end;
+
+function TProtobufEnumWireCodec.ToUInt64(aValue: TProtobufEnumFieldValue): UInt64;
+begin
+  result := UInt64(aValue);
+end;
+
 initialization
 begin
-  gProtobufWireCodecEnum := TProtobufVarintWireCodec<TProtobufEnumFieldValue>.Create;
+  gProtobufWireCodecEnum := TProtobufEnumWireCodec.Create;
 end;
 
 finalization
