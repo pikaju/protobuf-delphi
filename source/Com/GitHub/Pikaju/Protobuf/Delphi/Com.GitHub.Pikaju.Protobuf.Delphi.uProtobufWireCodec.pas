@@ -34,12 +34,6 @@ type
     procedure DecodeRepeatedField(aData: TList<TProtobufEncodedField>; aDest: TProtobufRepeatedField<T>); virtual; abstract;
   end;
 
-  // Base class for Protobuf field codecs that can create packed encoding.
-  TProtobufPackableWireCodec<T> = class abstract(TProtobufWireCodec<T>)
-    // TODO visibility?
-    procedure EncodePackedRepeatedField(aFieldNumber: TProtobufFieldNumber; aValues: TProtobufRepeatedField<T>; aDest: TStream); virtual; abstract;
-  end;
-
 implementation
 
 end.

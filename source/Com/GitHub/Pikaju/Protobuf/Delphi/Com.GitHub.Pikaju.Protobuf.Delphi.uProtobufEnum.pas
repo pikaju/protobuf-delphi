@@ -34,6 +34,8 @@ type
   protected
     function FromUInt64(aValue: UInt64): TProtobufEnumFieldValue; override;
     function ToUInt64(aValue: TProtobufEnumFieldValue): UInt64; override;
+
+    function GetDefault: TProtobufEnumFieldValue; override;
   end;
 
 function TProtobufEnumWireCodec.FromUInt64(aValue: UInt64): TProtobufEnumFieldValue;
@@ -48,6 +50,11 @@ end;
 function TProtobufEnumWireCodec.ToUInt64(aValue: TProtobufEnumFieldValue): UInt64;
 begin
   result := UInt64(aValue);
+end;
+
+function TProtobufEnumWireCodec.GetDefault: TProtobufEnumFieldValue;
+begin
+  result := PROTOBUF_DEFAULT_VALUE_ENUM;
 end;
 
 initialization
