@@ -48,6 +48,7 @@ var
   lByte: Byte;
   lCurrentOffset: Integer;
 begin
+  lByte := 0;
   // The idea of this function is to read 7 bit batches worth of data into the correct
   // position of the result variable. We do this until the most significant bit is 0.
   result := 0;
