@@ -1,4 +1,6 @@
 # Makefile used to build and test protobuf-delphi
+## Requires sh and .NET Core CLI
+
 .DEFAULT_GOAL := test
 
 # Makefile support code
@@ -21,6 +23,8 @@ SPACE = $(EMPTY) $(EMPTY)
 COMMA = ,
 #### join-string: Join strings $(1) with separator $(2)
 join-string = $(subst $(SPACE),$(2),$(strip $(1)))
+#### install-dot-net-tool: Install .NET Core global tool $(1) with version $(2)
+install-dot-net-tool = dotnet tool update --global $(1) --version $(2)
 
 # Configuration
 
@@ -82,6 +86,14 @@ FPC_OPTIONS += -vm$(call join-string,$(FPC_SUPPRESSED_MESSAGES),$(COMMA))
 FPC_OPTIONS += -Sewnh
 #### compile: Build program $(1) from Pascal source $(2) and unit paths $(3) and output directory $(4)
 compile = fpc -vq $(FPC_OPTIONS) -o$(1) -FE$(4) $(addprefix -Fu,$(3)) $(2)
+## protoc-gen-delphi plug-in name
+PLUGIN = protoc-gen-delphi
+## protoc-gen-delphi version
+PLUGIN_VERSION = 0.3.0
+## Integration test tool name
+INTEGRATION_TEST_TOOL = protoc-gen-delphi.runtime-tests
+## Integration test tool executable name
+INTEGRATION_TEST_TOOL_EXECUTABLE = protoc-gen-delphi-runtime-tests
 
 # Targets
 
@@ -97,9 +109,24 @@ $(UNIT_TEST_RUNNER): $(SRC_UNITS) $(TEST_SRC_UNITS)
 run-unit-tests: $(UNIT_TEST_RUNNER)
 	$(UNIT_TEST_RUNNER)
 
+## Install the protoc-gen-delphi plug-in
+.PHONY: plugin
+plugin:
+	$(call install-dot-net-tool,$(PLUGIN),$(PLUGIN_VERSION))
+
+## Install the integration test tool
+.PHONY: integration-tests
+integration-tests:
+	$(call install-dot-net-tool,$(INTEGRATION_TEST_TOOL),$(PLUGIN_VERSION))
+
+## Run integration tests
+.PHONY: run-integration-tests
+run-integration-tests: plugin integration-tests
+	Work_Connor_Protobuf_Delphi_ProtocGenDelphi_RuntimeTests_RuntimeLibrarySourcePath=$$(pwd)/source $(INTEGRATION_TEST_TOOL_EXECUTABLE)
+
 ## Run all tests
 .PHONY: test
-test: run-unit-tests
+test: run-unit-tests run-integration-tests
 
 ## Clean all targets
 .PHONY: clean
