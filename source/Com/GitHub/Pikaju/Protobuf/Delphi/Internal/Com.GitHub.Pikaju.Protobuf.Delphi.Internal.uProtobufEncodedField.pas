@@ -72,6 +72,7 @@ var
   lByte: Byte;
   lVarint: UInt64;
 begin
+  lByte := 0;
   FTag.Decode(aSource);
   lTempStream := TMemoryStream.Create;
   try

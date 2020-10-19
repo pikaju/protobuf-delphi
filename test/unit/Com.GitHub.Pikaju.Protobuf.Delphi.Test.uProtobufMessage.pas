@@ -10,8 +10,7 @@ uses
   Classes,
   Sysutils,
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uExampleMessage,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTestUtility,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage;
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTestUtility;
 
 procedure TestMessage;
 

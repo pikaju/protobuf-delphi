@@ -31,6 +31,7 @@ procedure AssertStreamEquals(aStream: TStream; aContent: TBytes; aMessage: Strin
 var
   lByte: Byte;
 begin
+  lByte := 0;
   AssertTrue(aStream.Size = Length(aContent), aMessage);
   aStream.Seek(0, soBeginning);
   while (aStream.Position < aStream.Size) do
