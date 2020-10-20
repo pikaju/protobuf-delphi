@@ -12,6 +12,7 @@ uses
   // To check for default values
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedEnum,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint32,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedMessage,
@@ -85,14 +86,45 @@ begin
   lMessageField.Free;
 end;
 
+procedure TestExtractAt;
+var
+  lIntField: TProtobufRepeatedField<UInt32>;
+begin
+  lIntField := TProtobufRepeatedUint32Field.Create;
+  lIntField.Add(1);
+  lIntField.Add(2);
+  lIntField.Add(3);
+  lIntField.Add(4);
+  AssertRepeatedFieldEquals<UInt32>(lIntField, [1, 2, 3, 4], 'Repeated field is filled properly.');
+  AssertTrue(lIntField.ExtractAt(3) = 4, 'The proper value at index 3 is extracted from repeated field.');
+  AssertRepeatedFieldEquals<UInt32>(lIntField, [1, 2, 3], 'Extracted value at index 3 is gone after extraction.');
+  AssertTrue(lIntField.ExtractAt(0) = 1, 'The proper value at index 0 is extracted from repeated field.');
+  AssertRepeatedFieldEquals<UInt32>(lIntField, [2, 3], 'Extracted value at index 0 is gone after extraction.');
+end;
+
+procedure TestEnumConstruction;
+type
+  TTestEnum = (teOne, teTwo, teThree);
+var
+  lEnumField: TProtobufRepeatedField<TTestEnum>;
+begin
+  lEnumField := TProtobufRepeatedEnumField<TTestEnum>.Create;
+  lEnumField.EmplaceAdd;
+  lEnumField.EmplaceAdd;
+  AssertTrue(lEnumField[0] = teOne, 'Repeated enum field slot 0 is default initialized properly.');
+  AssertTrue(lEnumField[1] = teOne, 'Repeated enum field slot 1 is default initialized properly.');
+end;
+
 procedure TestRepeatedField;
 begin
   WriteLn('Running TestEmplaceAdd...');
   TestEmplaceAdd;
   WriteLn('Running TestClear...');
   TestClear;
+  WriteLn('Running TestExtractAt...');
+  TestExtractAt;
+  WriteLn('Running TestEnumConstruction...');
+  TestEnumConstruction;
 end;
 
 end.
-
-

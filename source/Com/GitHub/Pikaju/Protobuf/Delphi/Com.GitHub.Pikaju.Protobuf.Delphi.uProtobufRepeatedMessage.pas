@@ -21,7 +21,7 @@ type
   /// Concrete subclass of <see cref="TProtobufRepeatedField"/> for protobuf repeated fields of a protobuf message type.
   /// </summary>
   /// <typeparam name="T">Delphi class that represents the protobuf message type of the field values</typeparam>
-  TProtobufRepeatedMessageField<T: TProtobufMessage> = class(TProtobufRepeatedFieldObjects<T>);
+  TProtobufRepeatedMessageField<T: TProtobufMessage, constructor> = class(TProtobufRepeatedFieldObjects<T>);
 
 implementation
 

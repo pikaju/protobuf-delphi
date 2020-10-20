@@ -20,7 +20,7 @@ uses
 type
   EProtobufInvalidValue = class(Exception);
 
-  TProtobufVarintWireCodec<T> = class(TProtobufPackableWireCodec<T>)
+  TProtobufVarintWireCodec<T> = class(TProtobufWireCodec<T>)
   protected
     // Throws an exception if aValue does not fit within the Protobuf type handled by this codec.
     // TODO
@@ -35,6 +35,11 @@ type
     /// TODO
     /// </summary>
     function ToUInt64(aValue: T): UInt64; virtual; abstract;
+
+    /// <summary>
+    /// TODO
+    /// </summary>
+    function GetDefault: T; virtual; abstract;
   public
     procedure EncodeField(aFieldNumber: TProtobufFieldNumber; aValue: T; aDest: TStream); override;
     function DecodeField(aData: TList<TProtobufEncodedField>): T; override;
@@ -76,7 +81,7 @@ var
   lField: TProtobufEncodedField;
   lStream: TMemoryStream;
 begin
-  result := T(PROTOBUF_DEFAULT_VALUE_NUMERIC);
+  result := GetDefault;
 
   if (Assigned(aData)) then
   begin

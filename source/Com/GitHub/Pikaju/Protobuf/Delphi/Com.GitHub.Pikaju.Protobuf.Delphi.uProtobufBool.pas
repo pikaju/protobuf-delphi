@@ -24,6 +24,10 @@ var
 
 implementation
 
+uses
+  // Main protobuf file for default values
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf;
+
 type
   /// <summary>
   /// TODO
@@ -32,6 +36,8 @@ type
   protected
     function FromUInt64(aValue: UInt64): Boolean; override;
     function ToUInt64(aValue: Boolean): UInt64; override;
+
+    function GetDefault: Boolean; override;
   end;
 
 function TProtobufBoolWireCodec.FromUInt64(aValue: UInt64): Boolean;
@@ -43,6 +49,11 @@ end;
 function TProtobufBoolWireCodec.ToUInt64(aValue: Boolean): UInt64;
 begin
   result := UInt64(aValue);
+end;
+
+function TProtobufBoolWireCodec.GetDefault: Boolean;
+begin
+  result := PROTOBUF_DEFAULT_VALUE_BOOL;
 end;
 
 initialization

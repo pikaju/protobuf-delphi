@@ -11,6 +11,7 @@ uses
   Generics.Collections,
   SysUtils,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufBool,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEnum,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint32,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint32,
