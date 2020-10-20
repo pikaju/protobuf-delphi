@@ -11,8 +11,6 @@ interface
 
 uses
   Classes,
-  // Basic definitions of <c>protoc-gen-delphi</c>, independent of the runtime library implementation
-  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   // Runtime library support for protobuf message types
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage,
   // Support code for handling object values in repeated fields

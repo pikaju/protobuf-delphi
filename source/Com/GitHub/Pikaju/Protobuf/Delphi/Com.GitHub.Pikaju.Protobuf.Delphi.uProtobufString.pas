@@ -10,17 +10,17 @@ unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufString;
 interface
 
 uses
-  Classes,
-  Generics.Collections,
-  Sysutils,
-  // Basic definitions of <c>protoc-gen-delphi</c>, independent of the runtime library implementation
-  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   // Runtime library support for protobuf field encoding/decoding
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
+  // Basic definitions of <c>protoc-gen-delphi</c>, independent of the runtime library implementation
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint;
+  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint,
+  Classes,
+  Generics.Collections,
+  Sysutils;
 
 type
   TProtobufStringWireCodec = class(TProtobufWireCodec<UnicodeString>)
