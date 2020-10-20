@@ -12,6 +12,8 @@ os:
 dist: xenial
 
 before_script:
+    # Add .NET Core global tools to PATH, so that protoc can locate protoc-gen-delphi
+    - export PATH=$PATH:$HOME/.dotnet/tools
     - |
         if [ "$TRAVIS_OS_NAME" = "linux" ]; then
             curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v3.13.0/protoc-3.13.0-linux-x86_64.zip
