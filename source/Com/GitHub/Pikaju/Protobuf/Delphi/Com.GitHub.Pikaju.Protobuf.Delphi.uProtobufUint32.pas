@@ -20,7 +20,7 @@ var
   /// <i>Field codec</i> for <c>protoc-gen-delphi</c> that defines the encoding/decoding of
   /// protobuf fields of type <c>uint32</c> from/to the protobuf binary wire format.
   /// </summary>
-  gProtobufWireCodecUInt32: TProtobufWireCodec<UInt32>;
+  gProtobufWireCodecUint32: TProtobufWireCodec<UInt32>;
 
 implementation
 

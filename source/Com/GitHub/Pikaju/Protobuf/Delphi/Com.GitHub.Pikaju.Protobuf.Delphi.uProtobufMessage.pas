@@ -1,6 +1,10 @@
 /// <summary>
 /// Runtime library support for protobuf message types.
 /// </summary>
+/// <remarks>
+/// This unit defines the common ancestor class of all generated classes representing protobuf message types,
+/// <see cref="TProtobufMessage"/>. Client code may need to reference it in order to operate generic protobuf messages.
+/// </remarks>
 unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage;
 
 {$IFDEF FPC}
@@ -10,16 +14,16 @@ unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage;
 interface
 
 uses
-  // TStream for encoding and decoding of messages in the protobuf binary wire format
-  Classes,
-  Generics.Collections,
-  Sysutils,
   // Basic definitions of <c>protoc-gen-delphi</c>, independent of the runtime library implementation
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   // Runtime library support for protobuf field encoding/decoding
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
   // Runtime library support for protobuf repeated fields
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
+  // TStream for encoding and decoding of messages in the protobuf binary wire format
+  Classes,
+  Generics.Collections,
+  Sysutils,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag,
   Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint;
@@ -111,9 +115,10 @@ type
 
   protected
     /// <summary>
-    /// Encodes a protobuf field with a specific protobuf type using the protobuf binary wire format and writes it to a stream.
+    /// Encodes a protobuf singular field with a specific protobuf type using the protobuf binary wire format and writes it to a stream.
     /// </summary>
     /// <typeparam name="T">"Private" Delphi type representing values of the field within internal variables</typeparam>
+    /// <param name="aValue">Value of the field</param>
     /// <param name="aField">Protobuf field number of the field</param>
     /// <param name="aCodec">Field codec that specifies the encoding to the binary wire format of the protobuf type</param>
     /// <param name="aDest">The stream that the encoded field is written to</param>
@@ -124,9 +129,10 @@ type
     procedure EncodeField<T>(aValue: T; aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TStream);
 
     /// <summary>
-    /// Encodes a protobuf field with a specific protobuf message type (<i>message field</i>) using the protobuf binary wire format and writes it to a stream.
+    /// Encodes a protobuf singular field with a specific protobuf message type (<i>message field</i>) using the protobuf binary wire format and writes it to a stream.
     /// </summary>
     /// <typeparam name="T">Delphi type representing the protobuf message type of the field</typeparam>
+    /// <param name="aValue">Value of the field</param>
     /// <param name="aField">Protobuf field number of the field</param>
     /// <param name="aDest">The stream that the encoded field is written to</param>
     /// <remarks>
@@ -135,17 +141,36 @@ type
     procedure EncodeMessageField<T: TProtobufMessage>(aValue: T; aField: TProtobufFieldNumber; aDest: TStream);
 
     /// <summary>
-    /// TODO doc, TODO packing?
+    /// Encodes a protobuf repeated field with a specific protobuf type using the protobuf binary wire format and writes it to a stream.
     /// </summary>
+    /// <typeparam name="T">"Private" Delphi type representing values of the field within internal variables</typeparam>
+    /// <param name="aSource">Collection of values of the field</param>
+    /// <param name="aField">Protobuf field number of the field</param>
+    /// <param name="aCodec">Field codec that specifies the encoding to the binary wire format of the protobuf type</param>
+    /// <param name="aDest">The stream that the encoded field is written to</param>
+    /// <remarks>
+    /// This method is not used for message fields, see <see cref="EncodeRepeatedMessageField"/>.
+    /// This should be used within an implementation of <see cref="Encode"/>, after calling the ancestor class implementation.
+    /// </remarks>
     procedure EncodeRepeatedField<T>(aSource: TProtobufRepeatedField<T>; aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TStream);
 
     /// <summary>
-    /// TODO doc, TODO packing?
+    /// Encodes a protobuf repeated field with a specific protobuf message type (<i>message field</i>) using the protobuf binary wire format and writes it to a stream.
     /// </summary>
+    /// <typeparam name="T">Delphi type representing the protobuf message type of the field</typeparam>
+    /// <param name="aSource">Collection of values of the field</param>
+    /// <param name="aField">Protobuf field number of the field</param>
+    /// <param name="aDest">The stream that the encoded field is written to</param>
+    /// <remarks>
+    /// This should be used within an implementation of <see cref="Encode"/>, after calling the ancestor class implementation.
+    /// </remarks>
     procedure EncodeRepeatedMessageField<T: TProtobufMessage>(aSource: TProtobufRepeatedField<T>; aField: TProtobufFieldNumber; aDest: TStream);
 
     /// <summary>
-    /// Decodes a previously unknown protobuf field with a specific protobuf type.
+    /// Decodes a previously unknown protobuf singular field with a specific protobuf type.
+    /// The field is then no longer considered unknown.
+    /// If the field is present multiple times, the last value is used, see https://developers.google.com/protocol-buffers/docs/encoding#optional.
+    /// If the field is absent, the default value for the protobuf type is returned.
     /// </summary>
     /// <typeparam name="T">"Private" Delphi type representing values of the field within internal variables</typeparam>
     /// <param name="aField">Protobuf field number of the field</param>
@@ -159,10 +184,10 @@ type
     function DecodeUnknownField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>): T;
 
     /// <summary>
-    /// Decodes a previously unknown protobuf field with a specific protobuf message type (<i>message field</i>).
+    /// Decodes a previously unknown protobuf singular field with a specific protobuf message type (<i>message field</i>).
     /// If the field is present, an instance representing the embedded message is constructed and filled using <see cref="Create"/> and <see cref="Decode"/>.
     /// The field is then no longer considered unknown.
-    /// If the field is present multiple times, the last value is used, see https://developers.google.com/protocol-buffers/docs/encoding#optional.
+    /// If the field is present multiple times, the message values are merged, see https://developers.google.com/protocol-buffers/docs/encoding#optional.
     /// If the field is absent, <c>nil</c> is returned (which is the representation of the default value).
     /// </summary>
     /// <typeparam name="T">Delphi type representing the protobuf message type of the field</typeparam>
@@ -176,13 +201,33 @@ type
     function DecodeUnknownMessageField<T: TProtobufMessage>(aField: TProtobufFieldNumber): T;
     
     /// <summary>
-    /// TODO doc
+    /// Decodes a previously unknown protobuf repeated field with a specific protobuf type.
+    /// The field is then no longer considered unknown.
     /// </summary>
+    /// <typeparam name="T">"Private" Delphi type representing values of the field within internal variables</typeparam>
+    /// <param name="aField">Protobuf field number of the field</param>
+    /// <param name="aCodec">Field codec that specifies the decoding from the binary wire format of the protobuf type</param>
+    /// <param name="aDest">Collection to store decoded field values in</param>
+    /// <remarks>
+    /// This method is not used for message fields, see <see cref="DecodeUnknownRepeatedMessageField"/>.
+    /// This should be used within an implementation of <see cref="Decode"/>, after calling the ancestor class implementation.
+    /// This method is not idempotent. The state of this instance is changed by the call, since decoding "consumes" the unknown field.
+    /// </remarks>
     procedure DecodeUnknownRepeatedField<T>(aField: TProtobufFieldNumber; aCodec: TProtobufWireCodec<T>; aDest: TProtobufRepeatedField<T>);
-    
+
     /// <summary>
-    /// TODO doc
+    /// Decodes a previously unknown protobuf repeated field with a specific protobuf message type (<i>message field</i>).
+    /// If the field is present, one or more instances representing the embedded messages are constructed and filled using <see cref="Create"/> and <see cref="Decode"/>.
+    /// The field is then no longer considered unknown.
     /// </summary>
+    /// <typeparam name="T">Delphi type representing the protobuf message type of the field</typeparam>
+    /// <param name="aField">Protobuf field number of the field</param>
+    /// <param name="aDest">Collection to store decoded field values in</param>
+    /// <remarks>
+    /// This should be used within an implementation of <see cref="Decode"/>, after calling the ancestor class implementation.
+    /// This method is not idempotent. The state of this instance is changed by the call, since decoding "consumes" the unknown field.
+    /// Ownership of the stored objects is transitively carried by the collection.
+    /// </remarks>
     procedure DecodeUnknownRepeatedMessageField<T: TProtobufMessage>(aField: TProtobufFieldNumber; aDest: TProtobufRepeatedField<T>);
 
   private
