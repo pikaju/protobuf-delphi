@@ -10,26 +10,31 @@ unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint32;
 interface
 
 uses
-  Classes,
-  // Basic definitions of <c>protoc-gen-delphi</c>, independent of the runtime library implementation
-  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
-  // Support code for handling primitive values in repeated fields
-  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufRepeatedFieldPrimitives;
+  // To extend TProtobufRepeatedVarintFieldValues<UInt32>
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedVarintFieldValues,
+  // TProtobufVarintWireCodec for TProtobufRepeatedVarintFieldValues<UInt32> implementation
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintWireCodec;
 
 type
   /// <summary>
-  /// Concrete subclass of <see cref="TProtobufRepeatedField"/> for protobuf repeated fields of the protobuf type <c>uint32</c>.
+  /// Concrete subclass of <see cref="T:TProtobufRepeatedVarintFieldValues"/> for protobuf repeated fields of the protobuf type <c>uint32</c>.
   /// </summary>
-  TProtobufRepeatedUint32Field = class(TProtobufRepeatedFieldPrimitives<UInt32>)
-  protected
-    function ConstructElement: UInt32; override;
+  TProtobufRepeatedUint32FieldValues = class(TProtobufRepeatedVarintFieldValues<UInt32>)
+    protected
+      function GetWireCodec: TProtobufVarintWireCodec<UInt32>; override;
   end;
 
 implementation
 
-function TProtobufRepeatedUint32Field.ConstructElement: UInt32;
+uses
+  // gProtobufWireCodecUint32 as field codec
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufUint32;
+
+function TProtobufRepeatedUint32FieldValues.GetWireCodec: TProtobufVarintWireCodec<UInt32>;
 begin
-  result := PROTOBUF_DEFAULT_VALUE_UINT32;
+  result := gProtobufWireCodecUint32 as TProtobufVarintWireCodec<UInt32>;
 end;
 
 end.
+
+

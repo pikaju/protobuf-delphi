@@ -1,4 +1,6 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField;
+
+{$INCLUDE Work.Connor.Delphi.CompilerFeatures.inc}
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -7,17 +9,27 @@ unit Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField;
 interface
 
 uses
+  // To extend TPersistent, TStream for encoding and decoding of fields
+{$IFDEF WORK_CONNOR_DELPHI_COMPILER_UNIT_SCOPE_NAMES}
+  System.Classes,
+{$ELSE}
   Classes,
-  Sysutils,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint;
+{$ENDIF}
+  // For encoding and decoding of protobuf tags
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag,
+  // TBytes to store encoded data
+{$IFDEF WORK_CONNOR_DELPHI_COMPILER_UNIT_SCOPE_NAMES}
+  System.SysUtils;
+{$ELSE}
+  SysUtils;
+{$ENDIF}
 
 type
   // Type representing a single field within a Protobuf message.
   // The data contained within this field, with the exception of its
   // tag, is in the binary Protobuf encoded format.
   // This is used by TMessage to manage fields that are yet to be decoded properly.
-  TProtobufEncodedField = class
+  TProtobufEncodedField = class(TPersistent)
   private
     FTag: TProtobufTag;
     FData: TBytes;
@@ -43,9 +55,27 @@ type
     property Tag: TProtobufTag read FTag;
     // The binary data of this encoded field, exclusing information stored in the tag.
     property Data: TBytes read FData;
+
+    // TInterfacedPersistent implementation
+
+    public
+      /// <summary>
+      /// Copies the data from another encoded field to this one.
+      /// </summary>
+      /// <param name="aSource">Object to copy from</param>
+      /// <remarks>
+      /// The object must be another <see cref="TProtobufEncodedField"/>.
+      /// This performs a deep copy; hence, no ownership is shared.
+      /// This procedure causes the destruction of <see cref="Data"/>, developers must ensure that no shared ownership is held.
+      /// </remarks>
+      procedure Assign(aSource: TPersistent); override;
   end;
 
 implementation
+
+uses
+  // For encoding and decoding of lengths as varints
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
 
 constructor TProtobufEncodedField.Create;
 begin
@@ -103,6 +133,17 @@ begin
   finally
     lTempStream.Free;
   end;
+end;
+
+// TInterfacedPersistent implementation
+
+procedure TProtobufEncodedField.Assign(aSource: TPersistent);
+var
+  lSource: TProtobufEncodedField;
+begin
+  lSource := aSource as TProtobufEncodedField;
+  FTag := lSource.FTag;
+  FData := Copy(lSource.FData);
 end;
 
 end.

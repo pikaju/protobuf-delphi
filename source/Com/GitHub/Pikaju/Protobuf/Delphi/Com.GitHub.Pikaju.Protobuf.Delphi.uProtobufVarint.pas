@@ -1,4 +1,9 @@
-unit Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint;
+/// <summary>
+/// Support code for encoding/decoding of varint type values.
+/// </summary>
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
+
+{$INCLUDE Work.Connor.Delphi.CompilerFeatures.inc}
 
 {$IFDEF FPC}
   {$MODE DELPHI}
@@ -7,7 +12,12 @@ unit Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint;
 interface
 
 uses
+  // TStream for encoding and decoding of values
+{$IFDEF WORK_CONNOR_DELPHI_COMPILER_UNIT_SCOPE_NAMES}
+  System.Classes;
+{$ELSE}
   Classes;
+{$ENDIF}
 
 // Encodes an unsigned integer according to the Protobuf Base 128 Varint specification.
 // See: https://developers.google.com/protocol-buffers/docs/encoding#varints.
