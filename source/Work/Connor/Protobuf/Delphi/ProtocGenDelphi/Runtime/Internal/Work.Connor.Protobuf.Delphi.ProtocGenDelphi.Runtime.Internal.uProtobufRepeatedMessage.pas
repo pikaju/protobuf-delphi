@@ -30,15 +30,13 @@ interface
 uses
   // Runtime-internal support for the protobuf binary wire format
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufWireCodec,
-  // Runtime-internal support for message types
-  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufMessageInternal,
-  // RUNTIME-IMPL: Replace reference
+  // Runtime library support for message types
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uProtobufMessage,
   // To provide the concrete class for repeated field values
-  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.StubRuntime.uProtobufRepeatedFieldValues;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedMessageFieldValues;
 
 type
-  // RUNTIME-IMPL: Replace ancestor class
-  TProtobufRepeatedMessageFieldValues<T: IProtobufMessageInternal> = class(TProtobufRepeatedFieldValues<T>);
+  TProtobufRepeatedMessageFieldValues<T: TProtobufMessage, constructor> = class(Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedMessageFieldValues.TProtobufRepeatedMessageFieldValuesBase<T>);
 
 implementation
 

@@ -172,14 +172,14 @@ type
       /// </summary>
       /// <param name="aIndex">The index to write to</param>
       /// <param name="aValue">The new field value at the specified index</param>
-      procedure SetValue(aIndex: Integer; aValue: T);
+      procedure SetValue(aIndex: Integer; aValue: T); virtual;
 
       /// <summary>
       /// Gets or sets a field value at a specified index.
       /// </summary>
       /// <remarks>
       /// When a field value is read, it is still owned by the repeated field and must not be destroyed.
-      /// When a field value is written, the previous value is destroyed.
+      /// When a field value is written, the previous value is destroyed and ownership of the new field value is transferred to the repeated field.
       /// Developers must ensure that no shared ownership of the destroyed field value or further nested embedded objects is held.
       /// </remarks>
       /// <param name="aIndex">The index to access</param>
@@ -193,7 +193,7 @@ type
       /// <remarks>
       /// This operation transfers ownership of the added field value to the repeated field.
       /// </remarks>
-      function Add(const aValue: T): Integer;
+      function Add(const aValue: T): Integer; virtual;
 
       /// <summary>
       /// Adds a default field value to the end of the sequence.

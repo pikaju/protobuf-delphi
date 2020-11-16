@@ -152,7 +152,7 @@ type
 
     // IProtobufMessageInternal implementation
 
-    protected
+    public
       /// <summary>
       /// Tests if this message has a currently unknown protobuf field (found by <see cref="Decode"/>, but not decoded yet), with a known field number.
       /// </summary>
@@ -219,7 +219,7 @@ implementation
 uses
   // For encoding and decoding of protobuf tags
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag,
-  // For encoding and decoding of varint type values
+  // For encoding and decoding of varint type lengths
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint;
 
 constructor TProtobufMessage.Create;
