@@ -57,7 +57,7 @@ TEST_SRC_UNIT_FOLDERS += $(TEST_SRC)/utility
 ## Unit test sources
 TEST_SRC_UNIT_FOLDERS += $(TEST_SRC)/unit
 ## Unit test message example sources
-TEST_SRC_UNIT_FOLDERS += example/output
+TEST_SRC_UNIT_FOLDERS += example
 ## Test source Delphi units
 TEST_SRC_UNITS += $(foreach folder,$(TEST_SRC_UNIT_FOLDERS),$(wildcard $(folder)/*.pas))
 ## Unit test runner program source
