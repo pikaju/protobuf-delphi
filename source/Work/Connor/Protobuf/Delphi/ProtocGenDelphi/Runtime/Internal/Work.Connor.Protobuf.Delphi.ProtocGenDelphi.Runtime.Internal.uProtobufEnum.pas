@@ -32,9 +32,8 @@ uses
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufWireCodec,
   // Definition of TProtobufEnumFieldValue
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
-  // RUNTIME-IMPL: Replace reference
   // To provide the wire codec instance
-  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.StubRuntime.uProtobufWireCodec;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEnum;
 
 var
   /// <summary>
@@ -48,7 +47,7 @@ implementation
 initialization
 begin
   // RUNTIME-IMPL: Replace constructed class
-  gProtobufWireCodecEnum := TProtobufWireCodec<TProtobufEnumFieldValue>.Create;
+  gProtobufWireCodecEnum := TProtobufEnumWireCodec.Create;
 end;
 
 end.
