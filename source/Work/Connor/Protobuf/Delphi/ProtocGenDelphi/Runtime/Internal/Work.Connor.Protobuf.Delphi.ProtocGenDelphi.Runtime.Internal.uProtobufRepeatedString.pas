@@ -31,7 +31,7 @@ uses
   // Runtime-internal support for the protobuf binary wire format
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufWireCodec,
   // To provide the concrete class for repeated field values
-   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedString;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedString;
 
 type
   TProtobufRepeatedStringFieldValues = class(Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedString.TProtobufRepeatedStringFieldValues);
