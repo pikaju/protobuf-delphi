@@ -85,8 +85,6 @@ uses
 
 // IProtobufWireCodec<T> implementation
 
-// TODO
-
 procedure TProtobufDelimitedWireCodec<T>.EncodeSingularField(aValue: T; aContainer: IProtobufMessageInternal; aField: TProtobufFieldNumber; aDest: TStream);
 var
   lBytes: TBytes;
