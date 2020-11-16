@@ -1,0 +1,3 @@
+# Use Windows line endings for Lazarus IDE projects
+/protobufdelphi.pas expected-eol=crlf
+*.lpk expected-eol=crlf

@@ -1,0 +1,11 @@
+# Lazarus IDE build output folder
+/lib/x86_64-win64/
+
+# Lazarus IDE backup folder
+/backup/
+
+# Lazarus IDE Program Session
+*.lps
+
+# Test executable
+/ProtocGenDelphiRuntimeTests.exe
