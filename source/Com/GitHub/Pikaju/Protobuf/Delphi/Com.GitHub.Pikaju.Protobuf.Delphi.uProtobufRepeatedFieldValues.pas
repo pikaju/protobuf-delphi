@@ -230,7 +230,7 @@ type
       /// Unlike <see cref="Delete"/>, this method does not destroy the value. The caller is reponsible for managing (and eventually releasing)
       /// all resources held by the value.
       /// </remarks>
-      function ExtractAt(aIndex: Integer): T;
+      function ExtractAt(aIndex: Integer): T; virtual;
 
     // TInterfacedPersistent implementation
 

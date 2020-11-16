@@ -46,6 +46,7 @@ type
       destructor Destroy; override;
       procedure SetValue(aIndex: Integer; aValue: T); override;
       function Add(const aValue: T): Integer; override;
+      function ExtractAt(aIndex: Integer): T; override;
 
     protected
       function GetStorage: TList<T>; override;
@@ -77,6 +78,12 @@ function TProtobufRepeatedMessageFieldValuesBase<T>.Add(const aValue: T): Intege
 begin
   aValue.SetOwner(Self);
   inherited Add(aValue);
+end;
+
+function TProtobufRepeatedMessageFieldValuesBase<T>.ExtractAt(aIndex: Integer): T;
+begin
+  result := inherited;
+  result.SetOwner(nil);
 end;
 
 function TProtobufRepeatedMessageFieldValuesBase<T>.GetStorage: TList<T>;
