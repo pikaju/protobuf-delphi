@@ -1,0 +1,5 @@
+# Do not perform any line ending conversion
+* -text
+
+# Expect files with a checked end-of-line type to use Unix newlines
+* expected-eol=lf
