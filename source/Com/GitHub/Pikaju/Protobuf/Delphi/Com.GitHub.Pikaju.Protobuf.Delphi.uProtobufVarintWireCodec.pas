@@ -61,12 +61,6 @@ type
       /// <returns>Corresponding integer value</returns>
       function ToUInt64(aValue: T): UInt64; virtual; abstract;
 
-      /// <summary>
-      /// Provides the default value of this codec's protobuf varint type.
-      /// </summary>
-      /// <returns>The varint type's default value</returns>
-      function GetDefault: T; virtual; abstract;
-
     // IProtobufWireCodec<T> implementation
 
     public

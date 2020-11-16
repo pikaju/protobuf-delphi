@@ -1,7 +1,7 @@
 /// <summary>
-/// Support code for handling of varint type values in <see cref="N:Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedFieldValues"/>.
+/// Support code for handling of non-message length-delimited type values in <see cref="N:Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedFieldValues"/>.
 /// </summary>
-unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedVarintFieldValues;
+unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedDelimitedFieldValues;
 
 {$INCLUDE Work.Connor.Delphi.CompilerFeatures.inc}
 
@@ -14,8 +14,8 @@ interface
 uses
   // To extend TProtobufRepeatedPrimitiveFieldValues<T>
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedPrimitiveFieldValues,
-  // TProtobufVarintWireCodec<T> for encoding and decoding of field values
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintWireCodec,
+  // TProtobufDelimitedWireCodec<T> for encoding and decoding of field values
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufDelimitedWireCodec,
   // TProtobufWireCodec<T> TProtobufRepeatedPrimitiveFieldValues<T> implementation
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
   // IProtobufMessageInternal for IProtobufRepeatedFieldValuesInternal<T> implementation
@@ -31,23 +31,23 @@ uses
 
 type
   /// <summary>
-  /// Helper subclass of <see cref="T:TProtobufRepeatedPrimitiveFieldValues"/> for values of a specific varint type.
+  /// Helper subclass of <see cref="T:TProtobufRepeatedPrimitiveFieldValues"/> for values of a specific non-message length-delimited type.
   /// </summary>
   /// <typeparam name="T">Delphi type of the field values</typeparam>
-  TProtobufRepeatedVarintFieldValues<T> = class abstract(TProtobufRepeatedPrimitiveFieldValues<T>)
+  TProtobufRepeatedDelimitedFieldValues<T> = class abstract(TProtobufRepeatedPrimitiveFieldValues<T>)
     // Abstract members
 
     protected
       /// <summary>
-      /// Getter for <see cref="VarintWireCodec"/>.
+      /// Getter for <see cref="DelimitedWireCodec"/>.
       /// </summary>
       /// <returns>Field codec for the protobuf type</returns>
-      function GetVarintWireCodec: TProtobufVarintWireCodec<T>; virtual; abstract;
+      function GetDelimitedWireCodec: TProtobufDelimitedWireCodec<T>; virtual; abstract;
 
       /// <summary>
       /// Field codec for the protobuf type.
       /// </summary>
-      property VarintWireCodec: TProtobufVarintWireCodec<T> read GetVarintWireCodec;
+      property DelimitedWireCodec: TProtobufDelimitedWireCodec<T> read GetDelimitedWireCodec;
 
     // TProtobufRepeatedPrimitiveFieldValues<T> implementation
 
@@ -70,39 +70,52 @@ uses
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage,
   // For encoding and decoding of protobuf tags
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag,
-  // For encoding and decoding of varint type values
+  // For encoding and decoding of varint type lengths
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint,
   // TObjectList for handling unparsed fields
 {$IFDEF WORK_CONNOR_DELPHI_COMPILER_UNIT_SCOPE_NAMES}
-  System.Generics.Collections;
+  System.Generics.Collections,
 {$ELSE}
-  Generics.Collections;
+  Generics.Collections,
+{$ENDIF}
+  // TBytes to represent value data
+{$IFDEF WORK_CONNOR_DELPHI_COMPILER_UNIT_SCOPE_NAMES}
+  System.SysUtils;
+{$ELSE}
+  SysUtils;
 {$ENDIF}
 
 // TProtobufRepeatedPrimitiveFieldValues<T> implementation
 
-function TProtobufRepeatedVarintFieldValues<T>.GetWireCodec: TProtobufWireCodec<T>;
+function TProtobufRepeatedDelimitedFieldValues<T>.GetWireCodec: TProtobufWireCodec<T>;
 begin
-  result := VarintWireCodec;
+  result := DelimitedWireCodec;
 end;
-
 
 // IProtobufRepeatedFieldValuesInternal<T> implementation
 
-procedure TProtobufRepeatedVarintFieldValues<T>.EncodeAsRepeatedField(aContainer: IProtobufMessageInternal; aField: TProtobufFieldNumber; aDest: TStream);
+procedure TProtobufRepeatedDelimitedFieldValues<T>.EncodeAsRepeatedField(aContainer: IProtobufMessageInternal; aField: TProtobufFieldNumber; aDest: TStream);
 var
   lValue: T;
+  lBytes: TBytes;
 begin
-  TProtobufTag.WithData(aField, wtLengthDelimited).Encode(aDest);
-  for lValue in self do EncodeVarint(VarintWireCodec.ToUInt64(lValue), aDest);
+  for lValue in self do
+  begin
+    TProtobufTag.WithData(aField, wtLengthDelimited).Encode(aDest);
+    lBytes := DelimitedWireCodec.ToBytes(lValue);
+    EncodeVarint(Length(lBytes), aDest);
+    if (Length(lBytes) > 0) then aDest.WriteBuffer(lBytes[0], Length(lBytes));
+  end;
 end;
 
-procedure TProtobufRepeatedVarintFieldValues<T>.DecodeAsUnknownRepeatedField(aContainer: IProtobufMessageInternal; aField: TProtobufFieldNumber);
+procedure TProtobufRepeatedDelimitedFieldValues<T>.DecodeAsUnknownRepeatedField(aContainer: IProtobufMessageInternal; aField: TProtobufFieldNumber);
 var
   lContainer: TProtobufMessage;
   lFields: TObjectList<TProtobufEncodedField>;
   lField: TProtobufEncodedField;
   lStream: TMemoryStream;
+  lLength: UInt32;
+  lBytes: TBytes;
 begin
   lContainer := aContainer as TProtobufMessage;
 
@@ -116,23 +129,24 @@ begin
     // For each field, we will decide wether to decode a packed or non-packed repeated varint.
     for lField in lFields do
     begin
-      // Convert field to a stream for simpler processing.
-      lStream := TMemoryStream.Create;
-      try
-        lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
-        lStream.Seek(0, soBeginning);
+      if (lField.Tag.WireType = wtLengthDelimited) then
+      begin
+        // Convert field to a stream for simpler processing.
+        lStream := TMemoryStream.Create;
+        try
+          lStream.WriteBuffer(lField.Data[0], Length(lField.Data));
+          lStream.Seek(0, soBeginning);
 
-        if (lField.Tag.WireType = wtVarint) then Add(VarintWireCodec.FromUInt64(DecodeVarint(lStream)))
-        else if (lField.Tag.WireType = wtLengthDelimited) then
-        begin
-          // Ignore the size of the field, as the stream already has the correct length.
-          DecodeVarint(lStream);
-          while (lStream.Position < lStream.Size) do
-            Add(VarintWireCodec.FromUInt64(DecodeVarint(lStream)));
-        end; // TODO: Catch invalid wire type.
-      finally
-        lStream.Free;
-      end;
+          lLength := DecodeVarint(lStream);
+          SetLength(lBytes, lLength);
+          if (lLength > 0) then
+            lStream.ReadBuffer(lBytes[0], lLength);
+
+          Add(DelimitedWireCodec.FromBytes(lBytes));
+        finally
+          lStream.Free;
+        end;
+      end; // TODO: Catch invalid wire type.
     end;
     lContainer.UnparsedFields.Remove(aField);
   end;

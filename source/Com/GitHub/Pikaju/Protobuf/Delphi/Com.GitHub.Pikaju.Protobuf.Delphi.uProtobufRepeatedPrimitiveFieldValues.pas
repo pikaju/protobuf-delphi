@@ -14,6 +14,8 @@ interface
 uses
   // To extend TProtobufRepeatedFieldValues<T>
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedFieldValues,
+  // TProtobufWireCodec to construct new elements with default values
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
   // TList for TProtobufRepeatedFieldValues<T> implementation
 {$IFDEF WORK_CONNOR_DELPHI_COMPILER_UNIT_SCOPE_NAMES}
   System.Generics.Collections;
@@ -23,7 +25,7 @@ uses
 
 type
   /// <summary>
-  /// Helper subclass of <see cref="TProtobufRepeatedFieldValues"/> for type parameters that are neither object types nor enumerated types.
+  /// Helper subclass of <see cref="T:TProtobufRepeatedFieldValues"/> for type parameters that are neither object types nor enumerated types.
   /// </summary>
   /// <typeparam name="T">Delphi type of the field values</typeparam>
   TProtobufRepeatedPrimitiveFieldValues<T> = class abstract(TProtobufRepeatedFieldValues<T>)
@@ -33,6 +35,20 @@ type
       /// </summary>
       FStorage: TList<T>;
 
+    // Abstract members
+
+    protected
+      /// <summary>
+      /// Getter for <see cref="WireCodec"/>.
+      /// </summary>
+      /// <returns>Field codec for the protobuf type</returns>
+      function GetWireCodec: TProtobufWireCodec<T>; virtual; abstract;
+
+      /// <summary>
+      /// Field codec for the protobuf type.
+      /// </summary>
+      property WireCodec: TProtobufWireCodec<T> read GetWireCodec;
+
     // TProtobufRepeatedFieldValues<T> implementation
 
     public
@@ -41,8 +57,8 @@ type
 
     protected
       function GetStorage: TList<T>; override;
+      function ConstructElement: T; override;
       procedure AssignFieldValues(aSource: TProtobufRepeatedFieldValues<T>); override;
-
     end;
 
 implementation
@@ -62,6 +78,11 @@ end;
 function TProtobufRepeatedPrimitiveFieldValues<T>.GetStorage: TList<T>;
 begin
   result := FStorage;
+end;
+
+function TProtobufRepeatedPrimitiveFieldValues<T>.ConstructElement: T;
+begin
+  result := WireCodec.GetDefault;
 end;
 
 procedure  TProtobufRepeatedPrimitiveFieldValues<T>.AssignFieldValues(aSource: TProtobufRepeatedFieldValues<T>);
