@@ -31,7 +31,7 @@ type
   /// <remarks>
   /// The class name is not "TProtobufRepeatedMessageFieldValues" as one might expect, to work around an FPC bug. 
   /// </remarks>
-  TProtobufRepeatedMessageFieldValuesBase<T: TProtobufMessage, constructor> = class abstract(TProtobufRepeatedFieldValues<T>)
+  TProtobufRepeatedMessageFieldValuesBase<T: TProtobufMessage, constructor> = class(TProtobufRepeatedFieldValues<T>)
     private
       /// <summary>
       /// Backing storage for <see cref="GetStorage"/> using message values.
