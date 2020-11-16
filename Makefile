@@ -32,24 +32,32 @@ install-dot-net-tool = dotnet tool update --global $(1) --version $(2)
 SRC = source
 ## Source Delphi unit folders
 SRC_UNIT_FOLDERS =
-## Public runtime sources
+## Runtime library sources
 SRC_UNIT_FOLDERS += $(SRC)/Com/GitHub/Pikaju/Protobuf/Delphi
-## Internal runtime sources
-SRC_UNIT_FOLDERS += $(SRC)/Com/GitHub/Pikaju/Protobuf/Delphi/Internal
 ## Common runtime-independent sources to support protoc-gen-delphi
 SRC_UNIT_FOLDERS += $(SRC)/Work/Connor/Protobuf/Delphi/ProtocGenDelphi
+## Protoc-gen-delphi public API sources
+SRC_UNIT_FOLDERS += $(SRC)/Work/Connor/Protobuf/Delphi/ProtocGenDelphi/Runtime
+## Protoc-gen-delphi internal API sources
+SRC_UNIT_FOLDERS += $(SRC)/Work/Connor/Protobuf/Delphi/ProtocGenDelphi/Runtime/Internal
 ## Source Delphi units
 SRC_UNITS += $(foreach folder,$(SRC_UNIT_FOLDERS),$(wildcard $(folder)/*.pas))
+## Source Delphi include folders
+SRC_INCLUDE_FOLDERS =
+## Helper include files for the Work.Connor namespace
+SRC_INCLUDE_FOLDERS += $(SRC)/Work/Connor/Delphi
+## Source Delphi include files
+SRC_INCLUDE_FILES += $(foreach folder,$(SRC_INCLUDE_FOLDERS),$(wildcard $(folder)/*.inc))
 ## Test source folder
 TEST_SRC = test
 ## Test source Delphi unit folders
 TEST_SRC_UNIT_FOLDERS =
-## Unit test sources
-TEST_SRC_UNIT_FOLDERS += $(TEST_SRC)/unit
-## Unit test sources for codecs
-TEST_SRC_UNIT_FOLDERS += $(TEST_SRC)/unit/codecs
 ## Unit test utility sources
 TEST_SRC_UNIT_FOLDERS += $(TEST_SRC)/utility
+## Unit test sources
+TEST_SRC_UNIT_FOLDERS += $(TEST_SRC)/unit
+## Unit test message example sources
+TEST_SRC_UNIT_FOLDERS += example/output
 ## Test source Delphi units
 TEST_SRC_UNITS += $(foreach folder,$(TEST_SRC_UNIT_FOLDERS),$(wildcard $(folder)/*.pas))
 ## Unit test runner program source
@@ -84,12 +92,12 @@ FPC_SUPPRESSED_MESSAGES += 6058
 FPC_OPTIONS += -vm$(call join-string,$(FPC_SUPPRESSED_MESSAGES),$(COMMA))
 ## Halt on warnings, notes and hints
 FPC_OPTIONS += -Sewnh
-#### compile: Build program $(1) from Pascal source $(2) and unit paths $(3) and output directory $(4)
-compile = fpc -vq $(FPC_OPTIONS) -o$(1) -FE$(4) $(addprefix -Fu,$(3)) $(2)
+#### compile: Build program $(1) from Pascal source $(2), unit paths $(3), include paths $(4) and output directory $(5)
+compile = fpc -vq $(FPC_OPTIONS) -o$(1) -FE$(5) $(addprefix -Fu,$(3)) $(addprefix -Fi,$(4)) $(2)
 ## protoc-gen-delphi plug-in name
 PLUGIN = protoc-gen-delphi
 ## protoc-gen-delphi version
-PLUGIN_VERSION = 0.3.0
+PLUGIN_VERSION = 0.6.0
 ## Integration test tool name
 INTEGRATION_TEST_TOOL = protoc-gen-delphi.runtime-tests
 ## Integration test tool executable name
@@ -100,9 +108,9 @@ INTEGRATION_TEST_TOOL_EXECUTABLE = protoc-gen-delphi-runtime-tests
 ## Test runner program
 .PHONY: unit-tests
 unit-tests: $(UNIT_TEST_RUNNER)
-$(UNIT_TEST_RUNNER): $(SRC_UNITS) $(TEST_SRC_UNITS)
+$(UNIT_TEST_RUNNER): $(SRC_UNITS) $(SRC_INCLUDE_FILES) $(TEST_SRC_UNITS)
 	$(call create-folder,$(BUILD))
-	$(call compile,$(UNIT_TEST_RUNNER),$(UNIT_TEST_RUNNER_SRC),$(SRC_UNIT_FOLDERS) $(TEST_SRC_UNIT_FOLDERS),$(BUILD))
+	$(call compile,$(UNIT_TEST_RUNNER),$(UNIT_TEST_RUNNER_SRC),$(SRC_UNIT_FOLDERS) $(TEST_SRC_UNIT_FOLDERS),$(SRC_INCLUDE_FILES),$(BUILD))
 
 ## Run unit tests
 .PHONY: run-unit-tests

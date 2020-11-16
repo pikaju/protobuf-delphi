@@ -9,7 +9,7 @@ interface
 uses
   Classes,
   Sysutils,
-  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uExampleMessage,
+  uExampleData,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTestUtility;
 
 procedure TestMessage;
@@ -20,17 +20,17 @@ procedure TestEncoding;
 var
   lStream: TStream;
 
-  lMessageY: TMessageY;
+  lMessageX: TMessageX;
 begin
   lStream := TMemoryStream.Create;
 
-  lMessageY := TMessageY.Create;
-  lMessageY.FieldX := TMessageX.Create;
+  lMessageX := TMessageX.Create;
+  lMessageX.FieldY := TMessageY.Create;
   try
-    lMessageY.Encode(lStream);
-    AssertStreamEquals(lStream, [1 shl 3 or 2, 0], 'Encoding a message with a message field works.');
+    lMessageX.Encode(lStream);
+    AssertStreamEquals(lStream, [2 shl 3 or 2, 0], 'Encoding a message with a message field works.');
   finally
-    lMessageY.Free;
+    lMessageX.Free;
 
     lStream.Free;
   end;
@@ -41,24 +41,24 @@ var
   lStream: TMemoryStream;
   lBytes: TBytes;
 
-  lMessageY: TMessageY;
+  lMessageX: TMessageX;
 begin
   lStream := TMemoryStream.Create;
 
-  lMessageY := TMessageY.Create;
+  lMessageX := TMessageX.Create;
   try
-    lBytes := [1 shl 3 or 2, 0];
+    lBytes := [2 shl 3 or 2, 0];
     lStream.WriteBuffer(lBytes[0], Length(lBytes));
     lStream.Seek(0, soBeginning);
-    lMessageY.Decode(lStream);
-    AssertTrue(Assigned(lMessageY.FieldX), 'Decoding a message with a message field assigns the message.');
+    lMessageX.Decode(lStream);
+    AssertTrue(Assigned(lMessageX.FieldY), 'Decoding a message with a message field assigns the message.');
     lStream.Clear;
 
-    lMessageY.Decode(lStream);
-    AssertTrue(not Assigned(lMessageY.FieldX), 'Decoding a message from an empty stream unassigns message fields.');
+    lMessageX.Decode(lStream);
+    AssertTrue(not Assigned(lMessageX.FieldY), 'Decoding a message from an empty stream unassigns message fields.');
     lStream.Clear;
   finally
-    lMessageY.Free;
+    lMessageX.Free;
 
     lStream.Free;
   end;

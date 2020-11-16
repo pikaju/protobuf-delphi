@@ -12,10 +12,10 @@ uses
   // To check for default values
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedEnum,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedField,
+  //Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedEnum,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedFieldValues,
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint32,
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedMessage,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedMessageFieldValues,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTestUtility;
 
 type
@@ -27,12 +27,12 @@ implementation
 
 procedure TestEmplaceAdd;
 var
-  lIntField: TProtobufRepeatedField<UInt32>;
-  lMessageField: TProtobufRepeatedField<TEmpty>;
+  lIntField: TProtobufRepeatedFieldValues<UInt32>;
+  lMessageField: TProtobufRepeatedFieldValues<TEmpty>;
   lTestEmpty: TEmpty;
 begin
   // For non-message fields, the value created by EmplaceAdd is not defined, so we do not need to test it.
-  lIntField := TProtobufRepeatedUint32Field.Create;
+  lIntField := TProtobufRepeatedUint32FieldValues.Create;
   AssertTrue(lIntField.Count = 0, 'Repeated fields start out empty.');
   lIntField.EmplaceAdd;
   AssertTrue(lIntField.Count = 1, 'Emplacing once results in a count of 1.');
@@ -45,7 +45,7 @@ begin
   AssertTrue(lIntField[2] = 5, 'Values are assignable.');
   lIntField.Free;
 
-  lMessageField := TProtobufRepeatedMessageField<TEmpty>.Create;
+  lMessageField := TProtobufRepeatedMessageFieldValuesBase<TEmpty>.Create;
   AssertTrue(lMessageField.Count = 0, 'Repeated fields start out empty.');
   lMessageField.EmplaceAdd;
   AssertTrue(lMessageField.Count = 1, 'Emplacing once results in a count of 1.');
@@ -62,10 +62,10 @@ end;
 
 procedure TestClear;
 var
-  lIntField: TProtobufRepeatedField<UInt32>;
-  lMessageField: TProtobufRepeatedField<TEmpty>;
+  lIntField: TProtobufRepeatedFieldValues<UInt32>;
+  lMessageField: TProtobufRepeatedFieldValues<TEmpty>;
 begin
-  lIntField := TProtobufRepeatedUint32Field.Create;
+  lIntField := TProtobufRepeatedUint32FieldValues.Create;
   AssertTrue(lIntField.Count = 0, 'Repeated fields start out empty.');
   lIntField.EmplaceAdd;
   lIntField.EmplaceAdd;
@@ -75,7 +75,7 @@ begin
   AssertTrue(lIntField.Count = 0, 'Clearing results in a count of 0.');
   lIntField.Free;
 
-  lMessageField := TProtobufRepeatedMessageField<TEmpty>.Create;
+  lMessageField := TProtobufRepeatedMessageFieldValuesBase<TEmpty>.Create;
   AssertTrue(lMessageField.Count = 0, 'Repeated fields start out empty.');
   lMessageField.EmplaceAdd;
   lMessageField.EmplaceAdd;
@@ -88,9 +88,9 @@ end;
 
 procedure TestExtractAt;
 var
-  lIntField: TProtobufRepeatedField<UInt32>;
+  lIntField: TProtobufRepeatedFieldValues<UInt32>;
 begin
-  lIntField := TProtobufRepeatedUint32Field.Create;
+  lIntField := TProtobufRepeatedUint32FieldValues.Create;
   lIntField.Add(1);
   lIntField.Add(2);
   lIntField.Add(3);
@@ -102,19 +102,6 @@ begin
   AssertRepeatedFieldEquals<UInt32>(lIntField, [2, 3], 'Extracted value at index 0 is gone after extraction.');
 end;
 
-procedure TestEnumConstruction;
-type
-  TTestEnum = (teOne, teTwo, teThree);
-var
-  lEnumField: TProtobufRepeatedField<TTestEnum>;
-begin
-  lEnumField := TProtobufRepeatedEnumField<TTestEnum>.Create;
-  lEnumField.EmplaceAdd;
-  lEnumField.EmplaceAdd;
-  AssertTrue(lEnumField[0] = teOne, 'Repeated enum field slot 0 is default initialized properly.');
-  AssertTrue(lEnumField[1] = teOne, 'Repeated enum field slot 1 is default initialized properly.');
-end;
-
 procedure TestRepeatedField;
 begin
   WriteLn('Running TestEmplaceAdd...');
@@ -123,8 +110,6 @@ begin
   TestClear;
   WriteLn('Running TestExtractAt...');
   TestExtractAt;
-  WriteLn('Running TestEnumConstruction...');
-  TestEnumConstruction;
 end;
 
 end.

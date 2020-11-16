@@ -9,9 +9,7 @@ uses
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufMessage,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufRepeatedField,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTag,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufVarint,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufStringCodec,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufVarintCodec;
+  Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufVarint;
 
 begin
   WriteLn;
@@ -36,17 +34,6 @@ begin
 
   WriteLn('Unit uProtobufVarint:');
   TestVarint;
-  WriteLn;
-  
-  WriteLn('--- Testing codecs ---');
-  WriteLn;
-
-  WriteLn('Unit uProtobufStringCodec:');
-  TestStringCodec;
-  WriteLn;
-
-  WriteLn('Unit uProtobufVarintCodec:');
-  TestVarintCodec;
   WriteLn;
 
   WriteLn('--- All tests succeeded ---');

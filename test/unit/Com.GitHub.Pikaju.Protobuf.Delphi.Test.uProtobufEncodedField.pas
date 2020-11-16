@@ -9,8 +9,8 @@ interface
 uses
   Classes,
   Sysutils,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufEncodedField,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufTag,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTestUtility;
 
 procedure TestEncodedField;

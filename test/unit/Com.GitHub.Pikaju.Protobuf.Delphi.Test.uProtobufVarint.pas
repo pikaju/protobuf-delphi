@@ -9,7 +9,7 @@ interface
 uses
   Classes,
   Sysutils,
-  Com.GitHub.Pikaju.Protobuf.Delphi.Internal.uProtobufVarint,
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint,
   Com.GitHub.Pikaju.Protobuf.Delphi.Test.uProtobufTestUtility;
 
 procedure TestVarint;
