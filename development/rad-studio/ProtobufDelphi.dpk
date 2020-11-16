@@ -1,0 +1,72 @@
+package ProtobufDelphi;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl;
+
+contains
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufFieldAttribute in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufFieldAttribute.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufMessage in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufMessage.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufRepeatedFieldValues in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufRepeatedFieldValues.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uProtobufMessage in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uProtobufMessage.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufMessageInternal in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufMessageInternal.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufRepeatedFieldValuesInternal in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufRepeatedFieldValuesInternal.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufWireCodec in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufWireCodec.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedUint32 in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedUint32.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEncodedField.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufFieldAttribute in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufFieldAttribute.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedFieldValues in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedFieldValues.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedPrimitiveFieldValues in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedPrimitiveFieldValues.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint32 in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint32.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedVarintFieldValues in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedVarintFieldValues.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint32 in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint32.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintWireCodec in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintWireCodec.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufUint32 in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufUint32.pas',
+  uExampleData in '..\..\example\uExampleData.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufBool in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufBool.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBool in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBool.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedString in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedString.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufString in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufString.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBool in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBool.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBool in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBool.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedString in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedString.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufString in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufString.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufDelimitedWireCodec in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufDelimitedWireCodec.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedDelimitedFieldValues in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedDelimitedFieldValues.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufEnum in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufEnum.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEnum in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEnum.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedMessageFieldValues in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedMessageFieldValues.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedMessage in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedMessage.pas';
+
+end.

@@ -1,0 +1,20 @@
+# Generated XML documentation
+/xml-doc/
+
+# RAD Studio History Manager data
+__history/
+
+# RAD Studio AutoRecover data
+__recovery/
+
+# RAD Studio user-specific project options
+*.dproj.local
+
+# RAD Studio refactoring information
+*.identcache
+
+# RAD Studio build output folder
+/Win32/Debug/
+
+# Buildable RAD Studio resource file
+/ProtobufDelphi.res
