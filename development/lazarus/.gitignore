@@ -8,4 +8,4 @@
 *.lps
 
 # Test executable
-/ProtocGenDelphiRuntimeTests.exe
+/ProtobufDelphiTests.exe
