@@ -117,8 +117,11 @@ end;
 
 procedure TProtobufVarintWireCodec<T>.EncodeSingularField(aValue: T; aContainer: IProtobufMessageInternal; aField: TProtobufFieldNumber; aDest: TStream);
 begin
-  TProtobufTag.WithData(aField, wtVarint).Encode(aDest);
-  EncodeVarint(ToUInt64(aValue), aDest);
+  if (aValue <> GetDefault) then
+  begin
+    TProtobufTag.WithData(aField, wtVarint).Encode(aDest);
+    EncodeVarint(ToUInt64(aValue), aDest);
+  end;
 end;
 
 function TProtobufVarintWireCodec<T>.DecodeUnknownField(aContainer: IProtobufMessageInternal; aField: TProtobufFieldNumber): T;
