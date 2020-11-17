@@ -92,9 +92,22 @@ end;
 procedure TProtobufRepeatedVarintFieldValues<T>.EncodeAsRepeatedField(aContainer: IProtobufMessageInternal; aField: TProtobufFieldNumber; aDest: TStream);
 var
   lValue: T;
+  lStream: TStream;
 begin
-  TProtobufTag.WithData(aField, wtLengthDelimited).Encode(aDest);
-  for lValue in self do EncodeVarint(VarintWireCodec.ToUInt64(lValue), aDest);
+  if (Count <> 0) then
+  begin
+    // Encode the values to a temporary stream first to determine their size.
+    lStream := TMemoryStream.Create;
+    try
+      for lValue in self do EncodeVarint(VarintWireCodec.ToUInt64(lValue), lStream);
+      lStream.Seek(0, soBeginning);
+      TProtobufTag.WithData(aField, wtLengthDelimited).Encode(aDest);
+      EncodeVarint(lStream.Size, aDest);
+      aDest.CopyFrom(lStream, lStream.Size);
+    finally
+      lStream.Free;
+    end;
+  end;
 end;
 
 procedure TProtobufRepeatedVarintFieldValues<T>.DecodeAsUnknownRepeatedField(aContainer: IProtobufMessageInternal; aField: TProtobufFieldNumber);
