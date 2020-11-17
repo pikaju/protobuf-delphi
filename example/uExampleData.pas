@@ -380,6 +380,7 @@ begin
   inherited;
   FFieldX := gProtobufWireCodecUint32.DecodeUnknownField(self, PROTOBUF_FIELD_NUMBER_FIELD_X);
   FFieldY.Free;
+  FFieldY := PROTOBUF_DEFAULT_VALUE_MESSAGE;
   if HasUnknownField(PROTOBUF_FIELD_NUMBER_FIELD_Y) then
   begin
     FFieldY := TMessageY.Create;
