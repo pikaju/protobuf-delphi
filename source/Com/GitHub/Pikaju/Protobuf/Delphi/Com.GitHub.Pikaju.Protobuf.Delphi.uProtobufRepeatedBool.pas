@@ -13,7 +13,9 @@ uses
   // To extend TProtobufRepeatedVarintFieldValues<Boolean>
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedVarintFieldValues,
   // TProtobufVarintWireCodec for TProtobufRepeatedVarintFieldValues<Boolean> implementation
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintWireCodec;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintWireCodec,
+  // TProtobufBoolWireCodec as wire codec
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufBool;
 
 type
   /// <summary>
@@ -36,7 +38,7 @@ uses
 
 function TProtobufRepeatedBoolFieldValues.GetVarintWireCodec: TProtobufVarintWireCodec<Boolean>;
 begin
-  result := gProtobufWireCodecBool as TProtobufVarintWireCodec<Boolean>;
+  result := gProtobufWireCodecBool as TProtobufBoolWireCodec;
 end;
 
 end.

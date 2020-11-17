@@ -13,7 +13,9 @@ uses
   // To extend TProtobufRepeatedVarintFieldValues<UInt32>
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedVarintFieldValues,
   // TProtobufVarintWireCodec for TProtobufRepeatedVarintFieldValues<UInt32> implementation
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintWireCodec;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintWireCodec,
+  // TProtobufUint32WireCodec as wire codec
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint32;
 
 type
   /// <summary>
@@ -36,7 +38,7 @@ uses
 
 function TProtobufRepeatedUint32FieldValues.GetVarintWireCodec: TProtobufVarintWireCodec<UInt32>;
 begin
-  result := gProtobufWireCodecUint32 as TProtobufVarintWireCodec<UInt32>;
+  result := gProtobufWireCodecUint32 as TProtobufUint32WireCodec;
 end;
 
 end.

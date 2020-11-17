@@ -13,7 +13,9 @@ uses
   // To extend TProtobufRepeatedDelimitedFieldValues<UnicodeString>
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedDelimitedFieldValues,
   // TProtobufWireCodec for TProtobufRepeatedDelimitedFieldValues<UnicodeString> implementation
-  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
+  // TProtobufStringWireCodec as wire codec
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufString;
 
 type
   /// <summary>
@@ -36,7 +38,7 @@ uses
 
 function TProtobufRepeatedStringFieldValues.GetWireCodec: TProtobufWireCodec<UnicodeString>;
 begin
-  result := gProtobufWireCodecString as TProtobufWireCodec<UnicodeString>;
+  result := gProtobufWireCodecString as TProtobufStringWireCodec;
 end;
 
 end.
