@@ -33,23 +33,12 @@ interface
 uses
   // TStream for encoding and decoding of messages
 {$IFDEF WORK_CONNOR_DELPHI_COMPILER_UNIT_SCOPE_NAMES}
-  System.Classes,
+  System.Classes;
 {$ELSE}
-  Classes,
-{$ENDIF}
-  // To declare custom exceptions
-{$IFDEF WORK_CONNOR_DELPHI_COMPILER_UNIT_SCOPE_NAMES}
-  System.SysUtils;
-{$ELSE}
-  SysUtils;
+  Classes;
 {$ENDIF}
 
 type
-  /// <summary>
-  /// Indicates that protobuf decoding failed since a message was not compatible with its expected schema.
-  /// </summary>
-  EDecodingSchemaError = class(Exception);
-
   /// <summary>
   /// Common interface of all generated classes that represent protobuf message types.
   /// </summary>
@@ -118,6 +107,20 @@ type
     /// See remarks on <see cref="Decode">.
     /// </remarks>
     procedure DecodeDelimited(aSource: TStream);
+
+    /// <summary>
+    /// Merges the given message (source) into this one (destination).
+    /// All singular present (non-default) scalar fields in the source replace those in the destination.
+    /// All singular embedded messages are merged recursively.
+    /// All repeated fields are concatenated, with the source field values being appended to the destination field.
+    /// If this causes a new message object to be added, a copy is created to preserve ownership.
+    /// </summary>
+    /// <param name="aSource">Message to merge into this one</param>
+    /// <remarks>
+    /// The source message must be a protobuf message of the same type.
+    /// This procedure does not cause the destruction of any transitively owned objects in this message instance (append-only).
+    /// </remarks>
+    procedure MergeFrom(aSource: IProtobufMessage);
   end;
 
 implementation
