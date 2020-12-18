@@ -97,7 +97,7 @@ compile = fpc -vq $(FPC_OPTIONS) -o$(1) -FE$(5) $(addprefix -Fu,$(3)) $(addprefi
 ## protoc-gen-delphi plug-in name
 PLUGIN = protoc-gen-delphi
 ## protoc-gen-delphi version
-PLUGIN_VERSION = 0.9.2
+PLUGIN_VERSION = 0.9.3
 ## Integration test tool name
 INTEGRATION_TEST_TOOL = protoc-gen-delphi.runtime-tests
 ## Integration test tool executable name
