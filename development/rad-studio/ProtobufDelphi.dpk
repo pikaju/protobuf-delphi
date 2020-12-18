@@ -67,6 +67,10 @@ contains
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufEnum in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufEnum.pas',
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEnum in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEnum.pas',
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedMessageFieldValues in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedMessageFieldValues.pas',
-  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedMessage in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedMessage.pas';
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedMessage in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedMessage.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufBytes in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufBytes.pas',
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBytes in '..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBytes.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBytes in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBytes.pas',
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBytes in '..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBytes.pas';
 
 end.

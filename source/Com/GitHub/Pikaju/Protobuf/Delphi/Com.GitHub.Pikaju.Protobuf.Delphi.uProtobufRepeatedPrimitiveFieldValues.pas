@@ -16,6 +16,8 @@ uses
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedFieldValues,
   // TProtobufWireCodec to construct new elements with default values
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec,
+  // IProtobufRepeatedFieldValues<T> for IProtobufRepeatedFieldValues<T> implementation
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufRepeatedFieldValues,
   // TList for TProtobufRepeatedFieldValues<T> implementation
 {$IFDEF WORK_CONNOR_DELPHI_COMPILER_UNIT_SCOPE_NAMES}
   System.Generics.Collections;
@@ -59,6 +61,11 @@ type
       function GetStorage: TList<T>; override;
       function ConstructElement: T; override;
       procedure AssignFieldValues(aSource: TProtobufRepeatedFieldValues<T>); override;
+
+    // IProtobufRepeatedFieldValues<T> implementation
+
+    public
+      procedure MergeFrom(aSource: IProtobufRepeatedFieldValues<T>); override;
     end;
 
 implementation
@@ -92,6 +99,16 @@ begin
   lSource := aSource as TProtobufRepeatedPrimitiveFieldValues<T>;
   FStorage.Clear;
   FStorage.InsertRange(0, lSource.FStorage);
+end;
+
+// IProtobufRepeatedFieldValues<T> implementation
+
+procedure TProtobufRepeatedPrimitiveFieldValues<T>.MergeFrom(aSource: IProtobufRepeatedFieldValues<T>);
+var
+  lSource: TProtobufRepeatedPrimitiveFieldValues<T>;
+begin
+  lSource := aSource as TProtobufRepeatedPrimitiveFieldValues<T>;
+  FStorage.AddRange(lSource.FStorage);
 end;
 
 end.

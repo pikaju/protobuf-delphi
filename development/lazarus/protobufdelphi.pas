@@ -51,7 +51,10 @@ uses
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint, 
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintWireCodec, 
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec, uExampleData, 
-  LazarusPackageIntf;
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBytes, 
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.
+  uProtobufRepeatedBytes, Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufBytes, 
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBytes, LazarusPackageIntf;
 
 implementation
 

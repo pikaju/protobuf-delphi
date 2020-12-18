@@ -31,6 +31,8 @@ unit Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufMessage;
 interface
 
 uses
+  // To throw EDecodingSchemaError
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
   // TStream for encoding and decoding of messages
 {$IFDEF WORK_CONNOR_DELPHI_COMPILER_UNIT_SCOPE_NAMES}
   System.Classes;

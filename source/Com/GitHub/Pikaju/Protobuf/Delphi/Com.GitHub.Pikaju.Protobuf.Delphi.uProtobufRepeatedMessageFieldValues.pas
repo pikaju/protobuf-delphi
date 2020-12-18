@@ -16,6 +16,8 @@ uses
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedFieldValues,
   // TProtobufMessage to represent values
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufMessage,
+  // IProtobufRepeatedFieldValues<T> for IProtobufRepeatedFieldValues<T> implementation
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufRepeatedFieldValues,
   // TObjectList for TProtobufRepeatedFieldValues<T> implementation
 {$IFDEF WORK_CONNOR_DELPHI_COMPILER_UNIT_SCOPE_NAMES}
   System.Generics.Collections;
@@ -52,6 +54,11 @@ type
       function GetStorage: TList<T>; override;
       function ConstructElement: T; override;
       procedure AssignFieldValues(aSource: TProtobufRepeatedFieldValues<T>); override;
+
+    // IProtobufRepeatedFieldValues<T> implementation
+
+    public
+      procedure MergeFrom(aSource: IProtobufRepeatedFieldValues<T>); override;
     end;
 
 implementation
@@ -106,6 +113,22 @@ begin
   FStorage.Clear;
   for lValue in lSource.FStorage do lValue.SetOwner(self);
   FStorage.InsertRange(0, lSource.FStorage);
+end;
+
+// IProtobufRepeatedFieldValues<T> implementation
+
+procedure TProtobufRepeatedMessageFieldValuesBase<T>.MergeFrom(aSource: IProtobufRepeatedFieldValues<T>);
+var
+  lSource: TProtobufRepeatedMessageFieldValuesBase<T>;
+  lValue: T;
+  lValueCopy: T;
+begin
+  lSource := aSource as TProtobufRepeatedMessageFieldValuesBase<T>;
+  for lValue in lSource.FStorage do
+  begin
+    lValueCopy := EmplaceAdd;
+    lValueCopy.Assign(lValue);
+  end;
 end;
 
 end.

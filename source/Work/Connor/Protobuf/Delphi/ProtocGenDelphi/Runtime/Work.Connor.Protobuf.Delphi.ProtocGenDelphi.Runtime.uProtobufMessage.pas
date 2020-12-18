@@ -33,6 +33,8 @@ interface
 uses
   // To expose IProtobufMessage
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufMessage,
+  // To throw EDecodingSchemaError
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf,
 {$IFDEF WORK_CONNOR_DELPHI_COMPILER_CUSTOM_ATTRIBUTES}
   // To expose TProtobufFieldAttribute
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufFieldAttribute,

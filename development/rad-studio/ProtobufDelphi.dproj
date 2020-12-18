@@ -121,6 +121,10 @@
         <DCCReference Include="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufEnum.pas"/>
         <DCCReference Include="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedMessageFieldValues.pas"/>
         <DCCReference Include="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedMessage.pas"/>
+        <DCCReference Include="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufBytes.pas"/>
+        <DCCReference Include="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBytes.pas"/>
+        <DCCReference Include="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBytes.pas"/>
+        <DCCReference Include="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBytes.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

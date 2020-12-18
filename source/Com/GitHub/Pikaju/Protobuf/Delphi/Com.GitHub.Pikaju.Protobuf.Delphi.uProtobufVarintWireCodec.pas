@@ -117,7 +117,7 @@ end;
 
 procedure TProtobufVarintWireCodec<T>.EncodeSingularField(aValue: T; aContainer: IProtobufMessageInternal; aField: TProtobufFieldNumber; aDest: TStream);
 begin
-  if (aValue <> GetDefault) then
+  if (ToUInt64(aValue) <> ToUInt64(GetDefault)) then
   begin
     TProtobufTag.WithData(aField, wtVarint).Encode(aDest);
     EncodeVarint(ToUInt64(aValue), aDest);

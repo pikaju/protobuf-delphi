@@ -13,7 +13,7 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="35">
+    <Files Count="39">
       <Item1>
         <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufMessage.pas"/>
         <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufMessage"/>
@@ -154,6 +154,22 @@
         <Filename Value="..\..\example\uExampleData.pas"/>
         <UnitName Value="uExampleData"/>
       </Item35>
+      <Item36>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBytes.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBytes"/>
+      </Item36>
+      <Item37>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBytes.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBytes"/>
+      </Item37>
+      <Item38>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufBytes.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufBytes"/>
+      </Item38>
+      <Item39>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBytes.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBytes"/>
+      </Item39>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>

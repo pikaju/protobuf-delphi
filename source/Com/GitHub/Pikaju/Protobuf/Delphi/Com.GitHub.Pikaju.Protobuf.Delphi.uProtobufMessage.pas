@@ -150,6 +150,20 @@ type
       /// </remarks>
       procedure DecodeDelimited(aSource: TStream);
 
+      /// <summary>
+      /// Merges the given message (source) into this one (destination).
+      /// All singular present (non-default) scalar fields in the source replace those in the destination.
+      /// All singular embedded messages are merged recursively.
+      /// All repeated fields are concatenated, with the source field values being appended to the destination field.
+      /// If this causes a new message object to be added, a copy is created to preserve ownership.
+      /// </summary>
+      /// <param name="aSource">Message to merge into this one</param>
+      /// <remarks>
+      /// The source message must be a protobuf message of the same type.
+      /// This procedure does not cause the destruction of any transitively owned objects in this message instance (append-only).
+      /// </remarks>
+      procedure MergeFrom(aSource: IProtobufMessage); virtual;
+
     // IProtobufMessageInternal implementation
 
     public
@@ -296,6 +310,27 @@ begin
     Decode(lTempStream);
   finally
     lTempStream.Free;
+  end;
+end;
+
+procedure TProtobufMessage.MergeFrom(aSource: IProtobufMessage);
+var
+  lSource: TProtobufMessage;
+  lFieldNumber: TProtobufFieldNumber;
+  lEncodedField: TProtobufEncodedField;
+  lFieldCopy: TProtobufEncodedField;
+begin
+  lSource := aSource as TProtobufMessage;
+  for lFieldNumber in lSource.FUnparsedFields.Keys do
+  begin
+    if (not FUnparsedFields.ContainsKey(lFieldNumber)) then
+      FUnparsedFields.Add(lFieldNumber, TObjectList<TProtobufEncodedField>.Create);
+    for lEncodedField in lSource.FUnparsedFields[lFieldNumber] do
+    begin
+      lFieldCopy := TProtobufEncodedField.Create;
+      lFieldCopy.Assign(lEncodedField);
+      FUnparsedFields[lFieldNumber].Add(lFieldCopy);
+    end;
   end;
 end;
 
