@@ -38,13 +38,11 @@ uses
 {$ELSE}
   SysUtils,
 {$ENDIF}
-  // RUNTIME-IMPL: Replace reference
   // To provide the concrete class for repeated field values
-  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.StubRuntime.uProtobufRepeatedFieldValues;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBytes;
 
 type
-  // RUNTIME-IMPL: Replace ancestor class
-  TProtobufRepeatedBytesFieldValues = class(TProtobufRepeatedFieldValues<TBytes>);
+  TProtobufRepeatedBytesFieldValues = class(Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBytes.TProtobufRepeatedBytesFieldValues);
 
 implementation
 

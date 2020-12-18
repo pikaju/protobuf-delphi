@@ -38,9 +38,8 @@ uses
 {$ELSE}
   SysUtils,
 {$ENDIF}
-  // RUNTIME-IMPL: Replace reference
   // To provide the wire codec instance
-  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.StubRuntime.uProtobufWireCodec;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufBytes;
 
 var
   /// <summary>
@@ -53,8 +52,7 @@ implementation
 
 initialization
 begin
-  // RUNTIME-IMPL: Replace constructed class
-  gProtobufWireCodecBytes := TProtobufWireCodec<TBytes>.Create;
+  gProtobufWireCodecBytes := TProtobufBytesWireCodec.Create;
 end;
 
 end.
