@@ -3,6 +3,8 @@
 /// </summary>
 unit Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedBytes;
 
+{$INCLUDE Work.Connor.Delphi.CompilerFeatures.inc}
+
 {$IFDEF FPC}
   {$MODE DELPHI}
 {$ENDIF}
