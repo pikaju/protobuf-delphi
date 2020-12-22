@@ -33,10 +33,11 @@ type
       function FromBytes(aValue: TBytes): UnicodeString; override;
       function ToBytes(aValue: UnicodeString): TBytes; override;
 
-    // IProtobufWireCodec<UnicodeString> implementation
+    // TProtobufWireCodec<UnicodeString> implementation
     
     public
       function GetDefault: UnicodeString; override;
+      function IsDefault(aValue: UnicodeString): Boolean; override;
   end;
 
 implementation
@@ -57,11 +58,16 @@ begin
   result := TEncoding.UTF8.GetBytes(aValue);
 end;
 
-// IProtobufWireCodec<UnicodeString> implementation
+// TProtobufWireCodec<UnicodeString> implementation
 
 function TProtobufStringWireCodec.GetDefault: UnicodeString;
 begin
   result := PROTOBUF_DEFAULT_VALUE_STRING;
+end;
+
+function TProtobufStringWireCodec.IsDefault(aValue: UnicodeString): Boolean;
+begin
+  result := aValue = GetDefault;
 end;
 
 end.

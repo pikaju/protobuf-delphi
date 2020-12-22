@@ -26,7 +26,7 @@ type
       function FromUInt64(aValue: UInt64): TProtobufEnumFieldValue; override;
       function ToUInt64(aValue: TProtobufEnumFieldValue): UInt64; override;
 
-    // IProtobufWireCodec<T> implementation
+    // TProtobufWireCodec<T> implementation
     
     public
       function GetDefault: TProtobufEnumFieldValue; override;
@@ -50,7 +50,7 @@ begin
   result := UInt64(aValue);
 end;
 
-// IProtobufWireCodec<T> implementation
+// TProtobufWireCodec<T> implementation
 
 function TProtobufEnumWireCodec.GetDefault: TProtobufEnumFieldValue;
 begin

@@ -40,7 +40,7 @@ type
       /// </summary>
       /// <param name="aValue">The integer value to represent</param>
       /// <param name="aBitCount">Size of the varint type in bits</param>
-      /// <param name="aSigned">True if the varint type is signed</param>
+      /// <param name="aSigned"><c>true</c> if the varint type is signed</param>
       /// <exception cref="EDecodingSchemaError">If the integer value could not be represented by the varint</exception>
       class procedure ValidateBounds(aValue: UInt64; aBitCount: Integer; aSigned: Boolean);
 
@@ -61,7 +61,12 @@ type
       /// <returns>Corresponding integer value</returns>
       function ToUInt64(aValue: T): UInt64; virtual; abstract;
 
-    // IProtobufWireCodec<T> implementation
+    // TProtobufWireCodec<T> implementation
+
+    public
+      function IsDefault(aValue: T): Boolean; override;
+
+    // TProtobufWireCodec<T> implementation
 
     public
       procedure EncodeSingularField(aValue: T; aContainer: IProtobufMessageInternal; aField: TProtobufFieldNumber; aDest: TStream); override;
@@ -113,11 +118,18 @@ begin
   end;
 end;
 
-// IProtobufWireCodec<T> implementation
+// TProtobufWireCodec<T> implementation
+
+function TProtobufVarintWireCodec<T>.IsDefault(aValue: T): Boolean;
+begin
+  result := ToUInt64(aValue) = ToUInt64(GetDefault);
+end;
+
+// TProtobufWireCodec<T> implementation
 
 procedure TProtobufVarintWireCodec<T>.EncodeSingularField(aValue: T; aContainer: IProtobufMessageInternal; aField: TProtobufFieldNumber; aDest: TStream);
 begin
-  if (ToUInt64(aValue) <> ToUInt64(GetDefault)) then
+  if (not IsDefault(aValue)) then
   begin
     TProtobufTag.WithData(aField, wtVarint).Encode(aDest);
     EncodeVarint(ToUInt64(aValue), aDest);

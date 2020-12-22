@@ -58,7 +58,7 @@ type
       /// <returns>Corresponding byte array</returns>
       function ToBytes(aValue: T): TBytes; virtual; abstract;
 
-    // IProtobufWireCodec<T> implementation
+    // TProtobufWireCodec<T> implementation
 
     public
       procedure EncodeSingularField(aValue: T; aContainer: IProtobufMessageInternal; aField: TProtobufFieldNumber; aDest: TStream); override;
@@ -83,7 +83,7 @@ uses
   Generics.Collections;
 {$ENDIF}
 
-// IProtobufWireCodec<T> implementation
+// TProtobufWireCodec<T> implementation
 
 procedure TProtobufDelimitedWireCodec<T>.EncodeSingularField(aValue: T; aContainer: IProtobufMessageInternal; aField: TProtobufFieldNumber; aDest: TStream);
 var

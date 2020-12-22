@@ -126,7 +126,7 @@ begin
   lContainer.UnparsedFields.TryGetValue(aField, lFields);
   if (Assigned(lFields)) then
   begin
-    // For each field, we will decide wether to decode a packed or non-packed repeated varint.
+    // For each field, we will decide whether to decode a packed or non-packed repeated value
     for lField in lFields do
     begin
       // Convert field to a stream for simpler processing.

@@ -33,13 +33,18 @@ type
       function FromBytes(aValue: TBytes): TBytes; override;
       function ToBytes(aValue: TBytes): TBytes; override;
 
-    // IProtobufWireCodec<TBytes> implementation
+    // TProtobufWireCodec<TBytes> implementation
     
     public
       function GetDefault: TBytes; override;
+      function IsDefault(aValue: TBytes): Boolean; override;
   end;
 
 implementation
+
+uses
+  // For protobuf default values
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.uProtobuf;
 
 // TProtobufDelimitedWireCodec<TBytes> implementation
 
@@ -53,11 +58,16 @@ begin
   result := aValue;
 end;
 
-// IProtobufWireCodec<TBytes> implementation
+// TProtobufWireCodec<TBytes> implementation
 
 function TProtobufBytesWireCodec.GetDefault: TBytes;
 begin
-  SetLength(result, 0);
+  result := PROTOBUF_DEFAULT_VALUE_BYTES;
+end;
+
+function TProtobufBytesWireCodec.IsDefault(aValue: TBytes): Boolean;
+begin
+  result := aValue = GetDefault;
 end;
 
 end.

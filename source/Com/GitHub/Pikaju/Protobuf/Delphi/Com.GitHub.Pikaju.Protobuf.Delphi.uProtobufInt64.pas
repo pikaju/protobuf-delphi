@@ -24,7 +24,7 @@ type
       function FromUInt64(aValue: UInt64): Int64; override;
       function ToUInt64(aValue: Int64): UInt64; override;
 
-    // IProtobufWireCodec<T> implementation
+    // TProtobufWireCodec<Int64> implementation
     
     public
       function GetDefault: Int64; override;
@@ -49,7 +49,7 @@ begin
   result := UInt64(aValue);
 end;
 
-// IProtobufWireCodec<T> implementation
+// TProtobufWireCodec<Int64> implementation
 
 function TProtobufInt64WireCodec.GetDefault: Int64;
 begin

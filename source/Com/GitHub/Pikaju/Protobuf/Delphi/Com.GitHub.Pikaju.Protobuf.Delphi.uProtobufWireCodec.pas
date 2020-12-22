@@ -33,13 +33,23 @@ type
   /// Runtime library implementation of <see cref="T:IProtobufWireCodec"/>.
   /// </summary>
   TProtobufWireCodec<T> = class abstract(TInterfacedObject, IProtobufWireCodec<T>)
-    /// <summary>
-    /// Provides the default value of this codec's protobuf type.
-    /// </summary>
-    /// <returns>The protobuf type's default value</returns>
-    function GetDefault: T; virtual; abstract;
+    // Abstract members
 
-    // IProtobufWireCodec<T> implementation
+    public
+      /// <summary>
+      /// Provides the default value of this codec's protobuf type.
+      /// </summary>
+      /// <returns>The protobuf type's default value</returns>
+      function GetDefault: T; virtual; abstract;
+
+      /// <summary>
+      /// Tests if a value is the protobuf type's default value.
+      /// </summary>
+      /// <param name="aValue">The value to test</param>
+      /// <returns><c>true</c> if the value equals the protobuf type's default value</returns>
+      function IsDefault(aValue: T): Boolean; virtual; abstract;
+
+    // TProtobufWireCodec<T> implementation
 
     public
       /// <summary>
