@@ -6,8 +6,8 @@
 # Makefile support code
 
 ## Disable built-in rules and variables
-MAKEFLAGS += --no-buitin-rules
-MAKEFLAGS += --no-buitin-variables
+MAKEFLAGS += --no-builtin-rules
+MAKEFLAGS += --no-builtin-variables
 ## Require sh for recipes
 SHELL = sh
 ## Platform abstraction
