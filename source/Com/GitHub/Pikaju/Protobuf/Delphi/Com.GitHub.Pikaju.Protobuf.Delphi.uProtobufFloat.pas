@@ -57,12 +57,12 @@ end;
 
 function TProtobufFloatWireCodec.DecodeValue(aSource: TStream): Single;
 begin
-  aSource.ReadData(result);
+  aSource.Read(result, SizeOf(result));
 end;
 
 procedure TProtobufFloatWireCodec.EncodeValue(aValue: Single; aDest: TStream);
 begin
-  aDest.WriteData(aValue);
+  aDest.Write(aValue, SizeOf(aValue));
 end;
 
 // TProtobufWireCodec<Single> implementation
