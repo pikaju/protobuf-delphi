@@ -30,9 +30,8 @@ interface
 uses
   // Runtime-internal support for the protobuf binary wire format
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufWireCodec,
-  // RUNTIME-IMPL: Replace reference
   // To provide the wire codec instance
-  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.StubRuntime.uProtobufWireCodec;
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSfixed32;
 
 var
   /// <summary>
@@ -45,8 +44,7 @@ implementation
 
 initialization
 begin
-  // RUNTIME-IMPL: Replace constructed class
-  gProtobufWireCodecSfixed32 := TProtobufWireCodec<Int32>.Create;
+  gProtobufWireCodecSfixed32 := TProtobufSfixed32WireCodec.Create;
 end;
 
 end.
