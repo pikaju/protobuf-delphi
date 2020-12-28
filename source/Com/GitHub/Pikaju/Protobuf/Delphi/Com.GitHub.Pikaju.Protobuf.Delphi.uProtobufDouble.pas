@@ -52,7 +52,7 @@ uses
 
 function TProtobufDoubleWireCodec.GetWireType: TProtobufWireType;
 begin
-  result := wt32Bit;
+  result := wt64Bit;
 end;
 
 function TProtobufDoubleWireCodec.DecodeValue(aSource: TStream): Double;
