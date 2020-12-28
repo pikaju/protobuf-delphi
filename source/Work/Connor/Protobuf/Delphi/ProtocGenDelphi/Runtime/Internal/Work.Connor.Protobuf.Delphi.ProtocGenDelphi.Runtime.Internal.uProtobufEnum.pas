@@ -46,7 +46,6 @@ implementation
 
 initialization
 begin
-  // RUNTIME-IMPL: Replace constructed class
   gProtobufWireCodecEnum := TProtobufEnumWireCodec.Create;
 end;
 

@@ -13,7 +13,7 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="78">
+    <Files Count="86">
       <Item1>
         <Filename Value="..\..\example\uExampleData.pas"/>
         <UnitName Value="uExampleData"/>
@@ -139,193 +139,225 @@
         <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedSfixed64"/>
       </Item31>
       <Item32>
-        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedString.pas"/>
-        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedString"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedSint32.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedSint32"/>
       </Item32>
       <Item33>
-        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint32.pas"/>
-        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint32"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedSint64.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedSint64"/>
       </Item33>
       <Item34>
-        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint64.pas"/>
-        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint64"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedString.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedString"/>
       </Item34>
       <Item35>
-        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedVarintFieldValues.pas"/>
-        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedVarintFieldValues"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint32.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint32"/>
       </Item35>
       <Item36>
-        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSfixed32.pas"/>
-        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSfixed32"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint64.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint64"/>
       </Item36>
       <Item37>
-        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSfixed64.pas"/>
-        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSfixed64"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedVarintFieldValues.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedVarintFieldValues"/>
       </Item37>
       <Item38>
-        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufString.pas"/>
-        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufString"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSfixed32.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSfixed32"/>
       </Item38>
       <Item39>
-        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag.pas"/>
-        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSfixed64.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSfixed64"/>
       </Item39>
       <Item40>
-        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint32.pas"/>
-        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint32"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSint32.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSint32"/>
       </Item40>
       <Item41>
-        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint64.pas"/>
-        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint64"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSint64.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSint64"/>
       </Item41>
       <Item42>
-        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint.pas"/>
-        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufString.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufString"/>
       </Item42>
       <Item43>
-        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintWireCodec.pas"/>
-        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintWireCodec"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag"/>
       </Item43>
       <Item44>
-        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec.pas"/>
-        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint32.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint32"/>
       </Item44>
       <Item45>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufMessage.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufMessage"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint64.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint64"/>
       </Item45>
       <Item46>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufRepeatedFieldValues.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufRepeatedFieldValues"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarint"/>
       </Item46>
       <Item47>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uProtobufMessage.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uProtobufMessage"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintWireCodec.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufVarintWireCodec"/>
       </Item47>
       <Item48>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufMessageInternal.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufMessageInternal"/>
+        <Filename Value="..\..\source\Com\GitHub\Pikaju\Protobuf\Delphi\Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec.pas"/>
+        <UnitName Value="Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufWireCodec"/>
       </Item48>
       <Item49>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufRepeatedFieldValuesInternal.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufRepeatedFieldValuesInternal"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufMessage.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufMessage"/>
       </Item49>
       <Item50>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufWireCodec.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufWireCodec"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufRepeatedFieldValues.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uIProtobufRepeatedFieldValues"/>
       </Item50>
       <Item51>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBool.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBool"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uProtobufMessage.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.uProtobufMessage"/>
       </Item51>
       <Item52>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBytes.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBytes"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufMessageInternal.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufMessageInternal"/>
       </Item52>
       <Item53>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufDouble.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufDouble"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufRepeatedFieldValuesInternal.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufRepeatedFieldValuesInternal"/>
       </Item53>
       <Item54>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufEnum.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufEnum"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufWireCodec.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uIProtobufWireCodec"/>
       </Item54>
       <Item55>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufFixed32.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufFixed32"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBool.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBool"/>
       </Item55>
       <Item56>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufFixed64.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufFixed64"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBytes.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufBytes"/>
       </Item56>
       <Item57>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufFloat.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufFloat"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufDouble.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufDouble"/>
       </Item57>
       <Item58>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufInt32.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufInt32"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufEnum.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufEnum"/>
       </Item58>
       <Item59>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufInt64.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufInt64"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufFixed32.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufFixed32"/>
       </Item59>
       <Item60>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBool.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBool"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufFixed64.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufFixed64"/>
       </Item60>
       <Item61>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBytes.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBytes"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufFloat.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufFloat"/>
       </Item61>
       <Item62>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedDouble.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedDouble"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufInt32.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufInt32"/>
       </Item62>
       <Item63>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedFixed32.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedFixed32"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufInt64.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufInt64"/>
       </Item63>
       <Item64>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedFixed64.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedFixed64"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBool.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBool"/>
       </Item64>
       <Item65>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedFloat.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedFloat"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBytes.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedBytes"/>
       </Item65>
       <Item66>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedInt32.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedInt32"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedDouble.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedDouble"/>
       </Item66>
       <Item67>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedInt64.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedInt64"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedFixed32.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedFixed32"/>
       </Item67>
       <Item68>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedMessage.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedMessage"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedFixed64.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedFixed64"/>
       </Item68>
       <Item69>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedSfixed32.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedSfixed32"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedFloat.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedFloat"/>
       </Item69>
       <Item70>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedSfixed64.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedSfixed64"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedInt32.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedInt32"/>
       </Item70>
       <Item71>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedString.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedString"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedInt64.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedInt64"/>
       </Item71>
       <Item72>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedUint32.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedUint32"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedMessage.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedMessage"/>
       </Item72>
       <Item73>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedUint64.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedUint64"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedSfixed32.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedSfixed32"/>
       </Item73>
       <Item74>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufSfixed32.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufSfixed32"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedSfixed64.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedSfixed64"/>
       </Item74>
       <Item75>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufSfixed64.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufSfixed64"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedSint32.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedSint32"/>
       </Item75>
       <Item76>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufString.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufString"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedSint64.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedSint64"/>
       </Item76>
       <Item77>
-        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufUint32.pas"/>
-        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufUint32"/>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedString.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedString"/>
       </Item77>
       <Item78>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedUint32.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedUint32"/>
+      </Item78>
+      <Item79>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedUint64.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufRepeatedUint64"/>
+      </Item79>
+      <Item80>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufSfixed32.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufSfixed32"/>
+      </Item80>
+      <Item81>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufSfixed64.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufSfixed64"/>
+      </Item81>
+      <Item82>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufSint32.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufSint32"/>
+      </Item82>
+      <Item83>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufSint64.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufSint64"/>
+      </Item83>
+      <Item84>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufString.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufString"/>
+      </Item84>
+      <Item85>
+        <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufUint32.pas"/>
+        <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufUint32"/>
+      </Item85>
+      <Item86>
         <Filename Value="..\..\source\Work\Connor\Protobuf\Delphi\ProtocGenDelphi\Runtime\Internal\Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufUint64.pas"/>
         <UnitName Value="Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.uProtobufUint64"/>
-      </Item78>
+      </Item86>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>

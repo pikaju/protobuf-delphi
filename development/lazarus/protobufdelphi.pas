@@ -37,12 +37,16 @@ uses
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedPrimitiveFieldValues, 
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedSfixed32, 
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedSfixed64, 
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedSint32, 
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedSint64, 
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedString, 
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint32, 
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedUint64, 
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufRepeatedVarintFieldValues, 
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSfixed32, 
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSfixed64, 
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSint32, 
+  Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufSint64, 
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufString, 
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufTag, 
   Com.GitHub.Pikaju.Protobuf.Delphi.uProtobufUint32, 
@@ -95,6 +99,10 @@ uses
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.
   uProtobufRepeatedSfixed64, 
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.
+  uProtobufRepeatedSint32, 
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.
+  uProtobufRepeatedSint64, 
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.
   uProtobufRepeatedString, 
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.
   uProtobufRepeatedUint32, 
@@ -104,6 +112,10 @@ uses
   uProtobufSfixed32, 
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.
   uProtobufSfixed64, 
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.
+  uProtobufSint32, 
+  Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.
+  uProtobufSint64, 
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.
   uProtobufString, 
   Work.Connor.Protobuf.Delphi.ProtocGenDelphi.Runtime.Internal.
